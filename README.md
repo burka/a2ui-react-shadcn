@@ -1,0 +1,179 @@
+# a2ui-shadcn-ui
+
+Render [A2UI protocol](https://a2ui.org/) messages using [shadcn/ui](https://ui.shadcn.com/) components.
+
+A2UI is an open-source protocol that enables AI agents to generate rich, interactive user interfaces safely across platforms. This library provides React components to render A2UI messages with beautiful, accessible shadcn/ui components.
+
+## Features
+
+- **13 Component Renderers**: Row, Column, Text, Image, Icon, Divider, Button, TextField, Checkbox, Card, Modal, Tabs, List
+- **Streaming Support**: Parse JSONL streams for real-time UI updates
+- **Data Binding**: Two-way data binding with reactive updates
+- **Pluggable Store**: Bring your own state management (Zustand, Jotai, Redux) or use the default
+- **Type-Safe**: Full TypeScript support with comprehensive types
+- **Accessible**: Built on Radix UI primitives with ARIA support
+- **Themeable**: Full shadcn/ui theming with Tailwind CSS
+
+## Installation
+
+```bash
+npm install @a2ui/core @a2ui/react @a2ui/shadcn
+```
+
+## Quick Start
+
+```tsx
+import { A2UIProvider, A2UISurface } from '@a2ui/react'
+import { shadcnRenderers } from '@a2ui/shadcn'
+
+function App() {
+  const messages = [
+    {
+      surfaceUpdate: {
+        surfaceId: 'main',
+        updates: [
+          { id: 'root', component: { type: 'Column', children: ['title', 'button'] } },
+          { id: 'title', component: { type: 'Text', content: 'Hello A2UI!', style: 'h1' } },
+          { id: 'button', component: { type: 'Button', primary: true, child: 'btn-text' } },
+          { id: 'btn-text', component: { type: 'Text', content: 'Click Me' } },
+        ],
+      },
+    },
+    { beginRendering: { surfaceId: 'main', root: 'root' } },
+  ]
+
+  return (
+    <A2UIProvider renderers={shadcnRenderers}>
+      <A2UISurface surfaceId="main" messages={messages} />
+    </A2UIProvider>
+  )
+}
+```
+
+## Packages
+
+| Package | Description |
+|---------|-------------|
+| `@a2ui/core` | A2UI types, message parser, and store interface |
+| `@a2ui/react` | React bindings, hooks, and component registry |
+| `@a2ui/shadcn` | shadcn/ui component renderers |
+
+## Component Renderers
+
+### Layout
+- **Row**: Horizontal flex container with distribution/alignment
+- **Column**: Vertical flex container with distribution/alignment
+
+### Display
+- **Text**: Semantic text (h1-h5, body, caption)
+- **Image**: Images with loading state
+- **Icon**: lucide-react icons
+- **Divider**: Horizontal/vertical separators
+
+### Interactive
+- **Button**: Primary/outline variants with action handlers
+- **TextField**: Text, number, date, password, textarea inputs
+- **Checkbox**: Boolean with label and data binding
+
+### Container
+- **Card**: Styled card container
+- **Modal**: Dialog with trigger/content
+- **Tabs**: Tabbed interface
+- **List**: Scrollable list container
+
+## Custom Renderers
+
+Create custom renderers by implementing the `A2UIRenderer` interface:
+
+```tsx
+import type { A2UIRenderer } from '@a2ui/react'
+
+const CustomRenderer: A2UIRenderer = {
+  type: 'CustomComponent',
+  render: ({ component, children, data, onAction }) => {
+    return <div>{children}</div>
+  },
+  example: {
+    name: 'Custom',
+    description: 'My custom component',
+    category: 'display',
+    messages: [...],
+  },
+}
+```
+
+Register with the provider:
+
+```tsx
+<A2UIProvider renderers={[...shadcnRenderers, CustomRenderer]}>
+  {/* ... */}
+</A2UIProvider>
+```
+
+## Hooks
+
+```tsx
+import { useDataBinding, useAction, useSurface } from '@a2ui/react'
+
+// Two-way data binding
+const { value, setValue } = useDataBinding('surfaceId', 'user.name')
+
+// Dispatch actions
+const dispatch = useAction()
+dispatch({ type: 'submit', payload: { ... } })
+
+// Subscribe to surface updates
+const surface = useSurface('surfaceId')
+```
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Build all packages
+pnpm build
+
+# Run tests
+pnpm test
+
+# Start example app
+pnpm --filter @a2ui/example dev
+
+# Lint and format
+pnpm lint
+pnpm format
+```
+
+## Architecture
+
+```
+packages/
+├── core/      # Zero-dependency types and parser
+├── react/     # React bindings and hooks
+├── shadcn/    # shadcn/ui renderers
+└── example/   # Interactive simulator app
+```
+
+## Tech Stack
+
+- **React** 19.2.3
+- **TypeScript** 5.9.3
+- **Vite** 7.3.0
+- **TailwindCSS** 4.1.18
+- **Radix UI** primitives
+- **lucide-react** icons
+- **Vitest** for testing
+- **Biome** for linting/formatting
+- **Turborepo** for monorepo management
+
+## License
+
+MIT
+
+## Links
+
+- [A2UI Protocol](https://a2ui.org/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [GitHub Repository](https://github.com/burka/a2ui-shadcn-ui)
