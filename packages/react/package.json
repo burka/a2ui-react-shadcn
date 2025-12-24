@@ -1,6 +1,7 @@
 {
   "name": "@a2ui/react",
   "version": "0.1.0",
+  "private": true,
   "description": "React hooks and utilities for A2UI",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

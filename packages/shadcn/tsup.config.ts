@@ -8,5 +8,8 @@ export default defineConfig({
   sourcemap: true,
   splitting: false,
   treeshake: true,
-  external: ['react', 'react-dom'],
+  // Only externalize React - bundle everything else including @a2ui/core and @a2ui/react
+  external: ['react', 'react-dom', 'react/jsx-runtime'],
+  // Ensure @a2ui packages are bundled
+  noExternal: ['@a2ui/core', '@a2ui/react'],
 })

@@ -1,4 +1,4 @@
-import { Button } from '@a2ui/shadcn'
+import { Button } from 'a2ui-shadcn-ui'
 import { motion } from 'framer-motion'
 
 const customRendererCode = `import type { A2UIRenderer, RendererProps, ButtonComponent } from 'a2ui-shadcn-ui'

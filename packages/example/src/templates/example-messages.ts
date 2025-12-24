@@ -1,4 +1,4 @@
-import type { A2UIComponent, A2UIMessage } from '@a2ui/core'
+import type { A2UIComponent, A2UIMessage } from 'a2ui-shadcn-ui'
 
 export interface MessageTemplate {
   name: string

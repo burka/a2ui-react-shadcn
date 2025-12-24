@@ -1,5 +1,5 @@
-import type { A2UIMessage } from '@a2ui/core'
-import { useA2UI } from '@a2ui/react'
+import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import { useA2UI } from 'a2ui-shadcn-ui'
 import { useMemo, useState } from 'react'
 import { ComponentDemo } from './ComponentDemo'
 import { LivePreview } from './LivePreview'

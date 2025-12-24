@@ -1,5 +1,4 @@
-import { A2UIProvider } from '@a2ui/react'
-import { shadcnRenderers } from '@a2ui/shadcn'
+import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Simulator } from './components/Simulator'
 import { ThemeProvider } from './context/ThemeContext'

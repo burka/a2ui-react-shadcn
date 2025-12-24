@@ -1,4 +1,4 @@
-import type { A2UIMessage } from '@a2ui/core'
+import type { A2UIMessage } from 'a2ui-shadcn-ui'
 import { Code, Code2, Copy, Eye } from 'lucide-react'
 import { useState } from 'react'
 import { CodeModal } from './CodeModal'

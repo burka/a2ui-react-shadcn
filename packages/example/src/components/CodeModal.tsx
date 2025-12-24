@@ -1,5 +1,5 @@
-import type { A2UIMessage } from '@a2ui/core'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@a2ui/shadcn'
+import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from 'a2ui-shadcn-ui'
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
 

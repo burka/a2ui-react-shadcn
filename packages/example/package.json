@@ -11,9 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@a2ui/core": "workspace:*",
-    "@a2ui/react": "workspace:*",
-    "@a2ui/shadcn": "workspace:*",
+    "a2ui-shadcn-ui": "workspace:*",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",
     "react": "^19.2.3",

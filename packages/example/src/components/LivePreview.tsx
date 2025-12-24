@@ -1,5 +1,5 @@
-import type { A2UIMessage } from '@a2ui/core'
-import { A2UISurface } from '@a2ui/react'
+import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import { A2UISurface } from 'a2ui-shadcn-ui'
 import { AlertCircle, Eye } from 'lucide-react'
 import { Component, type ErrorInfo } from 'react'
 
@@ -52,9 +52,6 @@ export function LivePreview({ messages, surfaceId }: LivePreviewProps) {
   const activeSurfaceId =
     surfaceId ||
     (beginMsg && 'beginRendering' in beginMsg ? beginMsg.beginRendering.surfaceId : 'preview')
-
-  // TODO: Once @a2ui/react exports A2UISurface, render it here
-  // For now, show placeholder
 
   if (messages.length === 0) {
     return (

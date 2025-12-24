@@ -1,6 +1,7 @@
 {
   "name": "@a2ui/core",
   "version": "0.1.0",
+  "private": true,
   "description": "Core A2UI protocol types and validators",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

@@ -12,10 +12,14 @@
     "typecheck": "turbo run typecheck",
     "dev": "turbo run dev",
     "format": "biome format --write .",
-    "check": "biome check --write . && turbo run typecheck && turbo run test"
+    "check": "biome check --write . && turbo run typecheck && turbo run test",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.10",
+    "@changesets/cli": "^2.29.8",
     "@vitest/coverage-v8": "^4.0.16",
     "turbo": "^2.7.2",
     "typescript": "^5.9.3",
