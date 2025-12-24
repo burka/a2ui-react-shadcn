@@ -11,7 +11,6 @@ interface ComponentCardProps {
   description: string
   category: Category
   messages: A2UIMessage[]
-  componentType?: string
 }
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -28,13 +27,7 @@ const CATEGORY_LABELS: Record<Category, string> = {
   container: 'Container',
 }
 
-export function ComponentCard({
-  name,
-  description,
-  category,
-  messages,
-  componentType,
-}: ComponentCardProps) {
+export function ComponentCard({ name, description, category, messages }: ComponentCardProps) {
   const [showJson, setShowJson] = useState(false)
   const [copied, setCopied] = useState(false)
   const [codeModalOpen, setCodeModalOpen] = useState(false)
@@ -113,7 +106,6 @@ export function ComponentCard({
 
       <CodeModal
         componentName={name}
-        componentType={componentType || name}
         messages={messages}
         open={codeModalOpen}
         onOpenChange={setCodeModalOpen}

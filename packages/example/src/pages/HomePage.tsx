@@ -286,7 +286,6 @@ function MyComponent() {
                   name={example.name}
                   description={example.description}
                   category={example.category}
-                  componentType={example.type}
                   messages={example.messages}
                 />
               ))}
