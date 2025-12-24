@@ -1,5 +1,5 @@
 {
-  "name": "@a2ui/monorepo",
+  "name": "a2ui-shadcn-ui",
   "version": "0.1.0",
   "private": true,
   "type": "module",
