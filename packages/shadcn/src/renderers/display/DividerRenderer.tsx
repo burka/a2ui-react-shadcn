@@ -15,6 +15,12 @@ export const DividerRenderer: A2UIRenderer<DividerComponent> = {
     category: 'display',
     messages: [
       {
+        beginRendering: {
+          surfaceId: 'divider-demo',
+          root: 'root',
+        },
+      },
+      {
         surfaceUpdate: {
           surfaceId: 'divider-demo',
           updates: [
@@ -98,12 +104,6 @@ export const DividerRenderer: A2UIRenderer<DividerComponent> = {
               },
             },
           ],
-        },
-      },
-      {
-        beginRendering: {
-          surfaceId: 'divider-demo',
-          root: 'root',
         },
       },
     ],

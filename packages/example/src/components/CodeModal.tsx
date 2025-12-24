@@ -1,5 +1,5 @@
 import type { A2UIMessage } from '@a2ui/core'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@a2ui/shadcn'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@a2ui/shadcn'
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
 
@@ -45,6 +45,9 @@ function MyComponent() {
           <DialogTitle className="text-[var(--color-text-primary)]">
             {componentName} - Code
           </DialogTitle>
+          <DialogDescription className="text-[var(--color-text-secondary)]">
+            Copy the JSON messages or React code to use this component
+          </DialogDescription>
         </DialogHeader>
 
         <div className="flex-1 overflow-auto space-y-6 pr-2">

@@ -30,6 +30,12 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
     category: 'display',
     messages: [
       {
+        beginRendering: {
+          surfaceId: 'text-demo',
+          root: 'root',
+        },
+      },
+      {
         surfaceUpdate: {
           surfaceId: 'text-demo',
           updates: [
@@ -106,12 +112,6 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               },
             },
           ],
-        },
-      },
-      {
-        beginRendering: {
-          surfaceId: 'text-demo',
-          root: 'root',
         },
       },
     ],

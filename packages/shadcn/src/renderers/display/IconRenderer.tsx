@@ -30,6 +30,12 @@ export const IconRenderer: A2UIRenderer<IconComponent> = {
     category: 'display',
     messages: [
       {
+        beginRendering: {
+          surfaceId: 'icon-demo',
+          root: 'root',
+        },
+      },
+      {
         surfaceUpdate: {
           surfaceId: 'icon-demo',
           updates: [
@@ -116,12 +122,6 @@ export const IconRenderer: A2UIRenderer<IconComponent> = {
               },
             },
           ],
-        },
-      },
-      {
-        beginRendering: {
-          surfaceId: 'icon-demo',
-          root: 'root',
         },
       },
     ],

@@ -63,6 +63,12 @@ export const ImageRenderer: A2UIRenderer<ImageComponent> = {
     category: 'display',
     messages: [
       {
+        beginRendering: {
+          surfaceId: 'image-demo',
+          root: 'root',
+        },
+      },
+      {
         surfaceUpdate: {
           surfaceId: 'image-demo',
           updates: [
@@ -103,12 +109,6 @@ export const ImageRenderer: A2UIRenderer<ImageComponent> = {
               },
             },
           ],
-        },
-      },
-      {
-        beginRendering: {
-          surfaceId: 'image-demo',
-          root: 'root',
         },
       },
     ],
