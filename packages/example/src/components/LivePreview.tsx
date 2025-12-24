@@ -1,4 +1,5 @@
 import type { A2UIMessage } from '@a2ui/core'
+import { A2UISurface } from '@a2ui/react'
 import { AlertCircle, Eye } from 'lucide-react'
 import { Component, type ErrorInfo } from 'react'
 
@@ -75,40 +76,7 @@ export function LivePreview({ messages, surfaceId }: LivePreviewProps) {
           <span>Surface: {activeSurfaceId}</span>
         </div>
 
-        {/* Placeholder until A2UISurface is available */}
-        <div className="p-4 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded">
-          <p className="text-[var(--color-text-secondary)] text-sm mb-2">
-            Preview rendering placeholder
-          </p>
-          <p className="text-xs text-[var(--color-text-tertiary)]">
-            {messages.length} message{messages.length !== 1 ? 's' : ''} loaded
-          </p>
-          <div className="mt-3 text-xs text-[var(--color-text-tertiary)]">
-            <p>Message types:</p>
-            <ul className="list-disc list-inside mt-1">
-              {Array.from(
-                new Set(
-                  messages.map((m) => {
-                    if ('beginRendering' in m) return 'beginRendering'
-                    if ('surfaceUpdate' in m) return 'surfaceUpdate'
-                    if ('dataModelUpdate' in m) return 'dataModelUpdate'
-                    if ('deleteSurface' in m) return 'deleteSurface'
-                    return 'unknown'
-                  }),
-                ),
-              ).map((type) => (
-                <li key={type}>{type}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* TODO: Replace with actual A2UISurface rendering:
-        <A2UISurface
-          surfaceId={activeSurfaceId}
-          messages={messages}
-        />
-        */}
+        <A2UISurface surfaceId={activeSurfaceId} messages={messages} />
       </div>
     </ErrorBoundary>
   )

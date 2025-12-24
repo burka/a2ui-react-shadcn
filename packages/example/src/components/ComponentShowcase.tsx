@@ -1,9 +1,10 @@
 import type { A2UIMessage } from '@a2ui/core'
-import { useState } from 'react'
+import { useA2UI } from '@a2ui/react'
+import { useMemo, useState } from 'react'
 import { ComponentDemo } from './ComponentDemo'
 import { LivePreview } from './LivePreview'
 
-type Category = 'All' | 'Layout' | 'Display' | 'Interactive' | 'Container'
+type Category = 'All' | 'layout' | 'display' | 'interactive' | 'container'
 
 interface RendererExample {
   type: string
@@ -13,14 +14,33 @@ interface RendererExample {
   messages: A2UIMessage[]
 }
 
-const CATEGORIES: Category[] = ['All', 'Layout', 'Display', 'Interactive', 'Container']
+const CATEGORIES: Category[] = ['All', 'layout', 'display', 'interactive', 'container']
+
+const CATEGORY_LABELS: Record<Category, string> = {
+  All: 'All',
+  layout: 'Layout',
+  display: 'Display',
+  interactive: 'Interactive',
+  container: 'Container',
+}
 
 export function ComponentShowcase() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All')
+  const { registry } = useA2UI()
 
-  // This will be populated once renderers are registered
-  // For now, we show a placeholder
-  const examples: RendererExample[] = []
+  // Get examples from registered renderers
+  const examples: RendererExample[] = useMemo(() => {
+    return registry
+      .getAll()
+      .filter((r) => r.example)
+      .map((r) => ({
+        type: r.type,
+        name: r.example!.name,
+        description: r.example!.description,
+        category: r.example!.category as Category,
+        messages: r.example!.messages,
+      }))
+  }, [registry])
 
   const filteredExamples =
     selectedCategory === 'All'
@@ -43,7 +63,7 @@ export function ComponentShowcase() {
                   : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'
               }`}
             >
-              {category}
+              {CATEGORY_LABELS[category]}
             </button>
           ))}
         </div>
