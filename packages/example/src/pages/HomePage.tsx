@@ -33,7 +33,7 @@ export function HomePage() {
   const [copied, setCopied] = useState(false)
   const { registry } = useA2UI()
 
-  const installCommand = 'npm install @a2ui/shadcn'
+  const installCommand = 'npm install a2ui-shadcn-ui'
 
   const examples: RendererExample[] = useMemo(() => {
     return registry
@@ -155,8 +155,7 @@ export function HomePage() {
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
                 <code className="text-[var(--color-text-primary)]">
-                  {`import { A2UIProvider } from '@a2ui/react'
-import { shadcnRenderers } from '@a2ui/shadcn'
+                  {`import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
 
 function App() {
   return (
@@ -178,7 +177,7 @@ function App() {
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
                 <code className="text-[var(--color-text-primary)]">
-                  {`import { A2UISurface } from '@a2ui/react'
+                  {`import { A2UISurface } from 'a2ui-shadcn-ui'
 
 function MyComponent({ messages }) {
   return (
@@ -201,7 +200,7 @@ function MyComponent({ messages }) {
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
                 <code className="text-[var(--color-text-primary)]">
-                  {`import { useA2UI } from '@a2ui/react'
+                  {`import { useA2UI } from 'a2ui-shadcn-ui'
 
 function MyComponent() {
   const { registry } = useA2UI()
@@ -304,7 +303,7 @@ function MyComponent() {
               Built with A2UI Protocol • shadcn/ui • React • TypeScript
             </p>
             <a
-              href="https://github.com/flob/a2ui-shadcn-ui"
+              href="https://github.com/burka/a2ui-shadcn-ui"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"

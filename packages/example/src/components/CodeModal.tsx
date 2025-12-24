@@ -42,45 +42,50 @@ export function CodeModal({
 
   const a2uiJson = JSON.stringify(messages, null, 2)
 
-  const reactUsage = `import { A2UISurface } from '@a2ui/react'
+  const reactUsage = `import { A2UIProvider, A2UISurface } from 'a2ui-shadcn-ui'
+import { shadcnRenderers } from 'a2ui-shadcn-ui'
 
 // Define your messages
 const messages = ${a2uiJson}
 
-// Render the component
-function MyComponent() {
+// Setup provider and render
+function App() {
   return (
-    <A2UISurface
-      surfaceId="my-surface"
-      messages={messages}
-    />
+    <A2UIProvider renderers={shadcnRenderers}>
+      <A2UISurface
+        surfaceId="my-surface"
+        messages={messages}
+      />
+    </A2UIProvider>
   )
 }`
 
-  const customRenderer = `import type { ComponentRenderer } from '@a2ui/react'
-import type { ${componentType}Component } from '@a2ui/core'
+  const customRenderer = `import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui'
+import type { ${componentType}Component } from 'a2ui-shadcn-ui'
 
 // Create a custom renderer for ${componentType}
-export const ${componentType}Renderer: ComponentRenderer<${componentType}Component> = ({
-  component,
-  renderChildren,
-}) => {
-  // Access component props
-  const { id, type, ...props } = component
+export const Custom${componentType}Renderer: A2UIRenderer<${componentType}Component> = {
+  type: '${componentType}',
+  render: ({ component, children }: RendererProps<${componentType}Component>) => {
+    // Access component props
+    const { id, type, ...props } = component
 
-  // Render your custom implementation
-  return (
-    <div className="my-custom-${componentType.toLowerCase()}">
-      {/* Your custom ${componentType} implementation */}
-      {renderChildren?.(component.children)}
-    </div>
-  )
+    // Render your custom implementation
+    return (
+      <div className="my-custom-${componentType.toLowerCase()}">
+        {/* Your custom ${componentType} implementation */}
+        {children}
+      </div>
+    )
+  },
 }
 
-// Register the renderer
-import { registerRenderer } from '@a2ui/react'
+// Register by adding to renderers array (last one wins)
+import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
 
-registerRenderer('${componentType}', ${componentType}Renderer)`
+<A2UIProvider renderers={[...shadcnRenderers, Custom${componentType}Renderer]}>
+  {/* Your app */}
+</A2UIProvider>`
 
   const tabs = [
     { id: 'a2ui', label: 'A2UI JSON', content: a2uiJson },

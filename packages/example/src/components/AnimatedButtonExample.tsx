@@ -1,8 +1,7 @@
 import { Button } from '@a2ui/shadcn'
 import { motion } from 'framer-motion'
 
-const customRendererCode = `import type { A2UIRenderer, RendererProps } from '@a2ui/react'
-import type { ButtonComponent } from '@a2ui/core'
+const customRendererCode = `import type { A2UIRenderer, RendererProps, ButtonComponent } from 'a2ui-shadcn-ui'
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
@@ -21,11 +20,7 @@ export const AnimatedButtonRenderer: A2UIRenderer<ButtonComponent> = {
         whileTap={{ scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 400, damping: 17 }}
         onClick={handleClick}
-        className={
-          component.primary
-            ? 'bg-[var(--color-accent)] text-white shadow hover:bg-[var(--color-accent-hover)] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2'
-            : 'border border-[var(--color-border)] bg-[var(--color-bg-primary)] shadow-sm hover:bg-[var(--color-bg-secondary)] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2'
-        }
+        className="your-button-styles..."
       >
         {children as ReactNode}
       </motion.button>
@@ -33,15 +28,11 @@ export const AnimatedButtonRenderer: A2UIRenderer<ButtonComponent> = {
   },
 }`
 
-const registerCode = `import { A2UIProvider } from '@a2ui/react'
-import { shadcnRenderers } from '@a2ui/shadcn'
+const registerCode = `import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
 import { AnimatedButtonRenderer } from './AnimatedButtonRenderer'
 
-// Replace the default Button renderer with your custom one
-const customRenderers = [
-  ...shadcnRenderers.filter(r => r.type !== 'Button'),
-  AnimatedButtonRenderer
-]
+// Add your custom renderer (last one wins for same type)
+const customRenderers = [...shadcnRenderers, AnimatedButtonRenderer]
 
 function App() {
   return (
