@@ -59,7 +59,12 @@ export function createStore(): A2UIStore {
         throw new Error(`Surface not found: ${surfaceId}`)
       }
 
-      setDataByPath(surface.data, path, value)
+      // Create new data object to trigger React reactivity
+      const newData = { ...surface.data }
+      setDataByPath(newData, path, value)
+
+      // Create new surface object with new data reference
+      surfaces.set(surfaceId, { ...surface, data: newData })
       notify()
     },
 
