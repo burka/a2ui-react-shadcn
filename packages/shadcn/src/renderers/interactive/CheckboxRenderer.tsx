@@ -1,6 +1,7 @@
 import type { CheckboxComponent } from '@a2ui/core'
 import type { A2UIRenderer, RendererProps } from '@a2ui/react'
 import { Checkbox } from '../../components/ui/checkbox.js'
+import { FieldLabel } from '../../components/ui/field-label.js'
 
 export const CheckboxRenderer: A2UIRenderer<CheckboxComponent> = {
   type: 'Checkbox',
@@ -17,12 +18,9 @@ export const CheckboxRenderer: A2UIRenderer<CheckboxComponent> = {
       <div className="flex items-center space-x-2">
         <Checkbox id={id} checked={value || false} onCheckedChange={handleChange} />
         {component.label && (
-          <label
-            htmlFor={id}
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
+          <FieldLabel htmlFor={id} variant="inline">
             {component.label}
-          </label>
+          </FieldLabel>
         )}
       </div>
     )

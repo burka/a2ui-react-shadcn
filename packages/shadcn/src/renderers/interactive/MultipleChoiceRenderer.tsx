@@ -1,6 +1,7 @@
 import type { MultipleChoiceComponent } from '@a2ui/core'
 import type { A2UIRenderer, RendererProps } from '@a2ui/react'
 import { Checkbox } from '../../components/ui/checkbox.js'
+import { FieldLabel } from '../../components/ui/field-label.js'
 
 export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
   type: 'MultipleChoice',
@@ -44,14 +45,9 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
                 disabled={isDisabled}
                 onCheckedChange={(checked) => handleChange(option.value, checked === true)}
               />
-              <label
-                htmlFor={`${id}-${option.value}`}
-                className={`text-sm font-medium leading-none ${
-                  isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
-                } peer-disabled:cursor-not-allowed peer-disabled:opacity-70`}
-              >
+              <FieldLabel htmlFor={`${id}-${option.value}`} variant="inline" disabled={isDisabled}>
                 {option.label}
-              </label>
+              </FieldLabel>
             </div>
           )
         })}

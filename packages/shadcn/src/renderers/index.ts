@@ -52,4 +52,4 @@ export function createShadcnRegistry() {
   return registry
 }
 
-export type { RendererRegistry, RendererRegistryOptions } from './types.js'
+export type { RendererRegistry } from './types.js'

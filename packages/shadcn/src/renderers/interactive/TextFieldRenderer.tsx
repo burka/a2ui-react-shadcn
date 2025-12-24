@@ -1,5 +1,6 @@
 import type { TextFieldComponent } from '@a2ui/core'
 import type { A2UIRenderer, RendererProps } from '@a2ui/react'
+import { FieldLabel } from '../../components/ui/field-label.js'
 import { Input } from '../../components/ui/input.js'
 import { Textarea } from '../../components/ui/textarea.js'
 
@@ -20,9 +21,9 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
       return (
         <div className="space-y-2">
           {component.label && (
-            <label htmlFor={id} className="text-sm font-medium block">
+            <FieldLabel htmlFor={id} variant="block">
               {component.label}
-            </label>
+            </FieldLabel>
           )}
           <Textarea id={id} value={value} onChange={handleChange} placeholder={component.label} />
         </div>
@@ -48,9 +49,9 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
     return (
       <div className="space-y-2">
         {component.label && (
-          <label htmlFor={id} className="text-sm font-medium block">
+          <FieldLabel htmlFor={id} variant="block">
             {component.label}
-          </label>
+          </FieldLabel>
         )}
         <Input
           id={id}
