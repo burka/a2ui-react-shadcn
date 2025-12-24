@@ -6,6 +6,7 @@ import { defineConfig } from 'vite'
 const monorepoRoot = path.resolve(__dirname, '../..')
 
 export default defineConfig({
+  base: '/a2ui-shadcn-ui/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

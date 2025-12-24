@@ -14,16 +14,17 @@
     "@a2ui/core": "workspace:*",
     "@a2ui/react": "workspace:*",
     "@a2ui/shadcn": "workspace:*",
+    "lucide-react": "^0.562.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "lucide-react": "^0.562.0"
+    "react-router-dom": "^7.11.0"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.4.1",
     "tailwindcss": "^4.1.18",
-    "@tailwindcss/vite": "^4.1.18",
     "typescript": "^5.9.3",
     "vite": "^7.3.0"
   }

@@ -2,7 +2,15 @@ import type { A2UIRenderer } from '@a2ui/react'
 import { createRegistry } from '@a2ui/react'
 import { CardRenderer, ListRenderer, ModalRenderer, TabsRenderer } from './container/index.js'
 import { DividerRenderer, IconRenderer, ImageRenderer, TextRenderer } from './display/index.js'
-import { ButtonRenderer, CheckboxRenderer, TextFieldRenderer } from './interactive/index.js'
+import {
+  ButtonRenderer,
+  CheckboxRenderer,
+  DateTimeInputRenderer,
+  MultipleChoiceRenderer,
+  SelectRenderer,
+  SliderRenderer,
+  TextFieldRenderer,
+} from './interactive/index.js'
 import { ColumnRenderer, RowRenderer } from './layout/index.js'
 
 /**
@@ -21,6 +29,10 @@ export const shadcnRenderers = [
   ButtonRenderer,
   TextFieldRenderer,
   CheckboxRenderer,
+  SelectRenderer,
+  SliderRenderer,
+  DateTimeInputRenderer,
+  MultipleChoiceRenderer,
   // Container
   CardRenderer,
   ModalRenderer,

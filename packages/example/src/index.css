@@ -12,7 +12,7 @@
   --color-accent-hover: #2563eb;
 }
 
-@media (prefers-color-scheme: dark) {
+.dark {
   @theme {
     --color-bg-primary: #0f172a;
     --color-bg-secondary: #1e293b;

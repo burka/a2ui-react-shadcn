@@ -105,6 +105,43 @@ export interface CheckboxComponent extends BaseComponent {
 }
 
 /**
+ * Option for Select and MultipleChoice components
+ */
+export interface SelectOption {
+  value: string
+  label: string
+}
+
+export interface SelectComponent extends BaseComponent {
+  type: 'Select'
+  options: SelectOption[]
+  placeholder?: string
+  dataPath?: string
+}
+
+export interface SliderComponent extends BaseComponent {
+  type: 'Slider'
+  min?: number
+  max?: number
+  step?: number
+  dataPath?: string
+}
+
+export interface DateTimeInputComponent extends BaseComponent {
+  type: 'DateTimeInput'
+  inputType: 'date' | 'time' | 'datetime-local'
+  label?: string
+  dataPath?: string
+}
+
+export interface MultipleChoiceComponent extends BaseComponent {
+  type: 'MultipleChoice'
+  options: SelectOption[]
+  maxSelections?: number
+  dataPath?: string
+}
+
+/**
  * Container Components
  */
 
@@ -148,6 +185,10 @@ export type A2UIComponent =
   | ButtonComponent
   | TextFieldComponent
   | CheckboxComponent
+  | SelectComponent
+  | SliderComponent
+  | DateTimeInputComponent
+  | MultipleChoiceComponent
   | CardComponent
   | ModalComponent
   | TabsComponent

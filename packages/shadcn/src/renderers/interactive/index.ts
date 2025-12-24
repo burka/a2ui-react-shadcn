@@ -1,3 +1,7 @@
 export { ButtonRenderer } from './ButtonRenderer.js'
 export { CheckboxRenderer } from './CheckboxRenderer.js'
+export { DateTimeInputRenderer } from './DateTimeInputRenderer.js'
+export { MultipleChoiceRenderer } from './MultipleChoiceRenderer.js'
+export { SelectRenderer } from './SelectRenderer.js'
+export { SliderRenderer } from './SliderRenderer.js'
 export { TextFieldRenderer } from './TextFieldRenderer.js'

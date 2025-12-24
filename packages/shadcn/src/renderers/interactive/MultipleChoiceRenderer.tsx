@@ -1,0 +1,134 @@
+import type { MultipleChoiceComponent } from '@a2ui/core'
+import type { A2UIRenderer, RendererProps } from '@a2ui/react'
+import { Checkbox } from '../../components/ui/checkbox.js'
+
+export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
+  type: 'MultipleChoice',
+  render: ({ component, data, id }: RendererProps<MultipleChoiceComponent>) => {
+    const selectedValues = component.dataPath ? data.get<string[]>(component.dataPath) : []
+    const currentSelection = Array.isArray(selectedValues) ? selectedValues : []
+
+    const handleChange = (optionValue: string, checked: boolean) => {
+      if (!component.dataPath) return
+
+      let newSelection: string[]
+      if (checked) {
+        // Add the value
+        newSelection = [...currentSelection, optionValue]
+        // Enforce maxSelections if specified
+        if (component.maxSelections && newSelection.length > component.maxSelections) {
+          newSelection = newSelection.slice(-component.maxSelections)
+        }
+      } else {
+        // Remove the value
+        newSelection = currentSelection.filter((v) => v !== optionValue)
+      }
+
+      data.set(component.dataPath, newSelection)
+    }
+
+    return (
+      <div className="space-y-3">
+        {component.options.map((option) => {
+          const isChecked = currentSelection.includes(option.value)
+          const isDisabled =
+            component.maxSelections !== undefined &&
+            currentSelection.length >= component.maxSelections &&
+            !isChecked
+
+          return (
+            <div key={option.value} className="flex items-center space-x-2">
+              <Checkbox
+                id={`${id}-${option.value}`}
+                checked={isChecked}
+                disabled={isDisabled}
+                onCheckedChange={(checked) => handleChange(option.value, checked === true)}
+              />
+              <label
+                htmlFor={`${id}-${option.value}`}
+                className={`text-sm font-medium leading-none ${
+                  isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+                } peer-disabled:cursor-not-allowed peer-disabled:opacity-70`}
+              >
+                {option.label}
+              </label>
+            </div>
+          )
+        })}
+        {component.maxSelections !== undefined && (
+          <p className="text-xs text-muted-foreground">
+            {currentSelection.length} of {component.maxSelections} selected
+          </p>
+        )}
+      </div>
+    )
+  },
+  example: {
+    name: 'MultipleChoice',
+    description: 'Checkbox group for multi-select with optional max selections',
+    category: 'interactive',
+    messages: [
+      {
+        beginRendering: {
+          surfaceId: 'multiplechoice-example',
+          root: 'col-1',
+        },
+      },
+      {
+        surfaceUpdate: {
+          surfaceId: 'multiplechoice-example',
+          updates: [
+            {
+              id: 'col-1',
+              component: {
+                type: 'Column',
+                id: 'col-1',
+                distribution: 'packed',
+                children: ['mc-1', 'mc-2'],
+              },
+            },
+            {
+              id: 'mc-1',
+              component: {
+                type: 'MultipleChoice',
+                id: 'mc-1',
+                options: [
+                  { value: 'js', label: 'JavaScript' },
+                  { value: 'ts', label: 'TypeScript' },
+                  { value: 'py', label: 'Python' },
+                  { value: 'go', label: 'Go' },
+                  { value: 'rust', label: 'Rust' },
+                ],
+                dataPath: 'form.languages',
+              },
+            },
+            {
+              id: 'mc-2',
+              component: {
+                type: 'MultipleChoice',
+                id: 'mc-2',
+                options: [
+                  { value: 'red', label: 'Red' },
+                  { value: 'blue', label: 'Blue' },
+                  { value: 'green', label: 'Green' },
+                  { value: 'yellow', label: 'Yellow' },
+                ],
+                maxSelections: 2,
+                dataPath: 'form.colors',
+              },
+            },
+          ],
+        },
+      },
+      {
+        dataModelUpdate: {
+          surfaceId: 'multiplechoice-example',
+          values: [
+            { path: 'form.languages', value: ['js', 'ts'] },
+            { path: 'form.colors', value: ['blue'] },
+          ],
+        },
+      },
+    ],
+  },
+}

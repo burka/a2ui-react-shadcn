@@ -259,12 +259,10 @@ export const templates: MessageTemplate[] = [
                 type: 'Column',
                 children: [
                   'heading',
-                  'text',
-                  'divider',
-                  'button',
-                  'input',
-                  'checkbox',
-                  'nested-container',
+                  'display-section',
+                  'interactive-section',
+                  'layout-section',
+                  'container-section',
                 ],
               },
             },
@@ -273,34 +271,131 @@ export const templates: MessageTemplate[] = [
               component: {
                 id: 'heading',
                 type: 'Text',
-                content: 'Component Showcase',
+                content: 'Component Showcase - All 13 Components',
+                style: 'h1',
+              },
+            },
+
+            // Display Components Section
+            {
+              id: 'display-section',
+              component: {
+                id: 'display-section',
+                type: 'Column',
+                children: [
+                  'display-heading',
+                  'text-h1',
+                  'text-body',
+                  'divider-h',
+                  'image-demo',
+                  'icon-row',
+                ],
+              },
+            },
+            {
+              id: 'display-heading',
+              component: {
+                id: 'display-heading',
+                type: 'Text',
+                content: 'Display Components',
+                style: 'h2',
+              },
+            },
+            {
+              id: 'text-h1',
+              component: {
+                id: 'text-h1',
+                type: 'Text',
+                content: 'Text - Heading Style',
                 style: 'h1',
               },
             },
             {
-              id: 'text',
+              id: 'text-body',
               component: {
-                id: 'text',
+                id: 'text-body',
                 type: 'Text',
-                content: 'This is a text component',
+                content: 'Text - Body Style',
+                style: 'body',
               },
             },
             {
-              id: 'divider',
+              id: 'divider-h',
               component: {
-                id: 'divider',
+                id: 'divider-h',
                 type: 'Divider',
                 orientation: 'horizontal',
               },
             },
             {
-              id: 'button',
+              id: 'image-demo',
               component: {
-                id: 'button',
+                id: 'image-demo',
+                type: 'Image',
+                url: 'https://via.placeholder.com/400x200',
+                alt: 'Placeholder image',
+              },
+            },
+            {
+              id: 'icon-row',
+              component: {
+                id: 'icon-row',
+                type: 'Row',
+                distribution: 'packed',
+                children: ['icon-home', 'icon-search', 'icon-heart'],
+              },
+            },
+            {
+              id: 'icon-home',
+              component: {
+                id: 'icon-home',
+                type: 'Icon',
+                name: 'Home',
+              },
+            },
+            {
+              id: 'icon-search',
+              component: {
+                id: 'icon-search',
+                type: 'Icon',
+                name: 'Search',
+              },
+            },
+            {
+              id: 'icon-heart',
+              component: {
+                id: 'icon-heart',
+                type: 'Icon',
+                name: 'Heart',
+              },
+            },
+
+            // Interactive Components Section
+            {
+              id: 'interactive-section',
+              component: {
+                id: 'interactive-section',
+                type: 'Column',
+                children: ['interactive-heading', 'button-demo', 'textfield-demo', 'checkbox-demo'],
+              },
+            },
+            {
+              id: 'interactive-heading',
+              component: {
+                id: 'interactive-heading',
+                type: 'Text',
+                content: 'Interactive Components',
+                style: 'h2',
+              },
+            },
+            {
+              id: 'button-demo',
+              component: {
+                id: 'button-demo',
                 type: 'Button',
                 child: 'button-text',
                 primary: true,
-                action: 'click',
+                action: 'demo-action',
               },
             },
             {
@@ -308,50 +403,257 @@ export const templates: MessageTemplate[] = [
               component: {
                 id: 'button-text',
                 type: 'Text',
-                content: 'Click Me',
+                content: 'Primary Button',
               },
             },
             {
-              id: 'input',
+              id: 'textfield-demo',
               component: {
-                id: 'input',
+                id: 'textfield-demo',
                 type: 'TextField',
-                label: 'Input Field',
+                label: 'Text Field',
                 inputType: 'shortText',
+                dataPath: 'userInput',
               },
             },
             {
-              id: 'checkbox',
+              id: 'checkbox-demo',
               component: {
-                id: 'checkbox',
+                id: 'checkbox-demo',
                 type: 'Checkbox',
-                label: 'Accept terms',
-                dataPath: 'accepted',
+                label: 'Checkbox Label',
+                dataPath: 'checked',
+              },
+            },
+
+            // Layout Components Section
+            {
+              id: 'layout-section',
+              component: {
+                id: 'layout-section',
+                type: 'Column',
+                children: ['layout-heading', 'row-demo', 'column-demo'],
               },
             },
             {
-              id: 'nested-container',
+              id: 'layout-heading',
               component: {
-                id: 'nested-container',
+                id: 'layout-heading',
+                type: 'Text',
+                content: 'Layout Components',
+                style: 'h2',
+              },
+            },
+            {
+              id: 'row-demo',
+              component: {
+                id: 'row-demo',
                 type: 'Row',
                 distribution: 'spaceBetween',
-                children: ['child-1', 'child-2'],
+                children: ['row-item-1', 'row-item-2', 'row-item-3'],
               },
             },
             {
-              id: 'child-1',
+              id: 'row-item-1',
               component: {
-                id: 'child-1',
+                id: 'row-item-1',
                 type: 'Text',
-                content: 'Left column',
+                content: 'Row Item 1',
               },
             },
             {
-              id: 'child-2',
+              id: 'row-item-2',
               component: {
-                id: 'child-2',
+                id: 'row-item-2',
                 type: 'Text',
-                content: 'Right column',
+                content: 'Row Item 2',
+              },
+            },
+            {
+              id: 'row-item-3',
+              component: {
+                id: 'row-item-3',
+                type: 'Text',
+                content: 'Row Item 3',
+              },
+            },
+            {
+              id: 'column-demo',
+              component: {
+                id: 'column-demo',
+                type: 'Column',
+                children: ['column-item-1', 'column-item-2'],
+              },
+            },
+            {
+              id: 'column-item-1',
+              component: {
+                id: 'column-item-1',
+                type: 'Text',
+                content: 'Column Item 1',
+              },
+            },
+            {
+              id: 'column-item-2',
+              component: {
+                id: 'column-item-2',
+                type: 'Text',
+                content: 'Column Item 2',
+              },
+            },
+
+            // Container Components Section
+            {
+              id: 'container-section',
+              component: {
+                id: 'container-section',
+                type: 'Column',
+                children: [
+                  'container-heading',
+                  'card-demo',
+                  'modal-demo',
+                  'tabs-demo',
+                  'list-demo',
+                ],
+              },
+            },
+            {
+              id: 'container-heading',
+              component: {
+                id: 'container-heading',
+                type: 'Text',
+                content: 'Container Components',
+                style: 'h2',
+              },
+            },
+            {
+              id: 'card-demo',
+              component: {
+                id: 'card-demo',
+                type: 'Card',
+                children: ['card-title', 'card-content'],
+              },
+            },
+            {
+              id: 'card-title',
+              component: {
+                id: 'card-title',
+                type: 'Text',
+                content: 'Card Title',
+                style: 'h3',
+              },
+            },
+            {
+              id: 'card-content',
+              component: {
+                id: 'card-content',
+                type: 'Text',
+                content: 'This is the content inside a Card component.',
+              },
+            },
+            {
+              id: 'modal-demo',
+              component: {
+                id: 'modal-demo',
+                type: 'Modal',
+                trigger: 'modal-trigger',
+                content: 'modal-content',
+              },
+            },
+            {
+              id: 'modal-trigger',
+              component: {
+                id: 'modal-trigger',
+                type: 'Button',
+                child: 'modal-trigger-text',
+                primary: false,
+                action: 'open-modal',
+              },
+            },
+            {
+              id: 'modal-trigger-text',
+              component: {
+                id: 'modal-trigger-text',
+                type: 'Text',
+                content: 'Open Modal',
+              },
+            },
+            {
+              id: 'modal-content',
+              component: {
+                id: 'modal-content',
+                type: 'Column',
+                children: ['modal-title', 'modal-body'],
+              },
+            },
+            {
+              id: 'modal-title',
+              component: {
+                id: 'modal-title',
+                type: 'Text',
+                content: 'Modal Dialog',
+                style: 'h3',
+              },
+            },
+            {
+              id: 'modal-body',
+              component: {
+                id: 'modal-body',
+                type: 'Text',
+                content: 'This is the content inside the Modal.',
+              },
+            },
+            {
+              id: 'tabs-demo',
+              component: {
+                id: 'tabs-demo',
+                type: 'Tabs',
+                tabs: [
+                  { label: 'Tab 1', content: 'tab1-content' },
+                  { label: 'Tab 2', content: 'tab2-content' },
+                  { label: 'Tab 3', content: 'tab3-content' },
+                ],
+              },
+            },
+            {
+              id: 'tab1-content',
+              component: {
+                id: 'tab1-content',
+                type: 'Text',
+                content: 'Content for Tab 1',
+              },
+            },
+            {
+              id: 'tab2-content',
+              component: {
+                id: 'tab2-content',
+                type: 'Text',
+                content: 'Content for Tab 2',
+              },
+            },
+            {
+              id: 'tab3-content',
+              component: {
+                id: 'tab3-content',
+                type: 'Text',
+                content: 'Content for Tab 3',
+              },
+            },
+            {
+              id: 'list-demo',
+              component: {
+                id: 'list-demo',
+                type: 'List',
+                template: 'list-item-template',
+                dataPath: 'items',
+              },
+            },
+            {
+              id: 'list-item-template',
+              component: {
+                id: 'list-item-template',
+                type: 'Text',
+                content: 'List Item',
               },
             },
           ],

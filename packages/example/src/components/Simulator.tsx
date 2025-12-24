@@ -5,6 +5,7 @@ import { ComponentTree } from './ComponentTree'
 import { DataModelViewer } from './DataModelViewer'
 import { LivePreview } from './LivePreview'
 import { MessageEditor } from './MessageEditor'
+import { ThemeToggle } from './ThemeToggle'
 
 export function Simulator() {
   const [messages, setMessages] = useState<A2UIMessage[]>([])
@@ -20,11 +21,16 @@ export function Simulator() {
   return (
     <div className="min-h-screen bg-[var(--color-bg-primary)] p-6 space-y-8">
       {/* Header */}
-      <header className="border-b border-[var(--color-border)] pb-6">
-        <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">A2UI Simulator</h1>
-        <p className="text-[var(--color-text-secondary)]">
-          Interactive playground for testing A2UI protocol messages and components
-        </p>
+      <header className="border-b border-[var(--color-border)] pb-6 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">
+            A2UI Simulator
+          </h1>
+          <p className="text-[var(--color-text-secondary)]">
+            Interactive playground for testing A2UI protocol messages and components
+          </p>
+        </div>
+        <ThemeToggle />
       </header>
 
       {/* Component Showcase Section */}
