@@ -1,5 +1,5 @@
 {
-  "name": "@a2ui/example",
+  "name": "a2ui-shadcn-ui-example",
   "version": "0.1.0",
   "private": true,
   "description": "Example application demonstrating A2UI usage",

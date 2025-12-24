@@ -2,8 +2,8 @@
  * a2ui-shadcn-ui - Beautiful shadcn/ui components for A2UI protocol
  *
  * This package provides everything you need to render A2UI protocol messages:
- * - Core types, parser, and store from @a2ui/core
- * - React hooks and components from @a2ui/react
+ * - Core types, parser, and store from a2ui-shadcn-ui-core
+ * - React hooks and components from a2ui-shadcn-ui-react
  * - shadcn/ui-based renderers for all A2UI component types
  *
  * @example
@@ -23,7 +23,7 @@
 export const version = '0.1.0'
 
 // ============================================================================
-// Re-export everything from @a2ui/core
+// Re-export everything from a2ui-shadcn-ui-core
 // ============================================================================
 export {
   // Types
@@ -82,10 +82,10 @@ export {
   type TextComponent,
   type TextFieldComponent,
   type TextStyle,
-} from '@a2ui/core'
+} from 'a2ui-shadcn-ui-core'
 
 // ============================================================================
-// Re-export everything from @a2ui/react
+// Re-export everything from a2ui-shadcn-ui-react
 // ============================================================================
 export {
   // Types
@@ -113,7 +113,7 @@ export {
   useAction,
   useDataBinding,
   useSurface,
-} from '@a2ui/react'
+} from 'a2ui-shadcn-ui-react'
 
 // ============================================================================
 // shadcn/ui Components

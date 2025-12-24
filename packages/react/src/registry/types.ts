@@ -3,7 +3,7 @@
  * Defines the interface for component renderers and their registration
  */
 
-import type { A2UIMessage } from '@a2ui/core'
+import type { A2UIMessage } from 'a2ui-shadcn-ui-core'
 import type { ReactNode } from 'react'
 
 /**

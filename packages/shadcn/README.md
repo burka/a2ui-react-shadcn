@@ -1,6 +1,13 @@
 # a2ui-shadcn-ui
 
-Beautiful [shadcn/ui](https://ui.shadcn.com/) components for rendering [A2UI protocol](https://github.com/anthropics/anthropic-cookbook/tree/main/misc/a2ui) messages in React.
+[![npm version](https://img.shields.io/npm/v/a2ui-shadcn-ui.svg)](https://www.npmjs.com/package/a2ui-shadcn-ui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Beautiful [shadcn/ui](https://ui.shadcn.com/) components for rendering [A2UI protocol](https://a2ui.org/) messages in React.
+
+> **Early Stage Project**: This library is in early development. We welcome feedback, bug reports, and contributions! Please [open an issue](https://github.com/burka/a2ui-shadcn-ui/issues) if you encounter any problems or have suggestions.
+
+**[Live Demo](https://burka.github.io/a2ui-shadcn-ui/)** | **[GitHub](https://github.com/burka/a2ui-shadcn-ui)**
 
 ## Installation
 

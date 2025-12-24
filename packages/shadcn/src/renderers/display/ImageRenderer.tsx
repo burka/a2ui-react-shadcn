@@ -1,5 +1,5 @@
-import type { ImageComponent } from '@a2ui/core'
-import type { A2UIRenderer, RendererProps } from '@a2ui/react'
+import type { ImageComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { useState } from 'react'
 import { cn } from '../../lib/utils.js'
 

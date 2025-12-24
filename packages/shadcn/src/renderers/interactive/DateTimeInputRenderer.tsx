@@ -1,5 +1,5 @@
-import type { DateTimeInputComponent } from '@a2ui/core'
-import type { A2UIRenderer, RendererProps } from '@a2ui/react'
+import type { DateTimeInputComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Input } from '../../components/ui/input.js'
 
 export const DateTimeInputRenderer: A2UIRenderer<DateTimeInputComponent> = {

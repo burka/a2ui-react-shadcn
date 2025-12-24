@@ -1,5 +1,5 @@
-import type { MultipleChoiceComponent } from '@a2ui/core'
-import type { A2UIRenderer, RendererProps } from '@a2ui/react'
+import type { MultipleChoiceComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Checkbox } from '../../components/ui/checkbox.js'
 import { FieldLabel } from '../../components/ui/field-label.js'
 

@@ -3,14 +3,14 @@
  * Main component for rendering an A2UI surface from messages or streams
  */
 
-import type { A2UIComponent, A2UIMessage } from '@a2ui/core'
+import type { A2UIComponent, A2UIMessage } from 'a2ui-shadcn-ui-core'
 import {
   createStreamParser,
   isBeginRenderingMessage,
   isDataModelUpdateMessage,
   isDeleteSurfaceMessage,
   isSurfaceUpdateMessage,
-} from '@a2ui/core'
+} from 'a2ui-shadcn-ui-core'
 import { useEffect, useState } from 'react'
 import { useA2UI } from '../hooks/useA2UI.js'
 import { useSurface } from '../hooks/useSurface.js'

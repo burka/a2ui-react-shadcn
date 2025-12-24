@@ -3,7 +3,7 @@
  * Recursively renders A2UI components using registered renderers
  */
 
-import type { A2UIComponent, Surface } from '@a2ui/core'
+import type { A2UIComponent, Surface } from 'a2ui-shadcn-ui-core'
 import type { ReactNode } from 'react'
 import { useMemo } from 'react'
 import { useA2UI } from '../hooks/useA2UI.js'

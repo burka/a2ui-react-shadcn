@@ -1,4 +1,4 @@
-import type { A2UIRenderer } from '@a2ui/react'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 
 /**
  * Renderer registry type for shadcn components

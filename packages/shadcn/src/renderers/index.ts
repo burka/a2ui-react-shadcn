@@ -1,5 +1,5 @@
-import type { A2UIRenderer } from '@a2ui/react'
-import { createRegistry } from '@a2ui/react'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
+import { createRegistry } from 'a2ui-shadcn-ui-react'
 import { CardRenderer, ListRenderer, ModalRenderer, TabsRenderer } from './container/index.js'
 import { DividerRenderer, IconRenderer, ImageRenderer, TextRenderer } from './display/index.js'
 import {

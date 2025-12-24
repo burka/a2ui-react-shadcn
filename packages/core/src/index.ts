@@ -1,5 +1,5 @@
 /**
- * @a2ui/core - Core A2UI protocol types and utilities
+ * a2ui-shadcn-ui-core - Core A2UI protocol types and utilities
  *
  * This package provides:
  * - Type definitions for A2UI protocol messages and components

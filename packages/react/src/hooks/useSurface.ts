@@ -3,7 +3,7 @@
  * Subscribe to a surface and get its current state
  */
 
-import type { Surface } from '@a2ui/core'
+import type { Surface } from 'a2ui-shadcn-ui-core'
 import { useCallback, useSyncExternalStore } from 'react'
 import { useA2UI } from './useA2UI.js'
 

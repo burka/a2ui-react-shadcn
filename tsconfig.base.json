@@ -18,9 +18,9 @@
     "declarationMap": true,
     "sourceMap": true,
     "paths": {
-      "@a2ui/core": ["./packages/core/dist/index.d.ts"],
-      "@a2ui/react": ["./packages/react/dist/index.d.ts"],
-      "@a2ui/shadcn": ["./packages/shadcn/dist/index.d.ts"]
+      "a2ui-shadcn-ui-core": ["./packages/core/dist/index.d.ts"],
+      "a2ui-shadcn-ui-react": ["./packages/react/dist/index.d.ts"],
+      "a2ui-shadcn-ui": ["./packages/shadcn/dist/index.d.ts"]
     }
   },
   "exclude": ["node_modules", "dist", ".turbo", "coverage"]

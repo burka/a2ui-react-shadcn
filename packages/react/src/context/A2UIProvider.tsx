@@ -3,8 +3,8 @@
  * Sets up the A2UI context for child components
  */
 
-import type { A2UIStore } from '@a2ui/core'
-import { createStore } from '@a2ui/core'
+import type { A2UIStore } from 'a2ui-shadcn-ui-core'
+import { createStore } from 'a2ui-shadcn-ui-core'
 import type { ReactNode } from 'react'
 import { useMemo } from 'react'
 import { createRegistry } from '../registry/component-registry.js'
@@ -37,7 +37,7 @@ const defaultActionHandler = (action: A2UIAction): void => {
  *
  * @example
  * ```tsx
- * import { A2UIProvider } from '@a2ui/react'
+ * import { A2UIProvider } from 'a2ui-shadcn-ui-react'
  *
  * function App() {
  *   return (

@@ -1,5 +1,5 @@
-import type { TextComponent } from '@a2ui/core'
-import type { A2UIRenderer, RendererProps } from '@a2ui/react'
+import type { TextComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import type { ElementType } from 'react'
 import { cn } from '../../lib/utils.js'
 

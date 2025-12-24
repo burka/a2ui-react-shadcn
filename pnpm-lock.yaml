@@ -90,7 +90,7 @@ importers:
 
   packages/react:
     dependencies:
-      '@a2ui/core':
+      a2ui-shadcn-ui-core:
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -167,12 +167,6 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0
     devDependencies:
-      '@a2ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@a2ui/react':
-        specifier: workspace:*
-        version: link:../react
       '@testing-library/react':
         specifier: ^16.1.0
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -188,6 +182,12 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.20.0
         version: 8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      a2ui-shadcn-ui-core:
+        specifier: workspace:*
+        version: link:../core
+      a2ui-shadcn-ui-react:
+        specifier: workspace:*
+        version: link:../react
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1

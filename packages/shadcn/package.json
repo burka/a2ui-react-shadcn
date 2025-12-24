@@ -9,7 +9,7 @@
     "url": "git+https://github.com/burka/a2ui-shadcn-ui.git",
     "directory": "packages/shadcn"
   },
-  "homepage": "https://github.com/burka/a2ui-shadcn-ui#readme",
+  "homepage": "https://burka.github.io/a2ui-shadcn-ui/",
   "bugs": {
     "url": "https://github.com/burka/a2ui-shadcn-ui/issues"
   },
@@ -68,8 +68,8 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "@a2ui/core": "workspace:*",
-    "@a2ui/react": "workspace:*",
+    "a2ui-shadcn-ui-core": "workspace:*",
+    "a2ui-shadcn-ui-react": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "@types/react": "^19.0.6",
     "@types/react-dom": "^19.0.2",

@@ -1,7 +1,9 @@
 import type { A2UIMessage } from 'a2ui-shadcn-ui'
-import { Code, Code2, Copy, Eye } from 'lucide-react'
+import { Code, Copy, Eye } from 'lucide-react'
 import { useState } from 'react'
-import { CodeModal } from './CodeModal'
+// TODO: Re-enable when code modal is fixed
+// import { Code2 } from 'lucide-react'
+// import { CodeModal } from './CodeModal'
 import { LivePreview } from './LivePreview'
 
 type Category = 'layout' | 'display' | 'interactive' | 'container'
@@ -30,7 +32,8 @@ const CATEGORY_LABELS: Record<Category, string> = {
 export function ComponentCard({ name, description, category, messages }: ComponentCardProps) {
   const [showJson, setShowJson] = useState(false)
   const [copied, setCopied] = useState(false)
-  const [codeModalOpen, setCodeModalOpen] = useState(false)
+  // TODO: Re-enable when code modal is fixed
+  // const [codeModalOpen, setCodeModalOpen] = useState(false)
 
   const handleCopy = async () => {
     try {
@@ -57,6 +60,7 @@ export function ComponentCard({ name, description, category, messages }: Compone
           <p className="text-sm text-[var(--color-text-secondary)]">{description}</p>
         </div>
         <div className="flex gap-1">
+          {/* TODO: Re-enable when code modal is fixed
           <button
             type="button"
             onClick={() => setCodeModalOpen(true)}
@@ -65,6 +69,7 @@ export function ComponentCard({ name, description, category, messages }: Compone
           >
             <Code2 className="w-4 h-4 text-[var(--color-text-secondary)]" />
           </button>
+          */}
           {showJson && (
             <button
               type="button"
@@ -104,12 +109,14 @@ export function ComponentCard({ name, description, category, messages }: Compone
         </div>
       )}
 
+      {/* TODO: Re-enable when code modal is fixed
       <CodeModal
         componentName={name}
         messages={messages}
         open={codeModalOpen}
         onOpenChange={setCodeModalOpen}
       />
+      */}
     </div>
   )
 }

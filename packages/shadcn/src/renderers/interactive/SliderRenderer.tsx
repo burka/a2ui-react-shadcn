@@ -1,5 +1,5 @@
-import type { SliderComponent } from '@a2ui/core'
-import type { A2UIRenderer, RendererProps } from '@a2ui/react'
+import type { SliderComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Slider } from '../../components/ui/slider.js'
 
 export const SliderRenderer: A2UIRenderer<SliderComponent> = {

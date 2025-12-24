@@ -1,8 +1,15 @@
 # a2ui-shadcn-ui
 
+[![npm version](https://img.shields.io/npm/v/a2ui-shadcn-ui.svg)](https://www.npmjs.com/package/a2ui-shadcn-ui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Render [A2UI protocol](https://a2ui.org/) messages using [shadcn/ui](https://ui.shadcn.com/) components.
 
+> **Early Stage Project**: This library is in early development. We welcome feedback, bug reports, and contributions! Please [open an issue](https://github.com/burka/a2ui-shadcn-ui/issues) if you encounter any problems or have suggestions.
+
 A2UI is an open-source protocol that enables AI agents to generate rich, interactive user interfaces safely across platforms. This library provides React components to render A2UI messages with beautiful, accessible shadcn/ui components.
+
+**[Live Demo](https://burka.github.io/a2ui-shadcn-ui/)** | **[npm Package](https://www.npmjs.com/package/a2ui-shadcn-ui)**
 
 ## Features
 
@@ -17,14 +24,13 @@ A2UI is an open-source protocol that enables AI agents to generate rich, interac
 ## Installation
 
 ```bash
-npm install @a2ui/core @a2ui/react @a2ui/shadcn
+npm install a2ui-shadcn-ui
 ```
 
 ## Quick Start
 
 ```tsx
-import { A2UIProvider, A2UISurface } from '@a2ui/react'
-import { shadcnRenderers } from '@a2ui/shadcn'
+import { A2UIProvider, A2UISurface, shadcnRenderers } from 'a2ui-shadcn-ui'
 
 function App() {
   const messages = [
@@ -50,13 +56,12 @@ function App() {
 }
 ```
 
-## Packages
+## Package
 
-| Package | Description |
-|---------|-------------|
-| `@a2ui/core` | A2UI types, message parser, and store interface |
-| `@a2ui/react` | React bindings, hooks, and component registry |
-| `@a2ui/shadcn` | shadcn/ui component renderers |
+The `a2ui-shadcn-ui` package includes everything you need:
+- Core A2UI types, message parser, and store interface
+- React bindings, hooks, and component registry
+- shadcn/ui component renderers
 
 ## Component Renderers
 
@@ -86,7 +91,7 @@ function App() {
 Create custom renderers by implementing the `A2UIRenderer` interface:
 
 ```tsx
-import type { A2UIRenderer } from '@a2ui/react'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui'
 
 const CustomRenderer: A2UIRenderer = {
   type: 'CustomComponent',
@@ -113,7 +118,7 @@ Register with the provider:
 ## Hooks
 
 ```tsx
-import { useDataBinding, useAction, useSurface } from '@a2ui/react'
+import { useDataBinding, useAction, useSurface } from 'a2ui-shadcn-ui'
 
 // Two-way data binding
 const { value, setValue } = useDataBinding('surfaceId', 'user.name')
@@ -139,7 +144,7 @@ pnpm build
 pnpm test
 
 # Start example app
-pnpm --filter @a2ui/example dev
+pnpm --filter a2ui-shadcn-ui-example dev
 
 # Lint and format
 pnpm lint
