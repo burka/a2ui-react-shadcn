@@ -1,6 +1,7 @@
 import type { A2UIMessage } from '@a2ui/core'
-import { Code, Copy, Eye } from 'lucide-react'
+import { Code, Code2, Copy, Eye } from 'lucide-react'
 import { useState } from 'react'
+import { CodeModal } from './CodeModal'
 import { LivePreview } from './LivePreview'
 
 type Category = 'layout' | 'display' | 'interactive' | 'container'
@@ -10,6 +11,7 @@ interface ComponentCardProps {
   description: string
   category: Category
   messages: A2UIMessage[]
+  componentType?: string
 }
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -26,9 +28,16 @@ const CATEGORY_LABELS: Record<Category, string> = {
   container: 'Container',
 }
 
-export function ComponentCard({ name, description, category, messages }: ComponentCardProps) {
+export function ComponentCard({
+  name,
+  description,
+  category,
+  messages,
+  componentType,
+}: ComponentCardProps) {
   const [showJson, setShowJson] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [codeModalOpen, setCodeModalOpen] = useState(false)
 
   const handleCopy = async () => {
     try {
@@ -55,6 +64,14 @@ export function ComponentCard({ name, description, category, messages }: Compone
           <p className="text-sm text-[var(--color-text-secondary)]">{description}</p>
         </div>
         <div className="flex gap-1">
+          <button
+            type="button"
+            onClick={() => setCodeModalOpen(true)}
+            className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded transition-colors"
+            title="View code examples"
+          >
+            <Code2 className="w-4 h-4 text-[var(--color-text-secondary)]" />
+          </button>
           {showJson && (
             <button
               type="button"
@@ -93,6 +110,14 @@ export function ComponentCard({ name, description, category, messages }: Compone
           <LivePreview messages={messages} />
         </div>
       )}
+
+      <CodeModal
+        componentName={name}
+        componentType={componentType || name}
+        messages={messages}
+        open={codeModalOpen}
+        onOpenChange={setCodeModalOpen}
+      />
     </div>
   )
 }

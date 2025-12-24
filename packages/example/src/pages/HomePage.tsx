@@ -3,6 +3,7 @@ import { useA2UI } from '@a2ui/react'
 import { Copy, Github, Terminal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AnimatedButtonExample } from '../components/AnimatedButtonExample'
 import { ComponentCard } from '../components/ComponentCard'
 import { ThemeToggle } from '../components/ThemeToggle'
 
@@ -32,7 +33,7 @@ export function HomePage() {
   const [copied, setCopied] = useState(false)
   const { registry } = useA2UI()
 
-  const installCommand = 'pnpm add @a2ui/react @a2ui/shadcn'
+  const installCommand = 'npm install @a2ui/shadcn'
 
   const examples: RendererExample[] = useMemo(() => {
     return registry
@@ -74,11 +75,14 @@ export function HomePage() {
             <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
               A2UI + shadcn/ui
             </h1>
-            <p className="text-lg text-[var(--color-text-secondary)] mb-8">
-              Server-driven UI protocol implementation with beautiful shadcn/ui components. Build
-              dynamic interfaces controlled by your backend.
+            <p className="text-xl text-[var(--color-text-secondary)] mb-2">
+              Server-driven UI for React
             </p>
-            <div className="flex items-center justify-center gap-3 bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-lg p-4 max-w-md mx-auto">
+            <p className="text-base text-[var(--color-text-secondary)] mb-8 max-w-2xl mx-auto">
+              Build dynamic interfaces controlled by your backend. A2UI is a protocol for
+              server-driven UI, and this library provides beautiful shadcn/ui component renderers.
+            </p>
+            <div className="flex items-center justify-center gap-3 bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-lg p-4 max-w-md mx-auto mb-3">
               <Terminal className="w-5 h-5 text-[var(--color-text-tertiary)]" />
               <code className="flex-1 text-sm text-[var(--color-text-primary)] font-mono">
                 {installCommand}
@@ -94,65 +98,51 @@ export function HomePage() {
                 />
               </button>
             </div>
+            <p className="text-sm text-[var(--color-text-tertiary)] italic">
+              (Coming soon to npm. For now, install from GitHub)
+            </p>
           </div>
         </div>
       </header>
 
-      {/* Component Gallery */}
       <main className="container mx-auto px-4 py-12">
+        {/* Features Section */}
         <section className="mb-12">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">
-                Component Gallery
-              </h2>
-              <p className="text-[var(--color-text-secondary)]">
-                Explore {examples.length} interactive components powered by A2UI protocol
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+              <div className="text-2xl mb-3">🔄</div>
+              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+                Server-Driven
+              </h3>
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                Your backend sends JSON, the UI renders automatically
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((category) => (
-                <button
-                  type="button"
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    selectedCategory === category
-                      ? 'bg-[var(--color-accent)] text-white'
-                      : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]'
-                  }`}
-                >
-                  {CATEGORY_LABELS[category]}
-                </button>
-              ))}
+
+            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+              <div className="text-2xl mb-3">🎨</div>
+              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+                Beautiful
+              </h3>
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                Built on shadcn/ui with full Tailwind CSS theming
+              </p>
+            </div>
+
+            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+              <div className="text-2xl mb-3">⚡</div>
+              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+                Composable
+              </h3>
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                Replace any component with your own implementation
+              </p>
             </div>
           </div>
-
-          {filteredExamples.length === 0 ? (
-            <div className="text-center py-16 bg-[var(--color-bg-secondary)] rounded-lg border border-[var(--color-border)]">
-              <p className="text-[var(--color-text-secondary)] mb-2">
-                No components in this category
-              </p>
-              <p className="text-sm text-[var(--color-text-tertiary)]">
-                Try selecting a different category
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredExamples.map((example) => (
-                <ComponentCard
-                  key={example.type}
-                  name={example.name}
-                  description={example.description}
-                  category={example.category}
-                  messages={example.messages}
-                />
-              ))}
-            </div>
-          )}
         </section>
 
-        {/* API Reference Section */}
+        {/* Quick Start Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Quick Start</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -240,40 +230,69 @@ function MyComponent() {
           </div>
         </section>
 
-        {/* Features Section */}
+        {/* Customization Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-              <div className="text-2xl mb-3">🎨</div>
-              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
-                Beautiful Components
-              </h3>
-              <p className="text-sm text-[var(--color-text-secondary)]">
-                Built with shadcn/ui and Tailwind CSS for a modern, accessible design system.
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">
+            Customize Any Component
+          </h2>
+          <p className="text-[var(--color-text-secondary)] mb-6">
+            A2UI's registry pattern lets you replace any built-in renderer
+          </p>
+          <AnimatedButtonExample />
+        </section>
+
+        {/* Component Gallery */}
+        <section className="mb-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">
+                Component Gallery
+              </h2>
+              <p className="text-[var(--color-text-secondary)]">
+                Explore {examples.length} interactive components powered by A2UI protocol
               </p>
             </div>
-
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-              <div className="text-2xl mb-3">🔄</div>
-              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
-                Server-Driven
-              </h3>
-              <p className="text-sm text-[var(--color-text-secondary)]">
-                Your backend controls the UI through a simple, type-safe protocol.
-              </p>
-            </div>
-
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-              <div className="text-2xl mb-3">⚡</div>
-              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
-                Type-Safe
-              </h3>
-              <p className="text-sm text-[var(--color-text-secondary)]">
-                Full TypeScript support with comprehensive type definitions and autocompletion.
-              </p>
+            <div className="flex flex-wrap gap-2">
+              {CATEGORIES.map((category) => (
+                <button
+                  type="button"
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    selectedCategory === category
+                      ? 'bg-[var(--color-accent)] text-white'
+                      : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]'
+                  }`}
+                >
+                  {CATEGORY_LABELS[category]}
+                </button>
+              ))}
             </div>
           </div>
+
+          {filteredExamples.length === 0 ? (
+            <div className="text-center py-16 bg-[var(--color-bg-secondary)] rounded-lg border border-[var(--color-border)]">
+              <p className="text-[var(--color-text-secondary)] mb-2">
+                No components in this category
+              </p>
+              <p className="text-sm text-[var(--color-text-tertiary)]">
+                Try selecting a different category
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredExamples.map((example) => (
+                <ComponentCard
+                  key={example.type}
+                  name={example.name}
+                  description={example.description}
+                  category={example.category}
+                  componentType={example.type}
+                  messages={example.messages}
+                />
+              ))}
+            </div>
+          )}
         </section>
       </main>
 

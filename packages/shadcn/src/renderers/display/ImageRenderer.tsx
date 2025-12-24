@@ -89,8 +89,8 @@ export const ImageRenderer: A2UIRenderer<ImageComponent> = {
               component: {
                 type: 'Image',
                 id: 'image-valid',
-                url: 'https://via.placeholder.com/400x300',
-                alt: 'Example placeholder image',
+                url: 'https://picsum.photos/400/200',
+                alt: 'Beautiful landscape photograph',
               },
             },
             {

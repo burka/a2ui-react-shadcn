@@ -32,33 +32,60 @@ export const RowRenderer: A2UIRenderer<RowComponent> = {
   },
   example: {
     name: 'Row',
-    description: 'Arranges children horizontally with configurable distribution',
+    description: 'Horizontal layout - toolbar with icon, text, and button',
     category: 'layout',
     messages: [
       {
-        surfaceUpdate: {
-          surfaceId: 'demo',
-          updates: [
-            {
-              id: 'root',
-              component: {
-                type: 'Row',
-                id: 'root',
-                distribution: 'spaceBetween',
-                children: ['a', 'b', 'c'],
-              },
-            },
-            { id: 'a', component: { type: 'Text', id: 'a', content: 'Left' } },
-            {
-              id: 'b',
-              component: { type: 'Text', id: 'b', content: 'Center' },
-            },
-            { id: 'c', component: { type: 'Text', id: 'c', content: 'Right' } },
-          ],
-        },
+        beginRendering: { surfaceId: 'row-demo', root: 'toolbar' },
       },
       {
-        beginRendering: { surfaceId: 'demo', root: 'root' },
+        surfaceUpdate: {
+          surfaceId: 'row-demo',
+          updates: [
+            {
+              id: 'toolbar',
+              component: {
+                type: 'Row',
+                id: 'toolbar',
+                distribution: 'spaceBetween',
+                alignment: 'center',
+                children: ['left-group', 'action-btn'],
+              },
+            },
+            {
+              id: 'left-group',
+              component: {
+                type: 'Row',
+                id: 'left-group',
+                distribution: 'packed',
+                alignment: 'center',
+                children: ['star-icon', 'label'],
+              },
+            },
+            {
+              id: 'star-icon',
+              component: { type: 'Icon', id: 'star-icon', name: 'star' },
+            },
+            {
+              id: 'label',
+              component: { type: 'Text', id: 'label', content: 'Featured Item' },
+            },
+            {
+              id: 'action-btn',
+              component: {
+                type: 'Button',
+                id: 'action-btn',
+                child: 'btn-text',
+                primary: true,
+                action: 'view',
+              },
+            },
+            {
+              id: 'btn-text',
+              component: { type: 'Text', id: 'btn-text', content: 'View Details' },
+            },
+          ],
+        },
       },
     ],
   },

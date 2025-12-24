@@ -32,36 +32,60 @@ export const ColumnRenderer: A2UIRenderer<ColumnComponent> = {
   },
   example: {
     name: 'Column',
-    description: 'Arranges children vertically with configurable distribution',
+    description: 'Vertical layout - form with heading, input, and button',
     category: 'layout',
     messages: [
       {
+        beginRendering: { surfaceId: 'column-demo', root: 'form' },
+      },
+      {
         surfaceUpdate: {
-          surfaceId: 'demo',
+          surfaceId: 'column-demo',
           updates: [
             {
-              id: 'root',
+              id: 'form',
               component: {
                 type: 'Column',
-                id: 'root',
-                distribution: 'spaceBetween',
-                children: ['a', 'b', 'c'],
+                id: 'form',
+                distribution: 'packed',
+                alignment: 'stretch',
+                children: ['heading', 'email-field', 'subscribe-btn'],
               },
             },
-            { id: 'a', component: { type: 'Text', id: 'a', content: 'Top' } },
             {
-              id: 'b',
-              component: { type: 'Text', id: 'b', content: 'Middle' },
+              id: 'heading',
+              component: {
+                type: 'Text',
+                id: 'heading',
+                content: 'Subscribe to Newsletter',
+                style: 'h4',
+              },
             },
             {
-              id: 'c',
-              component: { type: 'Text', id: 'c', content: 'Bottom' },
+              id: 'email-field',
+              component: {
+                type: 'TextField',
+                id: 'email-field',
+                label: 'Email Address',
+                dataPath: 'email',
+              },
+            },
+            {
+              id: 'subscribe-btn',
+              component: {
+                type: 'Button',
+                id: 'subscribe-btn',
+                child: 'btn-text',
+                primary: true,
+                action: 'subscribe',
+              },
+            },
+            {
+              id: 'btn-text',
+              component: { type: 'Text', id: 'btn-text', content: 'Subscribe' },
             },
           ],
         },
-      },
-      {
-        beginRendering: { surfaceId: 'demo', root: 'root' },
       },
     ],
   },
