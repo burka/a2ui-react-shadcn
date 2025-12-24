@@ -22,10 +22,7 @@ export type DataModel = Record<string, unknown>
  * Get a value from a data model by path
  * Path uses dot notation: "user.name" or "items.0.title"
  */
-export function getDataByPath(
-  data: DataModel,
-  path: string
-): unknown | undefined {
+export function getDataByPath(data: DataModel, path: string): unknown | undefined {
   const parts = path.split('.')
   let current: unknown = data
 
@@ -47,11 +44,7 @@ export function getDataByPath(
  * Path uses dot notation: "user.name" or "items.0.title"
  * Creates intermediate objects/arrays as needed
  */
-export function setDataByPath(
-  data: DataModel,
-  path: string,
-  value: unknown
-): void {
+export function setDataByPath(data: DataModel, path: string, value: unknown): void {
   const parts = path.split('.')
   let current: Record<string, unknown> = data
 

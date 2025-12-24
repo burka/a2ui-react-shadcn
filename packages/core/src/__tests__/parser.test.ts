@@ -3,13 +3,8 @@
  * Tests for message parsing and stream parsing
  */
 
-import { describe, it, expect } from 'vitest'
-import {
-  parseMessage,
-  MessageParseError,
-  createStreamParser,
-  parseJSONL,
-} from '../parser/index.js'
+import { describe, expect, it } from 'vitest'
+import { createStreamParser, MessageParseError, parseJSONL, parseMessage } from '../parser/index.js'
 import type { A2UIMessage } from '../types/messages.js'
 
 describe('parseMessage', () => {
@@ -241,12 +236,12 @@ describe('createStreamParser', () => {
     parser.push(
       JSON.stringify({
         beginRendering: { surfaceId: 's1', root: 'r1' },
-      })
+      }),
     )
     parser.push(
       JSON.stringify({
         deleteSurface: { surfaceId: 's1' },
-      })
+      }),
     )
 
     expect(messages).toHaveLength(2)
@@ -265,7 +260,7 @@ describe('createStreamParser', () => {
     parser.push(
       JSON.stringify({
         deleteSurface: { surfaceId: 's1' },
-      })
+      }),
     )
 
     expect(messages).toHaveLength(1)
@@ -301,7 +296,7 @@ describe('createStreamParser', () => {
     parser.push(
       JSON.stringify({
         deleteSurface: { surfaceId: 's1' },
-      })
+      }),
     )
 
     expect(messages).toHaveLength(0)

@@ -69,35 +69,27 @@ export type A2UIMessage =
 /**
  * Type guard to check if a message is BeginRenderingMessage
  */
-export function isBeginRenderingMessage(
-  msg: A2UIMessage
-): msg is BeginRenderingMessage {
+export function isBeginRenderingMessage(msg: A2UIMessage): msg is BeginRenderingMessage {
   return 'beginRendering' in msg
 }
 
 /**
  * Type guard to check if a message is SurfaceUpdateMessage
  */
-export function isSurfaceUpdateMessage(
-  msg: A2UIMessage
-): msg is SurfaceUpdateMessage {
+export function isSurfaceUpdateMessage(msg: A2UIMessage): msg is SurfaceUpdateMessage {
   return 'surfaceUpdate' in msg
 }
 
 /**
  * Type guard to check if a message is DataModelUpdateMessage
  */
-export function isDataModelUpdateMessage(
-  msg: A2UIMessage
-): msg is DataModelUpdateMessage {
+export function isDataModelUpdateMessage(msg: A2UIMessage): msg is DataModelUpdateMessage {
   return 'dataModelUpdate' in msg
 }
 
 /**
  * Type guard to check if a message is DeleteSurfaceMessage
  */
-export function isDeleteSurfaceMessage(
-  msg: A2UIMessage
-): msg is DeleteSurfaceMessage {
+export function isDeleteSurfaceMessage(msg: A2UIMessage): msg is DeleteSurfaceMessage {
   return 'deleteSurface' in msg
 }

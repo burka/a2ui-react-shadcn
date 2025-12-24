@@ -1,6 +1,6 @@
-import { ChevronRight, ChevronDown, GitBranch } from 'lucide-react'
-import { useState } from 'react'
 import type { A2UIMessage } from '@a2ui/core'
+import { ChevronDown, ChevronRight, GitBranch } from 'lucide-react'
+import { useState } from 'react'
 
 interface ComponentTreeProps {
   messages: A2UIMessage[]
@@ -13,17 +13,23 @@ interface TreeNode {
   expanded: boolean
 }
 
+interface ComponentLike {
+  type?: string
+  children?: string[]
+  child?: string
+}
+
 export function ComponentTree({ messages }: ComponentTreeProps) {
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set())
 
   // Parse messages to build component tree
   const components = new Map<string, TreeNode>()
 
-  messages.forEach((msg) => {
+  for (const msg of messages) {
     if ('surfaceUpdate' in msg) {
-      msg.surfaceUpdate.updates.forEach((update) => {
+      for (const update of msg.surfaceUpdate.updates) {
         if (update.component) {
-          const comp = update.component as any
+          const comp = update.component as ComponentLike
           components.set(update.id, {
             id: update.id,
             type: comp.type || 'unknown',
@@ -31,19 +37,19 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
             expanded: false,
           })
         }
-      })
+      }
     }
-  })
+  }
 
   // Find root components (not referenced as children)
   const allChildIds = new Set<string>()
-  components.forEach((comp) => {
-    comp.children.forEach((childId) => allChildIds.add(childId))
-  })
+  for (const comp of components.values()) {
+    for (const childId of comp.children) {
+      allChildIds.add(childId)
+    }
+  }
 
-  const rootIds = Array.from(components.keys()).filter(
-    (id) => !allChildIds.has(id)
-  )
+  const rootIds = Array.from(components.keys()).filter((id) => !allChildIds.has(id))
 
   const toggleNode = (id: string) => {
     setExpandedNodes((prev) => {
@@ -57,10 +63,7 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
     })
   }
 
-  const renderNode = (
-    nodeId: string,
-    depth: number = 0
-  ): React.ReactElement | null => {
+  const renderNode = (nodeId: string, depth: number = 0): React.ReactElement | null => {
     const node = components.get(nodeId)
     if (!node) return null
 
@@ -69,8 +72,9 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
 
     return (
       <div key={nodeId}>
-        <div
-          className="flex items-center gap-2 py-1 px-2 hover:bg-[var(--color-bg-tertiary)] rounded cursor-pointer group"
+        <button
+          type="button"
+          className="flex items-center gap-2 py-1 px-2 hover:bg-[var(--color-bg-tertiary)] rounded cursor-pointer group w-full text-left"
           style={{ paddingLeft: `${depth * 20 + 8}px` }}
           onClick={() => hasChildren && toggleNode(nodeId)}
         >
@@ -86,19 +90,13 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
 
           <GitBranch className="w-4 h-4 text-[var(--color-accent)]" />
 
-          <span className="font-mono text-sm text-[var(--color-text-primary)]">
-            {nodeId}
-          </span>
+          <span className="font-mono text-sm text-[var(--color-text-primary)]">{nodeId}</span>
 
-          <span className="text-xs text-[var(--color-text-tertiary)] ml-auto">
-            {node.type}
-          </span>
-        </div>
+          <span className="text-xs text-[var(--color-text-tertiary)] ml-auto">{node.type}</span>
+        </button>
 
         {hasChildren && isExpanded && (
-          <div>
-            {node.children.map((childId) => renderNode(childId, depth + 1))}
-          </div>
+          <div>{node.children.map((childId) => renderNode(childId, depth + 1))}</div>
         )}
       </div>
     )
@@ -108,9 +106,7 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
     return (
       <div className="flex flex-col items-center justify-center p-8 text-center">
         <GitBranch className="w-12 h-12 text-[var(--color-text-tertiary)] mb-3" />
-        <p className="text-[var(--color-text-secondary)]">
-          No components in tree
-        </p>
+        <p className="text-[var(--color-text-secondary)]">No components in tree</p>
         <p className="text-sm text-[var(--color-text-tertiary)] mt-1">
           Add component.add messages to see the hierarchy
         </p>
@@ -122,17 +118,13 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
     <div className="space-y-1">
       <div className="flex items-center gap-2 pb-2 mb-2 border-b border-[var(--color-border)]">
         <GitBranch className="w-4 h-4 text-[var(--color-text-secondary)]" />
-        <h3 className="font-semibold text-[var(--color-text-primary)]">
-          Component Tree
-        </h3>
+        <h3 className="font-semibold text-[var(--color-text-primary)]">Component Tree</h3>
         <span className="text-xs text-[var(--color-text-tertiary)] ml-auto">
           {components.size} component{components.size !== 1 ? 's' : ''}
         </span>
       </div>
 
-      <div className="space-y-0.5">
-        {rootIds.map((rootId) => renderNode(rootId))}
-      </div>
+      <div className="space-y-0.5">{rootIds.map((rootId) => renderNode(rootId))}</div>
     </div>
   )
 }

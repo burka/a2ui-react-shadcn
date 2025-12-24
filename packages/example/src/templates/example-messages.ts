@@ -1,4 +1,4 @@
-import type { A2UIMessage, A2UIComponent } from '@a2ui/core'
+import type { A2UIComponent, A2UIMessage } from '@a2ui/core'
 
 export interface MessageTemplate {
   name: string

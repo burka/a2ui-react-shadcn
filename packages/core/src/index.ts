@@ -13,11 +13,9 @@
 
 export const version = '0.1.0'
 
-// Export all types
-export type * from './types/index.js'
-
 // Export parser functionality
 export * from './parser/index.js'
-
 // Export store functionality
 export * from './store/index.js'
+// Export all types
+export type * from './types/index.js'

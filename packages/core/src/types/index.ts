@@ -5,14 +5,13 @@
 
 export type * from './components.js'
 export type * from './data.js'
-export type * from './messages.js'
-
 // Re-export utility functions
 export { getDataByPath, setDataByPath } from './data.js'
+export type * from './messages.js'
 
 export {
   isBeginRenderingMessage,
-  isSurfaceUpdateMessage,
   isDataModelUpdateMessage,
   isDeleteSurfaceMessage,
+  isSurfaceUpdateMessage,
 } from './messages.js'

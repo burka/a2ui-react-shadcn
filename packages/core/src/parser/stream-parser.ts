@@ -4,7 +4,7 @@
  */
 
 import type { A2UIMessage } from '../types/messages.js'
-import { parseMessage, MessageParseError } from './message-parser.js'
+import { MessageParseError, parseMessage } from './message-parser.js'
 
 /**
  * Callback function for parsed messages

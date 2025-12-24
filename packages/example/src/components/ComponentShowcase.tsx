@@ -1,3 +1,4 @@
+import type { A2UIMessage } from '@a2ui/core'
 import { useState } from 'react'
 import { ComponentDemo } from './ComponentDemo'
 import { LivePreview } from './LivePreview'
@@ -9,16 +10,10 @@ interface RendererExample {
   name: string
   description: string
   category: Category
-  messages: any[]
+  messages: A2UIMessage[]
 }
 
-const CATEGORIES: Category[] = [
-  'All',
-  'Layout',
-  'Display',
-  'Interactive',
-  'Container',
-]
+const CATEGORIES: Category[] = ['All', 'Layout', 'Display', 'Interactive', 'Container']
 
 export function ComponentShowcase() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All')
@@ -35,12 +30,11 @@ export function ComponentShowcase() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">
-          Component Showcase
-        </h2>
+        <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Component Showcase</h2>
         <div className="flex gap-2">
           {CATEGORIES.map((category) => (
             <button
+              type="button"
               key={category}
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -57,9 +51,7 @@ export function ComponentShowcase() {
 
       {filteredExamples.length === 0 ? (
         <div className="text-center py-16 bg-[var(--color-bg-secondary)] rounded-lg border border-[var(--color-border)]">
-          <p className="text-[var(--color-text-secondary)] mb-2">
-            No components registered yet
-          </p>
+          <p className="text-[var(--color-text-secondary)] mb-2">No components registered yet</p>
           <p className="text-sm text-[var(--color-text-tertiary)]">
             Component examples will appear here once shadcn renderers are added
           </p>

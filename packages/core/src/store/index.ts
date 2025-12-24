@@ -4,4 +4,4 @@
  */
 
 export { createStore } from './create-store.js'
-export type { A2UIStore, Surface, StoreSnapshot } from './types.js'
+export type { A2UIStore, StoreSnapshot, Surface } from './types.js'

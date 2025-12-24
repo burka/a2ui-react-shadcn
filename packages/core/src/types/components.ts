@@ -21,12 +21,7 @@ export type TextStyle = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'caption' | 'body'
 /**
  * TextField input types
  */
-export type InputType =
-  | 'date'
-  | 'longText'
-  | 'number'
-  | 'shortText'
-  | 'obscured'
+export type InputType = 'date' | 'longText' | 'number' | 'shortText' | 'obscured'
 
 /**
  * Divider orientation

@@ -1,6 +1,6 @@
-import { Component, ErrorInfo } from 'react'
-import { AlertCircle, Eye } from 'lucide-react'
 import type { A2UIMessage } from '@a2ui/core'
+import { AlertCircle, Eye } from 'lucide-react'
+import { Component, type ErrorInfo } from 'react'
 
 interface LivePreviewProps {
   messages: A2UIMessage[]
@@ -12,10 +12,7 @@ interface LivePreviewState {
   error?: Error
 }
 
-class ErrorBoundary extends Component<
-  { children: React.ReactNode },
-  LivePreviewState
-> {
+class ErrorBoundary extends Component<{ children: React.ReactNode }, LivePreviewState> {
   constructor(props: { children: React.ReactNode }) {
     super(props)
     this.state = { hasError: false }
@@ -53,9 +50,7 @@ export function LivePreview({ messages, surfaceId }: LivePreviewProps) {
   const beginMsg = messages.find((m) => 'beginRendering' in m)
   const activeSurfaceId =
     surfaceId ||
-    (beginMsg && 'beginRendering' in beginMsg
-      ? beginMsg.beginRendering.surfaceId
-      : 'preview')
+    (beginMsg && 'beginRendering' in beginMsg ? beginMsg.beginRendering.surfaceId : 'preview')
 
   // TODO: Once @a2ui/react exports A2UISurface, render it here
   // For now, show placeholder
@@ -64,9 +59,7 @@ export function LivePreview({ messages, surfaceId }: LivePreviewProps) {
     return (
       <div className="flex flex-col items-center justify-center p-8 text-center">
         <Eye className="w-12 h-12 text-[var(--color-text-tertiary)] mb-3" />
-        <p className="text-[var(--color-text-secondary)]">
-          No messages to preview
-        </p>
+        <p className="text-[var(--color-text-secondary)]">No messages to preview</p>
         <p className="text-sm text-[var(--color-text-tertiary)] mt-1">
           Send messages to see them rendered here
         </p>
@@ -101,8 +94,8 @@ export function LivePreview({ messages, surfaceId }: LivePreviewProps) {
                     if ('dataModelUpdate' in m) return 'dataModelUpdate'
                     if ('deleteSurface' in m) return 'deleteSurface'
                     return 'unknown'
-                  })
-                )
+                  }),
+                ),
               ).map((type) => (
                 <li key={type}>{type}</li>
               ))}

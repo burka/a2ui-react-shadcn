@@ -45,27 +45,19 @@ function validateBeginRendering(msg: unknown): void {
   }
 
   if (!isNonEmptyString(msg.surfaceId)) {
-    throw new MessageParseError(
-      'beginRendering.surfaceId must be a non-empty string'
-    )
+    throw new MessageParseError('beginRendering.surfaceId must be a non-empty string')
   }
 
   if (!isNonEmptyString(msg.root)) {
-    throw new MessageParseError(
-      'beginRendering.root must be a non-empty string'
-    )
+    throw new MessageParseError('beginRendering.root must be a non-empty string')
   }
 
   if (msg.catalogId !== undefined && !isNonEmptyString(msg.catalogId)) {
-    throw new MessageParseError(
-      'beginRendering.catalogId must be a string if provided'
-    )
+    throw new MessageParseError('beginRendering.catalogId must be a string if provided')
   }
 
   if (msg.style !== undefined && !isObject(msg.style)) {
-    throw new MessageParseError(
-      'beginRendering.style must be an object if provided'
-    )
+    throw new MessageParseError('beginRendering.style must be an object if provided')
   }
 }
 
@@ -78,9 +70,7 @@ function validateSurfaceUpdate(msg: unknown): void {
   }
 
   if (!isNonEmptyString(msg.surfaceId)) {
-    throw new MessageParseError(
-      'surfaceUpdate.surfaceId must be a non-empty string'
-    )
+    throw new MessageParseError('surfaceUpdate.surfaceId must be a non-empty string')
   }
 
   if (!isArray(msg.updates)) {
@@ -92,14 +82,10 @@ function validateSurfaceUpdate(msg: unknown): void {
       throw new MessageParseError('surfaceUpdate.updates[] must be objects')
     }
     if (!isNonEmptyString(update.id)) {
-      throw new MessageParseError(
-        'surfaceUpdate.updates[].id must be a non-empty string'
-      )
+      throw new MessageParseError('surfaceUpdate.updates[].id must be a non-empty string')
     }
     if (!isObject(update.component)) {
-      throw new MessageParseError(
-        'surfaceUpdate.updates[].component must be an object'
-      )
+      throw new MessageParseError('surfaceUpdate.updates[].component must be an object')
     }
   }
 }
@@ -113,15 +99,11 @@ function validateDataModelUpdate(msg: unknown): void {
   }
 
   if (!isNonEmptyString(msg.surfaceId)) {
-    throw new MessageParseError(
-      'dataModelUpdate.surfaceId must be a non-empty string'
-    )
+    throw new MessageParseError('dataModelUpdate.surfaceId must be a non-empty string')
   }
 
   if (msg.path !== undefined && !isNonEmptyString(msg.path)) {
-    throw new MessageParseError(
-      'dataModelUpdate.path must be a string if provided'
-    )
+    throw new MessageParseError('dataModelUpdate.path must be a string if provided')
   }
 
   if (!isArray(msg.values)) {
@@ -133,9 +115,7 @@ function validateDataModelUpdate(msg: unknown): void {
       throw new MessageParseError('dataModelUpdate.values[] must be objects')
     }
     if (!isNonEmptyString(value.path)) {
-      throw new MessageParseError(
-        'dataModelUpdate.values[].path must be a non-empty string'
-      )
+      throw new MessageParseError('dataModelUpdate.values[].path must be a non-empty string')
     }
     if (!('value' in value)) {
       throw new MessageParseError('dataModelUpdate.values[].value is required')
@@ -152,9 +132,7 @@ function validateDeleteSurface(msg: unknown): void {
   }
 
   if (!isNonEmptyString(msg.surfaceId)) {
-    throw new MessageParseError(
-      'deleteSurface.surfaceId must be a non-empty string'
-    )
+    throw new MessageParseError('deleteSurface.surfaceId must be a non-empty string')
   }
 }
 
@@ -171,7 +149,7 @@ export function parseMessage(json: string): A2UIMessage {
     parsed = JSON.parse(json)
   } catch (error) {
     throw new MessageParseError(
-      `Invalid JSON: ${error instanceof Error ? error.message : String(error)}`
+      `Invalid JSON: ${error instanceof Error ? error.message : String(error)}`,
     )
   }
 
@@ -201,6 +179,6 @@ export function parseMessage(json: string): A2UIMessage {
   }
 
   throw new MessageParseError(
-    'Unknown message type. Expected one of: beginRendering, surfaceUpdate, dataModelUpdate, deleteSurface'
+    'Unknown message type. Expected one of: beginRendering, surfaceUpdate, dataModelUpdate, deleteSurface',
   )
 }

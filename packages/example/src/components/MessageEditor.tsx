@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { Send, X, FileJson } from 'lucide-react'
 import type { A2UIMessage } from '@a2ui/core'
+import { FileJson, Send, X } from 'lucide-react'
+import { useState } from 'react'
 import { templates } from '../templates/example-messages'
 
 interface MessageEditorProps {
@@ -50,8 +50,8 @@ export function MessageEditor({ onSend, onClear }: MessageEditorProps) {
             className="px-3 py-1.5 text-sm bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded text-[var(--color-text-primary)] hover:bg-[var(--color-bg-tertiary)] transition-colors"
           >
             <option value="">Load Template...</option>
-            {templates.map((template, index) => (
-              <option key={index} value={index}>
+            {templates.map((template) => (
+              <option key={template.name} value={templates.indexOf(template)}>
                 {template.name}
               </option>
             ))}
@@ -75,6 +75,7 @@ export function MessageEditor({ onSend, onClear }: MessageEditorProps) {
 
       <div className="flex gap-2 mt-3">
         <button
+          type="button"
           onClick={handleSend}
           disabled={!jsonInput.trim()}
           className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded hover:bg-[var(--color-accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -83,6 +84,7 @@ export function MessageEditor({ onSend, onClear }: MessageEditorProps) {
           Send Messages
         </button>
         <button
+          type="button"
           onClick={handleClear}
           className="flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] rounded hover:bg-[var(--color-bg-tertiary)] transition-colors"
         >

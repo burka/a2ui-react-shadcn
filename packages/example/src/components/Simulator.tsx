@@ -1,10 +1,10 @@
+import type { A2UIMessage } from '@a2ui/core'
 import { useState } from 'react'
 import { ComponentShowcase } from './ComponentShowcase'
-import { MessageEditor } from './MessageEditor'
-import { LivePreview } from './LivePreview'
 import { ComponentTree } from './ComponentTree'
 import { DataModelViewer } from './DataModelViewer'
-import type { A2UIMessage } from '@a2ui/core'
+import { LivePreview } from './LivePreview'
+import { MessageEditor } from './MessageEditor'
 
 export function Simulator() {
   const [messages, setMessages] = useState<A2UIMessage[]>([])
@@ -21,12 +21,9 @@ export function Simulator() {
     <div className="min-h-screen bg-[var(--color-bg-primary)] p-6 space-y-8">
       {/* Header */}
       <header className="border-b border-[var(--color-border)] pb-6">
-        <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">
-          A2UI Simulator
-        </h1>
+        <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">A2UI Simulator</h1>
         <p className="text-[var(--color-text-secondary)]">
-          Interactive playground for testing A2UI protocol messages and
-          components
+          Interactive playground for testing A2UI protocol messages and components
         </p>
       </header>
 

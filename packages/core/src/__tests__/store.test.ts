@@ -3,7 +3,7 @@
  * Tests for A2UI store CRUD operations and subscriptions
  */
 
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { createStore } from '../store/index.js'
 import type { Surface } from '../store/types.js'
 

@@ -3,11 +3,11 @@
  * Export all parser functionality
  */
 
-export { parseMessage, MessageParseError } from './message-parser.js'
+export { MessageParseError, parseMessage } from './message-parser.js'
 export {
   createStreamParser,
+  type ErrorCallback,
+  type MessageCallback,
   parseJSONL,
   type StreamParser,
-  type MessageCallback,
-  type ErrorCallback,
 } from './stream-parser.js'
