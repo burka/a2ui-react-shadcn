@@ -63,8 +63,19 @@ import {
   CursorRenderer,
 } from './animated/index.js'
 
+// Animated Overrides - same types as standard components but with animations
+import {
+  AnimatedButtonOverride,
+  AnimatedTabsOverride,
+  AnimatedCardOverride,
+  AnimatedCheckboxOverride,
+  AnimatedModalOverride,
+  AnimatedTextOverride,
+  AnimatedSelectOverride,
+} from './animated/overrides/index.js'
+
 /**
- * Array of all shadcn renderers
+ * Array of all shadcn renderers (standard, no animations)
  */
 export const shadcnRenderers = [
   // Layout
@@ -91,6 +102,20 @@ export const shadcnRenderers = [
   ModalRenderer,
   TabsRenderer,
   ListRenderer,
+] as A2UIRenderer[]
+
+/**
+ * Animated overrides for standard components
+ * These use the SAME type names but add Framer Motion animations
+ */
+export const animatedOverrides = [
+  AnimatedButtonOverride,
+  AnimatedTabsOverride,
+  AnimatedCardOverride,
+  AnimatedCheckboxOverride,
+  AnimatedModalOverride,
+  AnimatedTextOverride,
+  AnimatedSelectOverride,
 ] as A2UIRenderer[]
 
 /**
@@ -139,21 +164,51 @@ export const animatedRenderers = [
 ] as A2UIRenderer[]
 
 /**
- * All renderers including animated components
+ * All renderers including animated components (but NOT animated overrides)
  */
 export const allRenderers = [...shadcnRenderers, ...animatedRenderers] as A2UIRenderer[]
 
 /**
+ * All renderers with animated overrides - standard components behave with animations
+ * The overrides are registered LAST so they replace the standard versions
+ */
+export const allAnimatedRenderers = [
+  ...shadcnRenderers,
+  ...animatedRenderers,
+  ...animatedOverrides,
+] as A2UIRenderer[]
+
+/**
  * Creates a shadcn renderer registry with all renderers registered
- * @param options.includeAnimated - Whether to include animated components (default: false)
+ * @param options.includeAnimated - Include animated components (RippleButton, etc.)
+ * @param options.useAnimatedOverrides - Replace standard components with animated versions
  * @returns A component registry with all shadcn renderers
  */
-export function createShadcnRegistry(options?: { includeAnimated?: boolean }) {
+export function createShadcnRegistry(options?: {
+  includeAnimated?: boolean
+  useAnimatedOverrides?: boolean
+}) {
   const registry = createRegistry()
-  const renderers = options?.includeAnimated ? allRenderers : shadcnRenderers
-  for (const renderer of renderers) {
+
+  // Register standard renderers first
+  for (const renderer of shadcnRenderers) {
     registry.register(renderer)
   }
+
+  // Add animated components if requested
+  if (options?.includeAnimated) {
+    for (const renderer of animatedRenderers) {
+      registry.register(renderer)
+    }
+  }
+
+  // Register overrides LAST to replace standard components with animated versions
+  if (options?.useAnimatedOverrides) {
+    for (const renderer of animatedOverrides) {
+      registry.register(renderer)
+    }
+  }
+
   return registry
 }
 
@@ -167,6 +222,17 @@ export function createAnimatedRegistry() {
     registry.register(renderer)
   }
   return registry
+}
+
+/**
+ * Creates a fully animated registry - all standard components are replaced with animated versions
+ * @returns A component registry where Button, Card, Tabs, etc. all have animations
+ */
+export function createFullyAnimatedRegistry() {
+  return createShadcnRegistry({
+    includeAnimated: true,
+    useAnimatedOverrides: true,
+  })
 }
 
 // Re-export all animated components for individual use
@@ -209,6 +275,14 @@ export {
   SpotlightRenderer,
   MorphingIconRenderer,
   CursorRenderer,
+  // Overrides
+  AnimatedButtonOverride,
+  AnimatedTabsOverride,
+  AnimatedCardOverride,
+  AnimatedCheckboxOverride,
+  AnimatedModalOverride,
+  AnimatedTextOverride,
+  AnimatedSelectOverride,
 }
 
 export type { RendererRegistry } from './types.js'
