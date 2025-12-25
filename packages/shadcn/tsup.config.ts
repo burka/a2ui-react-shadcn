@@ -1,15 +1,20 @@
 import { defineConfig } from 'tsup'
 
+const isWatch = process.argv.includes('--watch')
+
 export default defineConfig({
   entry: ['src/index.ts'],
   format: ['esm', 'cjs'],
   dts: true,
-  clean: true,
+  clean: !isWatch,
   sourcemap: true,
   splitting: false,
   treeshake: true,
-  // Only externalize React - bundle everything else including a2ui-shadcn-ui-core and a2ui-shadcn-ui-react
-  external: ['react', 'react-dom', 'react/jsx-runtime'],
-  // Ensure internal packages are bundled
-  noExternal: ['a2ui-shadcn-ui-core', 'a2ui-shadcn-ui-react'],
+  // In watch mode, externalize workspace deps to avoid race conditions with parallel rebuilds
+  // In build mode, bundle them for the final publishable package
+  external: isWatch
+    ? ['react', 'react-dom', 'react/jsx-runtime', 'a2ui-shadcn-ui-core', 'a2ui-shadcn-ui-react']
+    : ['react', 'react-dom', 'react/jsx-runtime'],
+  // Only bundle internal packages in production build, not in watch mode
+  noExternal: isWatch ? [] : ['a2ui-shadcn-ui-core', 'a2ui-shadcn-ui-react'],
 })

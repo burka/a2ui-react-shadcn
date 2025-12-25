@@ -10,8 +10,10 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      // Map the published package name to local source for development
+      // Map package names to local source for development
       'a2ui-shadcn-ui': path.join(monorepoRoot, 'packages/shadcn/src'),
+      'a2ui-shadcn-ui-core': path.join(monorepoRoot, 'packages/core/src'),
+      'a2ui-shadcn-ui-react': path.join(monorepoRoot, 'packages/react/src'),
     },
   },
 })
