@@ -11,6 +11,7 @@ interface ComponentCardProps {
   description: string
   category: Category
   messages: A2UIMessage[]
+  rendererCode?: string
 }
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -27,7 +28,13 @@ const CATEGORY_LABELS: Record<Category, string> = {
   container: 'Container',
 }
 
-export function ComponentCard({ name, description, category, messages }: ComponentCardProps) {
+export function ComponentCard({
+  name,
+  description,
+  category,
+  messages,
+  rendererCode,
+}: ComponentCardProps) {
   const [codeModalOpen, setCodeModalOpen] = useState(false)
   const [lastAction, setLastAction] = useState<A2UIAction | null>(null)
 
@@ -84,6 +91,7 @@ export function ComponentCard({ name, description, category, messages }: Compone
         messages={messages}
         open={codeModalOpen}
         onOpenChange={setCodeModalOpen}
+        customRendererCode={rendererCode}
       />
     </div>
   )

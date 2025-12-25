@@ -9,6 +9,10 @@ Object.assign(navigator, {
   },
 })
 
+// Mock HTMLDialogElement methods (jsdom doesn't support them)
+HTMLDialogElement.prototype.showModal = vi.fn()
+HTMLDialogElement.prototype.close = vi.fn()
+
 describe('CodeModal', () => {
   const mockMessages = [
     { beginRendering: { surfaceId: 'test', root: 'root' } },
@@ -59,8 +63,8 @@ describe('CodeModal', () => {
       />,
     )
 
-    // Find and click the close button
-    const closeButton = screen.getByRole('button', { name: /close/i })
+    // Find and click the close button (use hidden: true since dialog is not modal in jsdom)
+    const closeButton = screen.getByRole('button', { name: /close/i, hidden: true })
     fireEvent.click(closeButton)
 
     expect(onOpenChange).toHaveBeenCalledWith(false)

@@ -36,15 +36,15 @@ export const DateTimeInputRenderer: A2UIRenderer<DateTimeInputComponent> = {
     category: 'interactive',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'datetime-example',
           root: 'col-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'datetime-example',
-          updates: [
+          components: [
             {
               id: 'col-1',
               component: {

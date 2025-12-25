@@ -31,15 +31,15 @@ export const CheckboxRenderer: A2UIRenderer<CheckboxComponent> = {
     category: 'interactive',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'checkbox-example',
           root: 'col-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'checkbox-example',
-          updates: [
+          components: [
             {
               id: 'col-1',
               component: {

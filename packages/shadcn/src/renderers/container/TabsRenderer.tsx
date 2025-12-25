@@ -31,15 +31,15 @@ export const TabsRenderer: A2UIRenderer<TabsComponent> = {
     category: 'container',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'tabs-example',
           root: 'tabs-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'tabs-example',
-          updates: [
+          components: [
             {
               id: 'tabs-1',
               component: {

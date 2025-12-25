@@ -23,15 +23,15 @@ export const ModalRenderer: A2UIRenderer<ModalComponent> = {
     category: 'container',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'modal-example',
           root: 'modal-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'modal-example',
-          updates: [
+          components: [
             {
               id: 'modal-1',
               component: {

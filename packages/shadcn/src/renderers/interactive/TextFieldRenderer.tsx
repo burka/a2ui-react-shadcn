@@ -70,15 +70,15 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
     category: 'interactive',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'textfield-example',
           root: 'col-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'textfield-example',
-          updates: [
+          components: [
             {
               id: 'col-1',
               component: {

@@ -137,6 +137,85 @@ function validateDeleteSurface(msg: unknown): void {
 }
 
 /**
+ * Validates a createSurface message (v0.9)
+ */
+function validateCreateSurface(msg: unknown): void {
+  if (!isObject(msg)) {
+    throw new MessageParseError('createSurface must be an object')
+  }
+
+  if (!isNonEmptyString(msg.surfaceId)) {
+    throw new MessageParseError('createSurface.surfaceId must be a non-empty string')
+  }
+
+  if (!isNonEmptyString(msg.root)) {
+    throw new MessageParseError('createSurface.root must be a non-empty string')
+  }
+
+  if (msg.catalogId !== undefined && !isNonEmptyString(msg.catalogId)) {
+    throw new MessageParseError('createSurface.catalogId must be a string if provided')
+  }
+
+  if (msg.style !== undefined && !isObject(msg.style)) {
+    throw new MessageParseError('createSurface.style must be an object if provided')
+  }
+}
+
+/**
+ * Validates an updateComponents message (v0.9)
+ */
+function validateUpdateComponents(msg: unknown): void {
+  if (!isObject(msg)) {
+    throw new MessageParseError('updateComponents must be an object')
+  }
+
+  if (!isNonEmptyString(msg.surfaceId)) {
+    throw new MessageParseError('updateComponents.surfaceId must be a non-empty string')
+  }
+
+  if (!isArray(msg.components)) {
+    throw new MessageParseError('updateComponents.components must be an array')
+  }
+
+  for (const component of msg.components) {
+    if (!isObject(component)) {
+      throw new MessageParseError('updateComponents.components[] must be objects')
+    }
+    if (!isNonEmptyString(component.id)) {
+      throw new MessageParseError('updateComponents.components[].id must be a non-empty string')
+    }
+    if (!isObject(component.component)) {
+      throw new MessageParseError('updateComponents.components[].component must be an object')
+    }
+  }
+}
+
+/**
+ * Validates an updateDataModel message (v0.9)
+ */
+function validateUpdateDataModel(msg: unknown): void {
+  if (!isObject(msg)) {
+    throw new MessageParseError('updateDataModel must be an object')
+  }
+
+  if (!isNonEmptyString(msg.surfaceId)) {
+    throw new MessageParseError('updateDataModel.surfaceId must be a non-empty string')
+  }
+
+  if (msg.path !== undefined && !isNonEmptyString(msg.path)) {
+    throw new MessageParseError('updateDataModel.path must be a string if provided')
+  }
+
+  if (msg.op !== undefined) {
+    if (typeof msg.op !== 'string' || !['add', 'replace', 'remove'].includes(msg.op)) {
+      throw new MessageParseError('updateDataModel.op must be one of: add, replace, remove')
+    }
+  }
+
+  // value can be any type, no validation needed
+}
+
+/**
  * Parse and validate an A2UI message from JSON string
  * @param json - JSON string to parse
  * @returns Validated A2UI message
@@ -158,13 +237,29 @@ export function parseMessage(json: string): A2UIMessage {
   }
 
   // Check which message type this is
+  // v0.9 messages take precedence over v0.8
+  if ('createSurface' in parsed) {
+    validateCreateSurface(parsed.createSurface)
+    return parsed as unknown as A2UIMessage
+  }
+
   if ('beginRendering' in parsed) {
     validateBeginRendering(parsed.beginRendering)
     return parsed as unknown as A2UIMessage
   }
 
+  if ('updateComponents' in parsed) {
+    validateUpdateComponents(parsed.updateComponents)
+    return parsed as unknown as A2UIMessage
+  }
+
   if ('surfaceUpdate' in parsed) {
     validateSurfaceUpdate(parsed.surfaceUpdate)
+    return parsed as unknown as A2UIMessage
+  }
+
+  if ('updateDataModel' in parsed) {
+    validateUpdateDataModel(parsed.updateDataModel)
     return parsed as unknown as A2UIMessage
   }
 
@@ -179,6 +274,6 @@ export function parseMessage(json: string): A2UIMessage {
   }
 
   throw new MessageParseError(
-    'Unknown message type. Expected one of: beginRendering, surfaceUpdate, dataModelUpdate, deleteSurface',
+    'Unknown message type. Expected one of: createSurface, beginRendering, updateComponents, surfaceUpdate, updateDataModel, dataModelUpdate, deleteSurface',
   )
 }

@@ -40,15 +40,15 @@ export const SelectRenderer: A2UIRenderer<SelectComponent> = {
     category: 'interactive',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'select-example',
           root: 'col-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'select-example',
-          updates: [
+          components: [
             {
               id: 'col-1',
               component: {

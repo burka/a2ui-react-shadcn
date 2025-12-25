@@ -1,0 +1,109 @@
+import type { VideoComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import { useState } from 'react'
+import { cn } from '../../lib/utils.js'
+
+export const VideoRenderer: A2UIRenderer<VideoComponent> = {
+  type: 'Video',
+  render: ({ component }: RendererProps<VideoComponent>) => {
+    const {
+      url,
+      poster,
+      autoplay = false,
+      controls = true,
+      loop = false,
+      muted = false,
+    } = component
+    const [hasError, setHasError] = useState(false)
+
+    const handleError = () => {
+      setHasError(true)
+    }
+
+    if (hasError) {
+      return (
+        <div
+          className={cn(
+            'flex items-center justify-center rounded-md border border-red-500 bg-red-50 dark:bg-red-900/20 p-4',
+            'text-sm text-red-600 dark:text-red-400',
+          )}
+        >
+          <span>Failed to load video</span>
+        </div>
+      )
+    }
+
+    return (
+      <video
+        src={url}
+        poster={poster}
+        autoPlay={autoplay}
+        controls={controls}
+        loop={loop}
+        muted={muted}
+        onError={handleError}
+        className="max-w-full rounded-md"
+      >
+        Your browser does not support the video element.
+      </video>
+    )
+  },
+  example: {
+    name: 'Video',
+    description: 'HTML5 video player with controls',
+    category: 'display',
+    messages: [
+      {
+        createSurface: {
+          surfaceId: 'video-example',
+          root: 'root',
+        },
+      },
+      {
+        updateComponents: {
+          surfaceId: 'video-example',
+          components: [
+            {
+              id: 'root',
+              component: {
+                type: 'Column',
+                id: 'root',
+                distribution: 'packed',
+                children: ['title', 'video', 'caption'],
+              },
+            },
+            {
+              id: 'title',
+              component: {
+                type: 'Text',
+                id: 'title',
+                content: 'Video Player Example',
+                style: 'h3',
+              },
+            },
+            {
+              id: 'video',
+              component: {
+                type: 'Video',
+                id: 'video',
+                url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+                controls: true,
+                loop: false,
+                muted: false,
+              },
+            },
+            {
+              id: 'caption',
+              component: {
+                type: 'Text',
+                id: 'caption',
+                content: 'HTML5 video with controls and error handling',
+                style: 'caption',
+              },
+            },
+          ],
+        },
+      },
+    ],
+  },
+}

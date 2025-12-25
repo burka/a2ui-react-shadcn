@@ -3,7 +3,6 @@ import { useA2UI } from 'a2ui-shadcn-ui'
 import { Copy, Github, Terminal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatedButtonExample } from '../components/AnimatedButtonExample'
 import { ComponentCard } from '../components/ComponentCard'
 import { ThemeToggle } from '../components/ThemeToggle'
 
@@ -16,6 +15,7 @@ interface RendererExample {
   description: string
   category: BaseCategory
   messages: A2UIMessage[]
+  rendererCode?: string
 }
 
 const CATEGORIES: Category[] = ['All', 'layout', 'display', 'interactive', 'container']
@@ -45,6 +45,7 @@ export function HomePage() {
         description: r.example!.description,
         category: r.example!.category as BaseCategory,
         messages: r.example!.messages,
+        rendererCode: (r as { rendererCode?: string }).rendererCode,
       }))
   }, [registry])
 
@@ -231,13 +232,16 @@ function MyComponent() {
 
         {/* Customization Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">
-            Customize Any Component
-          </h2>
-          <p className="text-[var(--color-text-secondary)] mb-6">
-            A2UI's registry pattern lets you replace any built-in renderer
-          </p>
-          <AnimatedButtonExample />
+          <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">
+              Customize Any Component
+            </h2>
+            <p className="text-[var(--color-text-secondary)]">
+              A2UI's registry pattern lets you replace any built-in renderer with your own
+              implementation. Check out the <strong>Animated Button</strong> in the gallery below
+              for a working example with full source code.
+            </p>
+          </div>
         </section>
 
         {/* Component Gallery */}
@@ -287,6 +291,7 @@ function MyComponent() {
                   description={example.description}
                   category={example.category}
                   messages={example.messages}
+                  rendererCode={example.rendererCode}
                 />
               ))}
             </div>

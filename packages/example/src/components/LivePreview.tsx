@@ -48,11 +48,16 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, LivePreview
 }
 
 export function LivePreview({ messages, surfaceId, onAction }: LivePreviewProps) {
-  // Extract surface ID from messages if not provided
-  const beginMsg = messages.find((m) => 'beginRendering' in m)
-  const activeSurfaceId =
-    surfaceId ||
-    (beginMsg && 'beginRendering' in beginMsg ? beginMsg.beginRendering.surfaceId : 'preview')
+  // Extract surface ID from messages if not provided (support both v0.8 and v0.9)
+  const beginMsg = messages.find((m) => 'beginRendering' in m || 'createSurface' in m)
+  let activeSurfaceId = surfaceId || 'preview'
+  if (!surfaceId && beginMsg) {
+    if ('createSurface' in beginMsg) {
+      activeSurfaceId = beginMsg.createSurface.surfaceId
+    } else if ('beginRendering' in beginMsg) {
+      activeSurfaceId = beginMsg.beginRendering.surfaceId
+    }
+  }
 
   if (messages.length === 0) {
     return (

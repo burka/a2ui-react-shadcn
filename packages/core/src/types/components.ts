@@ -81,6 +81,24 @@ export interface DividerComponent extends BaseComponent {
   orientation?: Orientation
 }
 
+export interface VideoComponent extends BaseComponent {
+  type: 'Video'
+  url: string
+  poster?: string
+  autoplay?: boolean
+  controls?: boolean
+  loop?: boolean
+  muted?: boolean
+}
+
+export interface AudioPlayerComponent extends BaseComponent {
+  type: 'AudioPlayer'
+  url: string
+  autoplay?: boolean
+  controls?: boolean
+  loop?: boolean
+}
+
 /**
  * Interactive Components
  */
@@ -145,6 +163,15 @@ export interface MultipleChoiceComponent extends BaseComponent {
   dataPath?: string
 }
 
+export interface AnimatedButtonComponent extends BaseComponent {
+  type: 'AnimatedButton'
+  child: string
+  primary?: boolean
+  action?: string
+  actionPayload?: Record<string, unknown>
+  submitDataPaths?: string[]
+}
+
 /**
  * Container Components
  */
@@ -186,6 +213,8 @@ export type A2UIComponent =
   | ImageComponent
   | IconComponent
   | DividerComponent
+  | VideoComponent
+  | AudioPlayerComponent
   | ButtonComponent
   | TextFieldComponent
   | CheckboxComponent
@@ -193,6 +222,7 @@ export type A2UIComponent =
   | SliderComponent
   | DateTimeInputComponent
   | MultipleChoiceComponent
+  | AnimatedButtonComponent
   | CardComponent
   | ModalComponent
   | TabsComponent

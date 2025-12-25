@@ -17,7 +17,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
       h3: { tag: 'h3', className: 'text-2xl font-semibold' },
       h4: { tag: 'h4', className: 'text-xl font-medium' },
       h5: { tag: 'h5', className: 'text-lg font-medium' },
-      caption: { tag: 'span', className: 'text-sm text-muted-foreground' },
+      caption: { tag: 'span', className: 'text-sm text-gray-500 dark:text-gray-400' },
       body: { tag: 'p', className: 'text-base' },
     }
 
@@ -33,15 +33,15 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
     category: 'display',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'text-demo',
           root: 'root',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'text-demo',
-          updates: [
+          components: [
             {
               id: 'root',
               component: {

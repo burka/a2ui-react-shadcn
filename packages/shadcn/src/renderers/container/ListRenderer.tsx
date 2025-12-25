@@ -16,15 +16,15 @@ export const ListRenderer: A2UIRenderer<ListComponent> = {
     category: 'container',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'list-example',
           root: 'list-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'list-example',
-          updates: [
+          components: [
             {
               id: 'list-1',
               component: {

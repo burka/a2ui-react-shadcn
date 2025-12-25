@@ -16,7 +16,7 @@ export const IconRenderer: A2UIRenderer<IconComponent> = {
     if (!IconComponent) {
       return (
         <HelpCircle
-          className={cn('h-5 w-5 text-muted-foreground')}
+          className={cn('h-5 w-5 text-gray-500 dark:text-gray-400')}
           aria-label={`Unknown icon: ${name}`}
         />
       )
@@ -30,15 +30,15 @@ export const IconRenderer: A2UIRenderer<IconComponent> = {
     category: 'display',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'icon-demo',
           root: 'root',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'icon-demo',
-          updates: [
+          components: [
             {
               id: 'root',
               component: {

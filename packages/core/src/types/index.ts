@@ -11,7 +11,10 @@ export type * from './messages.js'
 
 export {
   isBeginRenderingMessage,
+  isCreateSurfaceMessage,
   isDataModelUpdateMessage,
   isDeleteSurfaceMessage,
   isSurfaceUpdateMessage,
+  isUpdateComponentsMessage,
+  isUpdateDataModelMessage,
 } from './messages.js'

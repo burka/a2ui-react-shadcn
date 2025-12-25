@@ -1,8 +1,16 @@
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { createRegistry } from 'a2ui-shadcn-ui-react'
 import { CardRenderer, ListRenderer, ModalRenderer, TabsRenderer } from './container/index.js'
-import { DividerRenderer, IconRenderer, ImageRenderer, TextRenderer } from './display/index.js'
 import {
+  AudioPlayerRenderer,
+  DividerRenderer,
+  IconRenderer,
+  ImageRenderer,
+  TextRenderer,
+  VideoRenderer,
+} from './display/index.js'
+import {
+  AnimatedButtonRenderer,
   ButtonRenderer,
   CheckboxRenderer,
   DateTimeInputRenderer,
@@ -25,8 +33,11 @@ export const shadcnRenderers = [
   ImageRenderer,
   IconRenderer,
   DividerRenderer,
+  VideoRenderer,
+  AudioPlayerRenderer,
   // Interactive
   ButtonRenderer,
+  AnimatedButtonRenderer,
   TextFieldRenderer,
   CheckboxRenderer,
   SelectRenderer,

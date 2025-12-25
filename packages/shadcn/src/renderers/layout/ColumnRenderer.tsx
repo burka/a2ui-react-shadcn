@@ -36,12 +36,12 @@ export const ColumnRenderer: A2UIRenderer<ColumnComponent> = {
     category: 'layout',
     messages: [
       {
-        beginRendering: { surfaceId: 'column-demo', root: 'form' },
+        createSurface: { surfaceId: 'column-demo', root: 'form' },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'column-demo',
-          updates: [
+          components: [
             {
               id: 'form',
               component: {

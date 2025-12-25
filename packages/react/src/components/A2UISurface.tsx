@@ -7,9 +7,12 @@ import type { A2UIComponent, A2UIMessage } from 'a2ui-shadcn-ui-core'
 import {
   createStreamParser,
   isBeginRenderingMessage,
+  isCreateSurfaceMessage,
   isDataModelUpdateMessage,
   isDeleteSurfaceMessage,
   isSurfaceUpdateMessage,
+  isUpdateComponentsMessage,
+  isUpdateDataModelMessage,
 } from 'a2ui-shadcn-ui-core'
 import { useEffect, useState } from 'react'
 import { useA2UI } from '../hooks/useA2UI.js'
@@ -37,8 +40,10 @@ export interface A2UISurfaceProps {
  * Process a single A2UI message and update the store
  */
 function processMessage(message: A2UIMessage, store: ReturnType<typeof useA2UI>['store']): void {
-  if (isBeginRenderingMessage(message)) {
-    const { surfaceId, root, catalogId, style } = message.beginRendering
+  // Handle create surface (v0.9) or begin rendering (v0.8)
+  if (isCreateSurfaceMessage(message) || isBeginRenderingMessage(message)) {
+    const payload = isCreateSurfaceMessage(message) ? message.createSurface : message.beginRendering
+    const { surfaceId, root, catalogId, style } = payload
     store.setSurface(surfaceId, {
       id: surfaceId,
       root,
@@ -47,8 +52,20 @@ function processMessage(message: A2UIMessage, store: ReturnType<typeof useA2UI>[
       components: {},
       data: {},
     })
-  } else if (isSurfaceUpdateMessage(message)) {
-    const { surfaceId, updates } = message.surfaceUpdate
+  }
+  // Handle update components (v0.9) or surface update (v0.8)
+  else if (isUpdateComponentsMessage(message) || isSurfaceUpdateMessage(message)) {
+    let surfaceId: string
+    let componentUpdates: Array<{ id: string; component: unknown }>
+
+    if (isUpdateComponentsMessage(message)) {
+      surfaceId = message.updateComponents.surfaceId
+      componentUpdates = message.updateComponents.components
+    } else {
+      surfaceId = message.surfaceUpdate.surfaceId
+      componentUpdates = message.surfaceUpdate.updates
+    }
+
     const surface = store.getSurface(surfaceId)
     if (!surface) {
       console.warn(`Surface not found for update: ${surfaceId}`)
@@ -57,20 +74,38 @@ function processMessage(message: A2UIMessage, store: ReturnType<typeof useA2UI>[
 
     // Apply component updates
     const updatedComponents = { ...surface.components }
-    for (const update of updates) {
+    for (const update of componentUpdates) {
       // Store the component directly - types are validated at parse time
       updatedComponents[update.id] = update.component as unknown as A2UIComponent
     }
     surface.components = updatedComponents
 
     store.setSurface(surfaceId, { ...surface })
-  } else if (isDataModelUpdateMessage(message)) {
-    const { surfaceId, path, values } = message.dataModelUpdate
-    const basePath = path ?? ''
+  }
+  // Handle update data model (v0.9) or data model update (v0.8)
+  else if (isUpdateDataModelMessage(message) || isDataModelUpdateMessage(message)) {
+    if (isUpdateDataModelMessage(message)) {
+      // v0.9 format - single value update with op
+      const { surfaceId, path, value, op } = message.updateDataModel
 
-    for (const { path: valuePath, value } of values) {
-      const fullPath = basePath ? `${basePath}.${valuePath}` : valuePath
-      store.setData(surfaceId, fullPath, value)
+      if (path) {
+        if (op === 'remove') {
+          // For remove operation, delete the data
+          store.setData(surfaceId, path, undefined)
+        } else {
+          // For add/replace or no op, set the value
+          store.setData(surfaceId, path, value)
+        }
+      }
+    } else {
+      // v0.8 format - array of values
+      const { surfaceId, path, values } = message.dataModelUpdate
+      const basePath = path ?? ''
+
+      for (const { path: valuePath, value } of values) {
+        const fullPath = basePath ? `${basePath}.${valuePath}` : valuePath
+        store.setData(surfaceId, fullPath, value)
+      }
     }
   } else if (isDeleteSurfaceMessage(message)) {
     store.deleteSurface(message.deleteSurface.surfaceId)

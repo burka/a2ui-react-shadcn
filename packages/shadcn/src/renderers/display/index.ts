@@ -1,4 +1,6 @@
+export { AudioPlayerRenderer } from './AudioPlayerRenderer.js'
 export { DividerRenderer } from './DividerRenderer.js'
 export { IconRenderer } from './IconRenderer.js'
 export { ImageRenderer } from './ImageRenderer.js'
 export { TextRenderer } from './TextRenderer.js'
+export { VideoRenderer } from './VideoRenderer.js'

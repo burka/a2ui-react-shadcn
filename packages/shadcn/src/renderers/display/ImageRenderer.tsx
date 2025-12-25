@@ -23,8 +23,8 @@ export const ImageRenderer: A2UIRenderer<ImageComponent> = {
       return (
         <div
           className={cn(
-            'flex items-center justify-center rounded-md border border-destructive bg-destructive/10 p-4',
-            'text-sm text-destructive',
+            'flex items-center justify-center rounded-md border border-red-500 bg-red-50 dark:bg-red-900/20 p-4',
+            'text-sm text-red-600 dark:text-red-400',
           )}
         >
           <span>Failed to load image</span>
@@ -37,11 +37,11 @@ export const ImageRenderer: A2UIRenderer<ImageComponent> = {
         {isLoading && (
           <div
             className={cn(
-              'absolute inset-0 animate-pulse rounded-md bg-muted',
+              'absolute inset-0 animate-pulse rounded-md bg-gray-100 dark:bg-gray-800',
               'flex items-center justify-center',
             )}
           >
-            <span className="text-xs text-muted-foreground">Loading...</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Loading...</span>
           </div>
         )}
         <img
@@ -63,15 +63,15 @@ export const ImageRenderer: A2UIRenderer<ImageComponent> = {
     category: 'display',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'image-demo',
           root: 'root',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'image-demo',
-          updates: [
+          components: [
             {
               id: 'root',
               component: {

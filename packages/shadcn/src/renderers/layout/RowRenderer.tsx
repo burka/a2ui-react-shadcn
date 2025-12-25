@@ -36,12 +36,12 @@ export const RowRenderer: A2UIRenderer<RowComponent> = {
     category: 'layout',
     messages: [
       {
-        beginRendering: { surfaceId: 'row-demo', root: 'toolbar' },
+        createSurface: { surfaceId: 'row-demo', root: 'toolbar' },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'row-demo',
-          updates: [
+          components: [
             {
               id: 'toolbar',
               component: {

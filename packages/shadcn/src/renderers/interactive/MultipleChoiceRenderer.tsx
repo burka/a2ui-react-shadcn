@@ -52,7 +52,7 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
           )
         })}
         {component.maxSelections !== undefined && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             {currentSelection.length} of {component.maxSelections} selected
           </p>
         )}
@@ -65,15 +65,15 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
     category: 'interactive',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'multiplechoice-example',
           root: 'col-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'multiplechoice-example',
-          updates: [
+          components: [
             {
               id: 'col-1',
               component: {

@@ -16,15 +16,15 @@ export const CardRenderer: A2UIRenderer<CardComponent> = {
     category: 'container',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'card-example',
           root: 'card-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'card-example',
-          updates: [
+          components: [
             {
               id: 'card-1',
               component: {

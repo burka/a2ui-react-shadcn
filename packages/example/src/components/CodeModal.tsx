@@ -7,9 +7,16 @@ interface CodeModalProps {
   messages: A2UIMessage[]
   open: boolean
   onOpenChange: (open: boolean) => void
+  customRendererCode?: string
 }
 
-export function CodeModal({ componentName, messages, open, onOpenChange }: CodeModalProps) {
+export function CodeModal({
+  componentName,
+  messages,
+  open,
+  onOpenChange,
+  customRendererCode,
+}: CodeModalProps) {
   const [copiedSection, setCopiedSection] = useState<string | null>(null)
   const dialogRef = useRef<HTMLDialogElement>(null)
 
@@ -73,6 +80,7 @@ function MyComponent() {
           type="button"
           onClick={() => onOpenChange(false)}
           className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+          aria-label="Close"
         >
           <X className="w-5 h-5" />
         </button>
@@ -106,6 +114,22 @@ function MyComponent() {
             <code>{reactCode}</code>
           </pre>
         </section>
+
+        {/* Custom Renderer Section */}
+        {customRendererCode && (
+          <section>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-semibold">Custom Renderer</h3>
+              <CopyButton
+                onClick={() => handleCopy(customRendererCode, 'custom')}
+                copied={copiedSection === 'custom'}
+              />
+            </div>
+            <pre className="text-xs bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border overflow-x-auto max-h-[200px]">
+              <code>{customRendererCode}</code>
+            </pre>
+          </section>
+        )}
       </div>
     </dialog>
   )

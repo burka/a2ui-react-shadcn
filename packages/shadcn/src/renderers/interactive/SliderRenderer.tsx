@@ -18,18 +18,16 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
     const step = component.step ?? 1
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-2 w-full min-w-[200px]">
         <Slider
           min={min}
           max={max}
           step={step}
-          value={[value || min]}
+          value={[value ?? min]}
           onValueChange={handleChange}
           className="w-full"
         />
-        <div className="text-sm text-muted-foreground text-center">
-          {value !== undefined ? value : min}
-        </div>
+        <div className="text-sm text-gray-500 dark:text-gray-400 text-center">{value ?? min}</div>
       </div>
     )
   },
@@ -39,15 +37,15 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
     category: 'interactive',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'slider-example',
           root: 'col-1',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'slider-example',
-          updates: [
+          components: [
             {
               id: 'col-1',
               component: {

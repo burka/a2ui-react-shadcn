@@ -4,10 +4,10 @@
  */
 
 import type {
-  BeginRenderingMessage,
   ComponentUpdate,
-  DataModelUpdateMessage,
-  SurfaceUpdateMessage,
+  CreateSurfaceMessage,
+  UpdateComponentsMessage,
+  UpdateDataModelMessage,
 } from '../types/index.js'
 
 /**
@@ -62,10 +62,8 @@ export function buildMessages(
   surfaceId: string,
   root: ComponentNode,
   initialData?: Record<string, unknown>,
-):
-  | [BeginRenderingMessage, SurfaceUpdateMessage]
-  | [BeginRenderingMessage, SurfaceUpdateMessage, DataModelUpdateMessage] {
-  const updates: ComponentUpdate[] = []
+): Array<CreateSurfaceMessage | UpdateComponentsMessage | UpdateDataModelMessage> {
+  const components: ComponentUpdate[] = []
   let idCounter = 0
 
   function generateId(type: string): string {
@@ -120,21 +118,22 @@ export function buildMessages(
       }))
     }
 
-    updates.push({ id, component })
+    components.push({ id, component })
     return id
   }
 
   const rootId = processNode(root)
 
-  const result: [BeginRenderingMessage, SurfaceUpdateMessage] = [
-    { beginRendering: { surfaceId, root: rootId } },
-    { surfaceUpdate: { surfaceId, updates } },
+  const result: Array<CreateSurfaceMessage | UpdateComponentsMessage | UpdateDataModelMessage> = [
+    { createSurface: { surfaceId, root: rootId } },
+    { updateComponents: { surfaceId, components } },
   ]
 
-  // Add dataModelUpdate if initialData provided
+  // Add updateDataModel messages if initialData provided (one per key)
   if (initialData && Object.keys(initialData).length > 0) {
-    const dataValues = Object.entries(initialData).map(([path, value]) => ({ path, value }))
-    return [...result, { dataModelUpdate: { surfaceId, values: dataValues } }]
+    for (const [path, value] of Object.entries(initialData)) {
+      result.push({ updateDataModel: { surfaceId, path, op: 'add', value } })
+    }
   }
 
   return result

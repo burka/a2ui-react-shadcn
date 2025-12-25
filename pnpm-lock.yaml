@@ -200,6 +200,9 @@ importers:
       a2ui-shadcn-ui-react:
         specifier: workspace:*
         version: link:../react
+      framer-motion:
+        specifier: ^12.23.26
+        version: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1

@@ -1,19 +1,17 @@
-import type { ButtonComponent } from 'a2ui-shadcn-ui-core'
+import type { AnimatedButtonComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
-import { Button } from '../../components/ui/button.js'
 
-export const ButtonRenderer: A2UIRenderer<ButtonComponent> = {
-  type: 'Button',
-  render: ({ component, children, data, onAction }: RendererProps<ButtonComponent>) => {
+export const AnimatedButtonRenderer: A2UIRenderer<AnimatedButtonComponent> = {
+  type: 'AnimatedButton',
+  render: ({ component, children, data, onAction }: RendererProps<AnimatedButtonComponent>) => {
     const handleClick = () => {
       if (component.action) {
-        // Build payload from static actionPayload and data model paths
         const payload: Record<string, unknown> = component.actionPayload
           ? { ...component.actionPayload }
           : {}
 
-        // Read values from data model for specified paths
         if (component.submitDataPaths) {
           for (const path of component.submitDataPaths) {
             const value = data.get(path)
@@ -31,25 +29,35 @@ export const ButtonRenderer: A2UIRenderer<ButtonComponent> = {
     }
 
     return (
-      <Button variant={component.primary ? 'default' : 'outline'} onClick={handleClick}>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+        onClick={handleClick}
+        className={
+          component.primary
+            ? 'bg-blue-600 text-white shadow hover:bg-blue-700 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
+            : 'border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
+        }
+      >
         {children as ReactNode}
-      </Button>
+      </motion.button>
     )
   },
   example: {
-    name: 'Button',
-    description: 'Clickable button with primary/secondary variants',
+    name: 'Animated Button',
+    description: 'Button with spring animations using framer-motion',
     category: 'interactive',
     messages: [
       {
         createSurface: {
-          surfaceId: 'button-example',
+          surfaceId: 'animated-button-example',
           root: 'row-1',
         },
       },
       {
         updateComponents: {
-          surfaceId: 'button-example',
+          surfaceId: 'animated-button-example',
           components: [
             {
               id: 'row-1',
@@ -63,7 +71,7 @@ export const ButtonRenderer: A2UIRenderer<ButtonComponent> = {
             {
               id: 'btn-primary',
               component: {
-                type: 'Button',
+                type: 'AnimatedButton',
                 id: 'btn-primary',
                 child: 'text-primary',
                 primary: true,
@@ -75,13 +83,13 @@ export const ButtonRenderer: A2UIRenderer<ButtonComponent> = {
               component: {
                 type: 'Text',
                 id: 'text-primary',
-                content: 'Primary Button',
+                content: 'Animated Primary',
               },
             },
             {
               id: 'btn-secondary',
               component: {
-                type: 'Button',
+                type: 'AnimatedButton',
                 id: 'btn-secondary',
                 child: 'text-secondary',
                 primary: false,
@@ -93,7 +101,7 @@ export const ButtonRenderer: A2UIRenderer<ButtonComponent> = {
               component: {
                 type: 'Text',
                 id: 'text-secondary',
-                content: 'Secondary Button',
+                content: 'Animated Secondary',
               },
             },
           ],

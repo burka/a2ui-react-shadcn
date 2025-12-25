@@ -15,15 +15,15 @@ export const DividerRenderer: A2UIRenderer<DividerComponent> = {
     category: 'display',
     messages: [
       {
-        beginRendering: {
+        createSurface: {
           surfaceId: 'divider-demo',
           root: 'root',
         },
       },
       {
-        surfaceUpdate: {
+        updateComponents: {
           surfaceId: 'divider-demo',
-          updates: [
+          components: [
             {
               id: 'root',
               component: {
