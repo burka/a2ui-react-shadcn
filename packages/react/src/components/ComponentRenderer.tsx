@@ -7,7 +7,7 @@ import type { A2UIComponent, Surface } from 'a2ui-shadcn-ui-core'
 import type { ReactNode } from 'react'
 import { useMemo } from 'react'
 import { useA2UI } from '../hooks/useA2UI.js'
-import type { DataAccessor } from '../registry/types.js'
+import type { A2UIAction, DataAccessor } from '../registry/types.js'
 
 /**
  * Props for ComponentRenderer
@@ -17,6 +17,8 @@ export interface ComponentRendererProps {
   componentId: string
   /** Surface containing the component */
   surface: Surface
+  /** Optional surface-scoped action handler override */
+  onAction?: (action: A2UIAction) => void
 }
 
 /**
@@ -62,8 +64,13 @@ function getChildIds(component: A2UIComponent): string[] {
  * <ComponentRenderer componentId="root" surface={surface} />
  * ```
  */
-export function ComponentRenderer({ componentId, surface }: ComponentRendererProps): ReactNode {
-  const { registry, onAction, store } = useA2UI()
+export function ComponentRenderer({
+  componentId,
+  surface,
+  onAction: propOnAction,
+}: ComponentRendererProps): ReactNode {
+  const { registry, onAction: contextOnAction, store } = useA2UI()
+  const onAction = propOnAction ?? contextOnAction
 
   // Create data accessor for this surface (moved to top for hooks rule)
   const dataAccessor: DataAccessor = useMemo(
@@ -95,7 +102,7 @@ export function ComponentRenderer({ componentId, surface }: ComponentRendererPro
   // Render child components recursively
   const childIds = getChildIds(component)
   const children = childIds.map((childId) => (
-    <ComponentRenderer key={childId} componentId={childId} surface={surface} />
+    <ComponentRenderer key={childId} componentId={childId} surface={surface} onAction={onAction} />
   ))
 
   // Render using the registered renderer

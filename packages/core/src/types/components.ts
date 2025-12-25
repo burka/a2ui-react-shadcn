@@ -62,6 +62,7 @@ export interface TextComponent extends BaseComponent {
   type: 'Text'
   content: string
   style?: TextStyle
+  dataPath?: string
 }
 
 export interface ImageComponent extends BaseComponent {
@@ -89,6 +90,7 @@ export interface ButtonComponent extends BaseComponent {
   child: string
   primary?: boolean
   action?: string
+  actionPayload?: Record<string, unknown>
 }
 
 export interface TextFieldComponent extends BaseComponent {

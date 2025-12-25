@@ -14,6 +14,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useA2UI } from '../hooks/useA2UI.js'
 import { useSurface } from '../hooks/useSurface.js'
+import type { A2UIAction } from '../registry/types.js'
 import { ComponentRenderer } from './ComponentRenderer.js'
 
 /**
@@ -28,6 +29,8 @@ export interface A2UISurfaceProps {
   messages?: A2UIMessage[]
   /** Optional className for the root element */
   className?: string
+  /** Optional surface-scoped action handler. If provided, intercepts actions before global handler. */
+  onAction?: (action: A2UIAction) => void
 }
 
 /**
@@ -99,7 +102,13 @@ function processMessage(message: A2UIMessage, store: ReturnType<typeof useA2UI>[
  * />
  * ```
  */
-export function A2UISurface({ surfaceId, stream, messages, className }: A2UISurfaceProps) {
+export function A2UISurface({
+  surfaceId,
+  stream,
+  messages,
+  className,
+  onAction,
+}: A2UISurfaceProps) {
   const { store } = useA2UI()
   const surface = useSurface(surfaceId)
   const [loading, setLoading] = useState(false)
@@ -186,7 +195,7 @@ export function A2UISurface({ surfaceId, stream, messages, className }: A2UISurf
   // Render the root component
   return (
     <div className={className}>
-      <ComponentRenderer componentId={surface.root} surface={surface} />
+      <ComponentRenderer componentId={surface.root} surface={surface} onAction={onAction} />
     </div>
   )
 }

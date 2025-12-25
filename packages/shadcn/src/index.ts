@@ -34,11 +34,15 @@ export {
   type BaseComponent,
   type BeginRenderingMessage,
   type ButtonComponent,
+  // Builders
+  buildMessages,
   type CardComponent,
   type CheckboxComponent,
   type ColumnComponent,
   type ComponentCatalog,
+  type ComponentNode,
   type ComponentUpdate,
+  c,
   // Store
   createStore,
   // Parser

@@ -8,7 +8,10 @@ export const ButtonRenderer: A2UIRenderer<ButtonComponent> = {
   render: ({ component, children, onAction }: RendererProps<ButtonComponent>) => {
     const handleClick = () => {
       if (component.action) {
-        onAction({ type: component.action })
+        onAction({
+          type: component.action,
+          payload: component.actionPayload,
+        })
       }
     }
 

@@ -5,8 +5,11 @@ import { cn } from '../../lib/utils.js'
 
 export const TextRenderer: A2UIRenderer<TextComponent> = {
   type: 'Text',
-  render: ({ component }: RendererProps<TextComponent>) => {
-    const { content, style = 'body' } = component
+  render: ({ component, data }: RendererProps<TextComponent>) => {
+    const { content, style = 'body', dataPath } = component
+
+    // If dataPath is specified, read from data model; otherwise use content
+    const displayContent = dataPath ? (data.get<string>(dataPath) ?? content) : content
 
     const styleMap: Record<string, { tag: ElementType; className: string }> = {
       h1: { tag: 'h1', className: 'text-4xl font-bold' },
@@ -22,7 +25,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
     const Tag = styleConfig!.tag
     const className = styleConfig!.className
 
-    return <Tag className={cn(className)}>{content}</Tag>
+    return <Tag className={cn(className)}>{displayContent}</Tag>
   },
   example: {
     name: 'Text',

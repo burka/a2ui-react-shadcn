@@ -13,6 +13,8 @@
 
 export const version = '0.1.0'
 
+// Export builder functionality
+export * from './builders/index.js'
 // Export parser functionality
 export * from './parser/index.js'
 // Export store functionality
