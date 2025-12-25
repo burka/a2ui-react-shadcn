@@ -1,7 +1,16 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from 'a2ui-shadcn-ui'
+import {
+  A2UIProvider,
+  A2UISurface,
+  type A2UIMessage,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  shadcnRenderers,
+} from 'a2ui-shadcn-ui'
 import { Check, Copy } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 interface CodeModalProps {
   componentName: string
@@ -25,8 +34,7 @@ export function CodeModal({ componentName, messages, open, onOpenChange }: CodeM
 
   const a2uiJson = JSON.stringify(messages, null, 2)
 
-  const reactCode = `import { A2UIProvider, A2UISurface } from 'a2ui-shadcn-ui'
-import { shadcnRenderers } from 'a2ui-shadcn-ui'
+  const reactCode = `import { A2UIProvider, A2UISurface, shadcnRenderers } from 'a2ui-shadcn-ui'
 
 const messages = ${a2uiJson}
 
@@ -37,6 +45,89 @@ function MyComponent() {
     </A2UIProvider>
   )
 }`
+
+  // Create A2UI messages for the modal content - dogfooding our own library!
+  const modalMessages: A2UIMessage[] = useMemo(
+    () => [
+      {
+        surfaceUpdate: {
+          surfaceId: 'code-modal',
+          updates: [
+            {
+              id: 'root',
+              component: {
+                type: 'Column',
+                children: ['json-card', 'react-card'],
+              },
+            },
+            {
+              id: 'json-card',
+              component: {
+                type: 'Card',
+                child: 'json-content',
+              },
+            },
+            {
+              id: 'json-content',
+              component: {
+                type: 'Column',
+                children: ['json-title', 'json-text'],
+              },
+            },
+            {
+              id: 'json-title',
+              component: {
+                type: 'Text',
+                content: 'A2UI Messages (JSON)',
+                style: 'h4',
+              },
+            },
+            {
+              id: 'json-text',
+              component: {
+                type: 'Text',
+                content: `This component is rendered from ${messages.length} A2UI message(s). Click the copy button above to get the JSON.`,
+                style: 'caption',
+              },
+            },
+            {
+              id: 'react-card',
+              component: {
+                type: 'Card',
+                child: 'react-content',
+              },
+            },
+            {
+              id: 'react-content',
+              component: {
+                type: 'Column',
+                children: ['react-title', 'react-text'],
+              },
+            },
+            {
+              id: 'react-title',
+              component: {
+                type: 'Text',
+                content: 'React Usage',
+                style: 'h4',
+              },
+            },
+            {
+              id: 'react-text',
+              component: {
+                type: 'Text',
+                content:
+                  'Use the A2UIProvider and A2UISurface components to render these messages in your React app.',
+                style: 'caption',
+              },
+            },
+          ],
+        },
+      },
+      { beginRendering: { surfaceId: 'code-modal', root: 'root' } },
+    ],
+    [messages.length],
+  )
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -50,19 +141,24 @@ function MyComponent() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex-1 overflow-auto space-y-6 pr-2">
+        <div className="flex-1 overflow-auto space-y-4 pr-2">
+          {/* A2UI-rendered intro cards */}
+          <A2UIProvider renderers={shadcnRenderers}>
+            <A2UISurface surfaceId="code-modal" messages={modalMessages} />
+          </A2UIProvider>
+
           {/* A2UI JSON Section */}
           <section>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-semibold text-[var(--color-text-secondary)]">
-                A2UI Messages (JSON)
+                JSON Messages
               </h3>
               <CopyButton
                 onClick={() => handleCopy(a2uiJson, 'json')}
                 copied={copiedSection === 'json'}
               />
             </div>
-            <pre className="text-xs bg-[var(--color-bg-secondary)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto">
+            <pre className="text-xs bg-[var(--color-bg-secondary)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto max-h-[200px]">
               <code className="text-[var(--color-text-primary)]">{a2uiJson}</code>
             </pre>
           </section>
@@ -71,14 +167,14 @@ function MyComponent() {
           <section>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-semibold text-[var(--color-text-secondary)]">
-                React Usage
+                React Code
               </h3>
               <CopyButton
                 onClick={() => handleCopy(reactCode, 'react')}
                 copied={copiedSection === 'react'}
               />
             </div>
-            <pre className="text-xs bg-[var(--color-bg-secondary)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto">
+            <pre className="text-xs bg-[var(--color-bg-secondary)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto max-h-[200px]">
               <code className="text-[var(--color-text-primary)]">{reactCode}</code>
             </pre>
           </section>
