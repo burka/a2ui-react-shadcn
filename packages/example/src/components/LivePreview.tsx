@@ -1,4 +1,4 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import type { A2UIAction, A2UIMessage } from 'a2ui-shadcn-ui'
 import { A2UISurface } from 'a2ui-shadcn-ui'
 import { AlertCircle, Eye } from 'lucide-react'
 import { Component, type ErrorInfo } from 'react'
@@ -6,6 +6,7 @@ import { Component, type ErrorInfo } from 'react'
 interface LivePreviewProps {
   messages: A2UIMessage[]
   surfaceId?: string
+  onAction?: (action: A2UIAction) => void
 }
 
 interface LivePreviewState {
@@ -46,7 +47,7 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, LivePreview
   }
 }
 
-export function LivePreview({ messages, surfaceId }: LivePreviewProps) {
+export function LivePreview({ messages, surfaceId, onAction }: LivePreviewProps) {
   // Extract surface ID from messages if not provided
   const beginMsg = messages.find((m) => 'beginRendering' in m)
   const activeSurfaceId =
@@ -73,7 +74,7 @@ export function LivePreview({ messages, surfaceId }: LivePreviewProps) {
           <span>Surface: {activeSurfaceId}</span>
         </div>
 
-        <A2UISurface surfaceId={activeSurfaceId} messages={messages} />
+        <A2UISurface surfaceId={activeSurfaceId} messages={messages} onAction={onAction} />
       </div>
     </ErrorBoundary>
   )

@@ -1,6 +1,6 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
-import { Code2 } from 'lucide-react'
-import { useState } from 'react'
+import type { A2UIAction, A2UIMessage } from 'a2ui-shadcn-ui'
+import { Code2, Zap } from 'lucide-react'
+import { useCallback, useState } from 'react'
 import { CodeModal } from './CodeModal'
 import { LivePreview } from './LivePreview'
 
@@ -29,6 +29,13 @@ const CATEGORY_LABELS: Record<Category, string> = {
 
 export function ComponentCard({ name, description, category, messages }: ComponentCardProps) {
   const [codeModalOpen, setCodeModalOpen] = useState(false)
+  const [lastAction, setLastAction] = useState<A2UIAction | null>(null)
+
+  const handleAction = useCallback((action: A2UIAction) => {
+    setLastAction(action)
+    // Clear after 3 seconds
+    setTimeout(() => setLastAction(null), 3000)
+  }, [])
 
   return (
     <div className="border border-[var(--color-border)] rounded-lg p-4 bg-[var(--color-bg-secondary)] hover:border-[var(--color-accent)] transition-colors">
@@ -55,8 +62,22 @@ export function ComponentCard({ name, description, category, messages }: Compone
       </div>
 
       <div className="border border-[var(--color-border)] rounded p-3 bg-[var(--color-bg-primary)] min-h-[120px]">
-        <LivePreview messages={messages} />
+        <LivePreview messages={messages} onAction={handleAction} />
       </div>
+
+      {lastAction && (
+        <div className="mt-2 flex items-center gap-2 text-xs text-green-600 dark:text-green-400 bg-green-500/10 border border-green-500/20 rounded px-2 py-1">
+          <Zap className="w-3 h-3" />
+          <span>
+            Action: <code className="font-mono">{lastAction.type}</code>
+            {lastAction.payload && (
+              <span className="text-[var(--color-text-tertiary)] ml-1">
+                ({JSON.stringify(lastAction.payload)})
+              </span>
+            )}
+          </span>
+        </div>
+      )}
 
       <CodeModal
         componentName={name}
