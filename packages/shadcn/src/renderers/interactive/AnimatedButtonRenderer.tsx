@@ -28,6 +28,17 @@ export const AnimatedButtonRenderer: A2UIRenderer<AnimatedButtonComponent> = {
       }
     }
 
+    const primaryStyle = {
+      backgroundColor: 'hsl(var(--primary))',
+      color: 'hsl(var(--primary-foreground))',
+    }
+
+    const secondaryStyle = {
+      backgroundColor: 'hsl(var(--background))',
+      color: 'hsl(var(--foreground))',
+      borderColor: 'hsl(var(--input))',
+    }
+
     return (
       <motion.button
         whileHover={{ scale: 1.05 }}
@@ -39,6 +50,7 @@ export const AnimatedButtonRenderer: A2UIRenderer<AnimatedButtonComponent> = {
             ? 'bg-primary text-primary-foreground shadow hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
             : 'border border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
         }
+        style={component.primary ? primaryStyle : secondaryStyle}
       >
         {children as ReactNode}
       </motion.button>
