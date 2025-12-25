@@ -78,6 +78,7 @@ export const ColumnRenderer: A2UIRenderer<ColumnComponent> = {
                 child: 'btn-text',
                 primary: true,
                 action: 'subscribe',
+                submitDataPaths: ['email'],
               },
             },
             {

@@ -91,6 +91,8 @@ export interface ButtonComponent extends BaseComponent {
   primary?: boolean
   action?: string
   actionPayload?: Record<string, unknown>
+  /** Data paths to include in action payload (reads from data model) */
+  submitDataPaths?: string[]
 }
 
 export interface TextFieldComponent extends BaseComponent {
