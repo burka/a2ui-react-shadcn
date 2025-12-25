@@ -1,5 +1,5 @@
 import type { A2UIMessage } from 'a2ui-shadcn-ui'
-import { Braces, Code, Copy, Eye } from 'lucide-react'
+import { Code2 } from 'lucide-react'
 import { useState } from 'react'
 import { CodeModal } from './CodeModal'
 import { LivePreview } from './LivePreview'
@@ -28,19 +28,7 @@ const CATEGORY_LABELS: Record<Category, string> = {
 }
 
 export function ComponentCard({ name, description, category, messages }: ComponentCardProps) {
-  const [showJson, setShowJson] = useState(false)
-  const [copied, setCopied] = useState(false)
   const [codeModalOpen, setCodeModalOpen] = useState(false)
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(JSON.stringify(messages, null, 2))
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
-      console.error('Failed to copy:', err)
-    }
-  }
 
   return (
     <div className="border border-[var(--color-border)] rounded-lg p-4 bg-[var(--color-bg-secondary)] hover:border-[var(--color-accent)] transition-colors">
@@ -56,53 +44,19 @@ export function ComponentCard({ name, description, category, messages }: Compone
           </div>
           <p className="text-sm text-[var(--color-text-secondary)]">{description}</p>
         </div>
-        <div className="flex gap-1">
-          <button
-            type="button"
-            onClick={() => setCodeModalOpen(true)}
-            className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded transition-colors"
-            title="View code examples"
-          >
-            <Braces className="w-4 h-4 text-[var(--color-text-secondary)]" />
-          </button>
-          {showJson && (
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded transition-colors"
-              title={copied ? 'Copied!' : 'Copy JSON'}
-            >
-              <Copy
-                className={`w-4 h-4 ${copied ? 'text-green-600' : 'text-[var(--color-text-secondary)]'}`}
-              />
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={() => setShowJson(!showJson)}
-            className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded transition-colors"
-            title={showJson ? 'Show preview' : 'Show JSON'}
-          >
-            {showJson ? (
-              <Eye className="w-4 h-4 text-[var(--color-text-secondary)]" />
-            ) : (
-              <Code className="w-4 h-4 text-[var(--color-text-secondary)]" />
-            )}
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setCodeModalOpen(true)}
+          className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded transition-colors"
+          title="View code"
+        >
+          <Code2 className="w-4 h-4 text-[var(--color-text-secondary)]" />
+        </button>
       </div>
 
-      {showJson ? (
-        <pre className="text-xs bg-[var(--color-bg-primary)] p-3 rounded overflow-x-auto border border-[var(--color-border)] max-h-[300px]">
-          <code className="text-[var(--color-text-primary)]">
-            {JSON.stringify(messages, null, 2)}
-          </code>
-        </pre>
-      ) : (
-        <div className="border border-[var(--color-border)] rounded p-3 bg-[var(--color-bg-primary)] min-h-[120px]">
-          <LivePreview messages={messages} />
-        </div>
-      )}
+      <div className="border border-[var(--color-border)] rounded p-3 bg-[var(--color-bg-primary)] min-h-[120px]">
+        <LivePreview messages={messages} />
+      </div>
 
       <CodeModal
         componentName={name}

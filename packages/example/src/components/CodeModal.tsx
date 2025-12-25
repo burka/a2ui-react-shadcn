@@ -47,8 +47,10 @@ function MyComponent() {
 }`
 
   // Create A2UI messages for the modal content - dogfooding our own library!
+  // Note: beginRendering MUST come before surfaceUpdate
   const modalMessages: A2UIMessage[] = useMemo(
     () => [
+      { beginRendering: { surfaceId: 'code-modal', root: 'root' } },
       {
         surfaceUpdate: {
           surfaceId: 'code-modal',
@@ -86,7 +88,7 @@ function MyComponent() {
               id: 'json-text',
               component: {
                 type: 'Text',
-                content: `This component is rendered from ${messages.length} A2UI message(s). Click the copy button above to get the JSON.`,
+                content: `This component is rendered from ${messages.length} A2UI message(s). Click the copy button below to get the JSON.`,
                 style: 'caption',
               },
             },
@@ -124,7 +126,6 @@ function MyComponent() {
           ],
         },
       },
-      { beginRendering: { surfaceId: 'code-modal', root: 'root' } },
     ],
     [messages.length],
   )
