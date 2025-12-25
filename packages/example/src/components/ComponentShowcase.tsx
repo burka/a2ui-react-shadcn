@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { ComponentDemo } from './ComponentDemo'
 import { LivePreview } from './LivePreview'
 
-type Category = 'All' | 'layout' | 'display' | 'interactive' | 'container'
+type Category = 'All' | 'layout' | 'display' | 'interactive' | 'container' | 'animated'
 
 interface RendererExample {
   type: string
@@ -14,7 +14,7 @@ interface RendererExample {
   messages: A2UIMessage[]
 }
 
-const CATEGORIES: Category[] = ['All', 'layout', 'display', 'interactive', 'container']
+const CATEGORIES: Category[] = ['All', 'layout', 'display', 'interactive', 'container', 'animated']
 
 const CATEGORY_LABELS: Record<Category, string> = {
   All: 'All',
@@ -22,6 +22,7 @@ const CATEGORY_LABELS: Record<Category, string> = {
   display: 'Display',
   interactive: 'Interactive',
   container: 'Container',
+  animated: 'Animated',
 }
 
 export function ComponentShowcase() {
