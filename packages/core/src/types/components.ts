@@ -173,6 +173,234 @@ export interface AnimatedButtonComponent extends BaseComponent {
 }
 
 /**
+ * Animated UI Components
+ * Alternative set of components with rich animations (animate-ui.com style)
+ */
+
+// Animated Buttons
+export interface RippleButtonComponent extends BaseComponent {
+  type: 'RippleButton'
+  child: string
+  primary?: boolean
+  action?: string
+  actionPayload?: Record<string, unknown>
+  submitDataPaths?: string[]
+  rippleColor?: string
+}
+
+export interface FlipButtonComponent extends BaseComponent {
+  type: 'FlipButton'
+  frontChild: string
+  backChild: string
+  primary?: boolean
+  action?: string
+  actionPayload?: Record<string, unknown>
+  submitDataPaths?: string[]
+}
+
+export interface ShimmerButtonComponent extends BaseComponent {
+  type: 'ShimmerButton'
+  child: string
+  primary?: boolean
+  action?: string
+  actionPayload?: Record<string, unknown>
+  submitDataPaths?: string[]
+  shimmerColor?: string
+  shimmerDuration?: number
+}
+
+export interface MagneticButtonComponent extends BaseComponent {
+  type: 'MagneticButton'
+  child: string
+  primary?: boolean
+  action?: string
+  actionPayload?: Record<string, unknown>
+  submitDataPaths?: string[]
+  strength?: number
+}
+
+export interface GlowButtonComponent extends BaseComponent {
+  type: 'GlowButton'
+  child: string
+  primary?: boolean
+  action?: string
+  actionPayload?: Record<string, unknown>
+  submitDataPaths?: string[]
+  glowColor?: string
+  glowIntensity?: number
+}
+
+// Animated Text
+export interface TypewriterTextComponent extends BaseComponent {
+  type: 'TypewriterText'
+  content: string
+  style?: TextStyle
+  speed?: number
+  cursor?: boolean
+  cursorChar?: string
+  loop?: boolean
+  delayBetweenLoops?: number
+}
+
+export interface GradientTextComponent extends BaseComponent {
+  type: 'GradientText'
+  content: string
+  style?: TextStyle
+  colors?: string[]
+  animationDuration?: number
+  direction?: 'horizontal' | 'vertical' | 'diagonal'
+}
+
+export interface CountUpComponent extends BaseComponent {
+  type: 'CountUp'
+  from?: number
+  to: number
+  duration?: number
+  style?: TextStyle
+  prefix?: string
+  suffix?: string
+  decimals?: number
+  separator?: string
+}
+
+export interface TextScrambleComponent extends BaseComponent {
+  type: 'TextScramble'
+  content: string
+  style?: TextStyle
+  speed?: number
+  characters?: string
+  trigger?: 'mount' | 'hover'
+}
+
+export interface BlurRevealTextComponent extends BaseComponent {
+  type: 'BlurRevealText'
+  content: string
+  style?: TextStyle
+  delay?: number
+  duration?: number
+  staggerChildren?: number
+  direction?: 'up' | 'down' | 'left' | 'right'
+}
+
+// Animated Containers
+export interface AnimatedAccordionItem {
+  trigger: string
+  content: string
+}
+
+export interface AnimatedAccordionComponent extends BaseComponent {
+  type: 'AnimatedAccordion'
+  items: AnimatedAccordionItem[]
+  allowMultiple?: boolean
+  defaultOpen?: number[]
+}
+
+export interface AnimatedDialogComponent extends BaseComponent {
+  type: 'AnimatedDialog'
+  trigger: string
+  content: string
+  title?: string
+  description?: string
+  animation?: 'scale' | 'slide' | 'flip' | 'rotate'
+}
+
+export interface AnimatedCardComponent extends BaseComponent {
+  type: 'AnimatedCard'
+  children?: string[]
+  animation?: 'hover-lift' | 'hover-glow' | 'hover-border' | 'tilt'
+  delay?: number
+}
+
+export interface AnimatedTabItem {
+  label: string
+  content: string
+}
+
+export interface AnimatedTabsComponent extends BaseComponent {
+  type: 'AnimatedTabs'
+  tabs: AnimatedTabItem[]
+  defaultTab?: number
+  animation?: 'slide' | 'fade' | 'scale'
+}
+
+export interface FlipCardComponent extends BaseComponent {
+  type: 'FlipCard'
+  front: string
+  back: string
+  trigger?: 'hover' | 'click'
+  direction?: 'horizontal' | 'vertical'
+  height?: string
+}
+
+// Animated Backgrounds
+export interface GradientBackgroundComponent extends BaseComponent {
+  type: 'GradientBackground'
+  children?: string[]
+  colors?: string[]
+  speed?: number
+  direction?: 'horizontal' | 'vertical' | 'diagonal' | 'radial'
+  blur?: number
+}
+
+export interface ParticlesBackgroundComponent extends BaseComponent {
+  type: 'ParticlesBackground'
+  children?: string[]
+  particleCount?: number
+  particleColor?: string
+  particleSize?: number
+  speed?: number
+  connected?: boolean
+}
+
+export interface AuroraBackgroundComponent extends BaseComponent {
+  type: 'AuroraBackground'
+  children?: string[]
+  colors?: string[]
+  speed?: number
+  blur?: number
+}
+
+// Utility Animations
+export interface AnimatedTooltipComponent extends BaseComponent {
+  type: 'AnimatedTooltip'
+  trigger: string
+  content: string
+  position?: 'top' | 'bottom' | 'left' | 'right'
+  animation?: 'scale' | 'slide' | 'fade'
+}
+
+export interface AvatarItem {
+  src?: string
+  alt?: string
+  fallback: string
+}
+
+export interface AnimatedAvatarGroupComponent extends BaseComponent {
+  type: 'AnimatedAvatarGroup'
+  avatars: AvatarItem[]
+  maxVisible?: number
+  size?: 'sm' | 'md' | 'lg'
+  animation?: 'expand' | 'pop' | 'slide'
+}
+
+export interface SpotlightComponent extends BaseComponent {
+  type: 'Spotlight'
+  children?: string[]
+  spotlightColor?: string
+  spotlightSize?: number
+  intensity?: number
+}
+
+export interface MorphingIconComponent extends BaseComponent {
+  type: 'MorphingIcon'
+  icons: string[]
+  trigger?: 'hover' | 'click' | 'auto'
+  interval?: number
+  size?: number
+  color?: string
+}
+
+/**
  * Container Components
  */
 
@@ -227,6 +455,29 @@ export type A2UIComponent =
   | ModalComponent
   | TabsComponent
   | ListComponent
+  // Animated UI Components
+  | RippleButtonComponent
+  | FlipButtonComponent
+  | ShimmerButtonComponent
+  | MagneticButtonComponent
+  | GlowButtonComponent
+  | TypewriterTextComponent
+  | GradientTextComponent
+  | CountUpComponent
+  | TextScrambleComponent
+  | BlurRevealTextComponent
+  | AnimatedAccordionComponent
+  | AnimatedDialogComponent
+  | AnimatedCardComponent
+  | AnimatedTabsComponent
+  | FlipCardComponent
+  | GradientBackgroundComponent
+  | ParticlesBackgroundComponent
+  | AuroraBackgroundComponent
+  | AnimatedTooltipComponent
+  | AnimatedAvatarGroupComponent
+  | SpotlightComponent
+  | MorphingIconComponent
 
 /**
  * Component update for surfaceUpdate messages
