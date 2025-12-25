@@ -53,7 +53,7 @@ function MyComponent() {
   return (
     <dialog
       ref={dialogRef}
-      className="fixed inset-0 z-50 m-auto max-w-3xl max-h-[85vh] overflow-hidden flex flex-col rounded-lg bg-white dark:bg-gray-900 p-6 shadow-xl backdrop:bg-black/50"
+      className="fixed inset-0 z-50 m-auto w-[90vw] max-w-5xl max-h-[90vh] overflow-hidden flex flex-col rounded-lg bg-white dark:bg-gray-900 p-6 shadow-xl backdrop:bg-black/50"
       onClose={() => onOpenChange(false)}
       onClick={(e) => {
         if (e.target === dialogRef.current) onOpenChange(false)
