@@ -24,8 +24,8 @@ export const VideoRenderer: A2UIRenderer<VideoComponent> = {
       return (
         <div
           className={cn(
-            'flex items-center justify-center rounded-md border border-red-500 bg-red-50 dark:bg-red-900/20 p-4',
-            'text-sm text-red-600 dark:text-red-400',
+            'flex items-center justify-center rounded-md border border-destructive bg-destructive/10 p-4',
+            'text-sm text-destructive',
           )}
         >
           <span>Failed to load video</span>

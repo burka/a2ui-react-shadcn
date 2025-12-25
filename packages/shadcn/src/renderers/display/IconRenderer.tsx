@@ -16,7 +16,7 @@ export const IconRenderer: A2UIRenderer<IconComponent> = {
     if (!IconComponent) {
       return (
         <HelpCircle
-          className={cn('h-5 w-5 text-gray-500 dark:text-gray-400')}
+          className={cn('h-5 w-5 text-muted-foreground')}
           aria-label={`Unknown icon: ${name}`}
         />
       )

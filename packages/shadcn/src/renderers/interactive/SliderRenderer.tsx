@@ -27,7 +27,7 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
           onValueChange={handleChange}
           className="w-full"
         />
-        <div className="text-sm text-gray-500 dark:text-gray-400 text-center">{value ?? min}</div>
+        <div className="text-sm text-muted-foreground text-center">{value ?? min}</div>
       </div>
     )
   },
