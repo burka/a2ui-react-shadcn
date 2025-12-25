@@ -29,6 +29,10 @@ import {
   ShimmerButtonRenderer,
   MagneticButtonRenderer,
   GlowButtonRenderer,
+  LiquidButtonRenderer,
+  CopyButtonRenderer,
+  IconButtonRenderer,
+  ThemeTogglerButtonRenderer,
   // Text
   TypewriterTextRenderer,
   GradientTextRenderer,
@@ -45,11 +49,18 @@ import {
   GradientBackgroundRenderer,
   ParticlesBackgroundRenderer,
   AuroraBackgroundRenderer,
+  BubbleBackgroundRenderer,
+  FireworksBackgroundRenderer,
+  StarsBackgroundRenderer,
+  HexagonBackgroundRenderer,
+  HoleBackgroundRenderer,
+  GravityStarsBackgroundRenderer,
   // Utility
   AnimatedTooltipRenderer,
   AnimatedAvatarGroupRenderer,
   SpotlightRenderer,
   MorphingIconRenderer,
+  CursorRenderer,
 } from './animated/index.js'
 
 /**
@@ -93,6 +104,10 @@ export const animatedRenderers = [
   ShimmerButtonRenderer,
   MagneticButtonRenderer,
   GlowButtonRenderer,
+  LiquidButtonRenderer,
+  CopyButtonRenderer,
+  IconButtonRenderer,
+  ThemeTogglerButtonRenderer,
   // Animated Text
   TypewriterTextRenderer,
   GradientTextRenderer,
@@ -109,11 +124,18 @@ export const animatedRenderers = [
   GradientBackgroundRenderer,
   ParticlesBackgroundRenderer,
   AuroraBackgroundRenderer,
+  BubbleBackgroundRenderer,
+  FireworksBackgroundRenderer,
+  StarsBackgroundRenderer,
+  HexagonBackgroundRenderer,
+  HoleBackgroundRenderer,
+  GravityStarsBackgroundRenderer,
   // Utility Animations
   AnimatedTooltipRenderer,
   AnimatedAvatarGroupRenderer,
   SpotlightRenderer,
   MorphingIconRenderer,
+  CursorRenderer,
 ] as A2UIRenderer[]
 
 /**
@@ -155,6 +177,10 @@ export {
   ShimmerButtonRenderer,
   MagneticButtonRenderer,
   GlowButtonRenderer,
+  LiquidButtonRenderer,
+  CopyButtonRenderer,
+  IconButtonRenderer,
+  ThemeTogglerButtonRenderer,
   // Text
   TypewriterTextRenderer,
   GradientTextRenderer,
@@ -171,11 +197,18 @@ export {
   GradientBackgroundRenderer,
   ParticlesBackgroundRenderer,
   AuroraBackgroundRenderer,
+  BubbleBackgroundRenderer,
+  FireworksBackgroundRenderer,
+  StarsBackgroundRenderer,
+  HexagonBackgroundRenderer,
+  HoleBackgroundRenderer,
+  GravityStarsBackgroundRenderer,
   // Utility
   AnimatedTooltipRenderer,
   AnimatedAvatarGroupRenderer,
   SpotlightRenderer,
   MorphingIconRenderer,
+  CursorRenderer,
 }
 
 export type { RendererRegistry } from './types.js'

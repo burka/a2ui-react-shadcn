@@ -230,6 +230,41 @@ export interface GlowButtonComponent extends BaseComponent {
   glowIntensity?: number
 }
 
+export interface LiquidButtonComponent extends BaseComponent {
+  type: 'liquid-button'
+  label?: string
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary'
+  liquidColor?: string
+  duration?: number
+}
+
+export interface CopyButtonComponent extends BaseComponent {
+  type: 'copy-button'
+  text: string
+  label?: string
+  copiedLabel?: string
+  variant?: 'default' | 'outline' | 'ghost' | 'secondary'
+  showIcon?: boolean
+  duration?: number
+}
+
+export interface IconButtonComponent extends BaseComponent {
+  type: 'icon-button'
+  icon?: string
+  variant?: 'default' | 'outline' | 'ghost' | 'destructive'
+  size?: 'sm' | 'md' | 'lg'
+  animation?: 'scale' | 'rotate' | 'bounce' | 'shake' | 'pulse'
+  tooltip?: string
+}
+
+export interface ThemeTogglerButtonComponent extends BaseComponent {
+  type: 'theme-toggler-button'
+  initialTheme?: 'light' | 'dark'
+  variant?: 'default' | 'outline' | 'ghost'
+  size?: 'sm' | 'md' | 'lg'
+  animation?: 'rotate' | 'flip' | 'scale' | 'slide'
+}
+
 // Animated Text
 export interface TypewriterTextComponent extends BaseComponent {
   type: 'TypewriterText'
@@ -360,6 +395,68 @@ export interface AuroraBackgroundComponent extends BaseComponent {
   blur?: number
 }
 
+export interface BubbleBackgroundComponent extends BaseComponent {
+  type: 'bubble-background'
+  children?: string[]
+  bubbleCount?: number
+  minSize?: number
+  maxSize?: number
+  color?: string
+  speed?: number
+}
+
+export interface FireworksBackgroundComponent extends BaseComponent {
+  type: 'fireworks-background'
+  children?: string[]
+  frequency?: number
+  particleCount?: number
+  colors?: string[]
+  autoPlay?: boolean
+}
+
+export interface StarsBackgroundComponent extends BaseComponent {
+  type: 'stars-background'
+  children?: string[]
+  starCount?: number
+  minSize?: number
+  maxSize?: number
+  color?: string
+  twinkle?: boolean
+  speed?: number
+}
+
+export interface HexagonBackgroundComponent extends BaseComponent {
+  type: 'hexagon-background'
+  children?: string[]
+  rows?: number
+  cols?: number
+  color?: string
+  hoverEffect?: boolean
+  animated?: boolean
+  gap?: number
+}
+
+export interface HoleBackgroundComponent extends BaseComponent {
+  type: 'hole-background'
+  children?: string[]
+  holeSize?: number
+  color?: string
+  rings?: number
+  animated?: boolean
+  pulseSpeed?: number
+}
+
+export interface GravityStarsBackgroundComponent extends BaseComponent {
+  type: 'gravity-stars-background'
+  children?: string[]
+  starCount?: number
+  minSize?: number
+  maxSize?: number
+  color?: string
+  gravity?: number
+  interactive?: boolean
+}
+
 // Utility Animations
 export interface AnimatedTooltipComponent extends BaseComponent {
   type: 'AnimatedTooltip'
@@ -398,6 +495,17 @@ export interface MorphingIconComponent extends BaseComponent {
   interval?: number
   size?: number
   color?: string
+}
+
+export interface CursorComponent extends BaseComponent {
+  type: 'cursor'
+  children?: string[]
+  size?: number
+  color?: string
+  trailLength?: number
+  smoothing?: number
+  showTrail?: boolean
+  mixBlendMode?: string
 }
 
 /**
@@ -478,6 +586,18 @@ export type A2UIComponent =
   | AnimatedAvatarGroupComponent
   | SpotlightComponent
   | MorphingIconComponent
+  // New animate-ui.com components
+  | LiquidButtonComponent
+  | CopyButtonComponent
+  | IconButtonComponent
+  | ThemeTogglerButtonComponent
+  | BubbleBackgroundComponent
+  | FireworksBackgroundComponent
+  | StarsBackgroundComponent
+  | HexagonBackgroundComponent
+  | HoleBackgroundComponent
+  | GravityStarsBackgroundComponent
+  | CursorComponent
 
 /**
  * Component update for surfaceUpdate messages
