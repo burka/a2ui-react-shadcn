@@ -1,16 +1,13 @@
 import {
-  A2UIProvider,
-  A2UISurface,
   type A2UIMessage,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  shadcnRenderers,
 } from 'a2ui-shadcn-ui'
 import { Check, Copy } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 interface CodeModalProps {
   componentName: string
@@ -46,90 +43,6 @@ function MyComponent() {
   )
 }`
 
-  // Create A2UI messages for the modal content - dogfooding our own library!
-  // Note: beginRendering MUST come before surfaceUpdate
-  const modalMessages: A2UIMessage[] = useMemo(
-    () => [
-      { beginRendering: { surfaceId: 'code-modal', root: 'root' } },
-      {
-        surfaceUpdate: {
-          surfaceId: 'code-modal',
-          updates: [
-            {
-              id: 'root',
-              component: {
-                type: 'Column',
-                children: ['json-card', 'react-card'],
-              },
-            },
-            {
-              id: 'json-card',
-              component: {
-                type: 'Card',
-                child: 'json-content',
-              },
-            },
-            {
-              id: 'json-content',
-              component: {
-                type: 'Column',
-                children: ['json-title', 'json-text'],
-              },
-            },
-            {
-              id: 'json-title',
-              component: {
-                type: 'Text',
-                content: 'A2UI Messages (JSON)',
-                style: 'h4',
-              },
-            },
-            {
-              id: 'json-text',
-              component: {
-                type: 'Text',
-                content: `This component is rendered from ${messages.length} A2UI message(s). Click the copy button below to get the JSON.`,
-                style: 'caption',
-              },
-            },
-            {
-              id: 'react-card',
-              component: {
-                type: 'Card',
-                child: 'react-content',
-              },
-            },
-            {
-              id: 'react-content',
-              component: {
-                type: 'Column',
-                children: ['react-title', 'react-text'],
-              },
-            },
-            {
-              id: 'react-title',
-              component: {
-                type: 'Text',
-                content: 'React Usage',
-                style: 'h4',
-              },
-            },
-            {
-              id: 'react-text',
-              component: {
-                type: 'Text',
-                content:
-                  'Use the A2UIProvider and A2UISurface components to render these messages in your React app.',
-                style: 'caption',
-              },
-            },
-          ],
-        },
-      },
-    ],
-    [messages.length],
-  )
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[85vh] overflow-hidden flex flex-col bg-[var(--color-bg-primary)] border-[var(--color-border)]">
@@ -143,11 +56,6 @@ function MyComponent() {
         </DialogHeader>
 
         <div className="flex-1 overflow-auto space-y-4 pr-2">
-          {/* A2UI-rendered intro cards */}
-          <A2UIProvider renderers={shadcnRenderers}>
-            <A2UISurface surfaceId="code-modal" messages={modalMessages} />
-          </A2UIProvider>
-
           {/* A2UI JSON Section */}
           <section>
             <div className="flex items-center justify-between mb-2">
