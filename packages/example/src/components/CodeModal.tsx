@@ -45,12 +45,10 @@ function MyComponent() {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[85vh] overflow-hidden flex flex-col bg-[var(--color-bg-primary)] border-[var(--color-border)]">
+      <DialogContent className="max-w-3xl max-h-[85vh] overflow-hidden flex flex-col">
         <DialogHeader>
-          <DialogTitle className="text-[var(--color-text-primary)]">
-            {componentName} - Code
-          </DialogTitle>
-          <DialogDescription className="text-[var(--color-text-secondary)]">
+          <DialogTitle>{componentName} - Code</DialogTitle>
+          <DialogDescription>
             Copy the JSON messages or React code to use this component
           </DialogDescription>
         </DialogHeader>
@@ -59,32 +57,28 @@ function MyComponent() {
           {/* A2UI JSON Section */}
           <section>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-[var(--color-text-secondary)]">
-                JSON Messages
-              </h3>
+              <h3 className="text-sm font-semibold">JSON Messages</h3>
               <CopyButton
                 onClick={() => handleCopy(a2uiJson, 'json')}
                 copied={copiedSection === 'json'}
               />
             </div>
-            <pre className="text-xs bg-[var(--color-bg-secondary)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto max-h-[200px]">
-              <code className="text-[var(--color-text-primary)]">{a2uiJson}</code>
+            <pre className="text-xs bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border overflow-x-auto max-h-[200px]">
+              <code>{a2uiJson}</code>
             </pre>
           </section>
 
           {/* React Usage Section */}
           <section>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-[var(--color-text-secondary)]">
-                React Code
-              </h3>
+              <h3 className="text-sm font-semibold">React Code</h3>
               <CopyButton
                 onClick={() => handleCopy(reactCode, 'react')}
                 copied={copiedSection === 'react'}
               />
             </div>
-            <pre className="text-xs bg-[var(--color-bg-secondary)] p-4 rounded-lg border border-[var(--color-border)] overflow-x-auto max-h-[200px]">
-              <code className="text-[var(--color-text-primary)]">{reactCode}</code>
+            <pre className="text-xs bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border overflow-x-auto max-h-[200px]">
+              <code>{reactCode}</code>
             </pre>
           </section>
         </div>
@@ -98,7 +92,7 @@ function CopyButton({ onClick, copied }: { onClick: () => void; copied: boolean 
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-border)] text-[var(--color-text-secondary)] transition-colors"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
     >
       {copied ? (
         <>
