@@ -1,10 +1,12 @@
 import type { A2UIMessage } from 'a2ui-shadcn-ui'
 import { useA2UI } from 'a2ui-shadcn-ui'
-import { Copy, Github, Terminal } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Beaker, Copy, Github, Terminal } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ComponentCard } from '../components/ComponentCard'
 import { ThemeToggle } from '../components/ThemeToggle'
+
+const SHOW_STAGING_KEY = 'a2ui-show-staging'
 
 type BaseCategory = 'layout' | 'display' | 'interactive' | 'container'
 type Category = 'All' | BaseCategory
@@ -28,7 +30,7 @@ const CATEGORY_LABELS: Record<Category, string> = {
   container: 'Container',
 }
 
-// Components that are still being developed
+// Components that are still being developed (hidden by default)
 const EARLY_STAGE_COMPONENTS = new Set([
   'bubble-background',
   'fireworks-background',
@@ -41,12 +43,25 @@ const EARLY_STAGE_COMPONENTS = new Set([
   'AnimatedAccordion',
   'FlipButton',
   'FlipCard',
+  'liquid-button',
+  'Spotlight',
 ])
 
 export function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All')
   const [copied, setCopied] = useState(false)
+  const [showStaging, setShowStaging] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(SHOW_STAGING_KEY) === 'true'
+    }
+    return false
+  })
   const { registry } = useA2UI()
+
+  // Persist staging toggle to localStorage
+  useEffect(() => {
+    localStorage.setItem(SHOW_STAGING_KEY, showStaging.toString())
+  }, [showStaging])
 
   const installCommand = 'npm install a2ui-shadcn-ui'
 
@@ -64,10 +79,24 @@ export function HomePage() {
       }))
   }, [registry])
 
-  const filteredExamples =
-    selectedCategory === 'All'
-      ? examples
-      : examples.filter((ex) => ex.category === selectedCategory)
+  // Filter by category and optionally hide early stage components
+  const filteredExamples = useMemo(() => {
+    let filtered = examples
+
+    // Filter by category
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter((ex) => ex.category === selectedCategory)
+    }
+
+    // Hide early stage components unless toggle is on
+    if (!showStaging) {
+      filtered = filtered.filter((ex) => !EARLY_STAGE_COMPONENTS.has(ex.type))
+    }
+
+    return filtered
+  }, [examples, selectedCategory, showStaging])
+
+  const stagingCount = examples.filter((ex) => EARLY_STAGE_COMPONENTS.has(ex.type)).length
 
   const handleCopy = async () => {
     try {
@@ -267,24 +296,44 @@ function MyComponent() {
                 Component Gallery
               </h2>
               <p className="text-[var(--color-text-secondary)]">
-                Explore {examples.length} interactive components powered by A2UI protocol
+                Explore {filteredExamples.length} interactive components powered by A2UI protocol
+                {!showStaging && stagingCount > 0 && (
+                  <span className="text-[var(--color-text-tertiary)]">
+                    {' '}
+                    ({stagingCount} staging hidden)
+                  </span>
+                )}
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((category) => (
-                <button
-                  type="button"
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    selectedCategory === category
-                      ? 'bg-[var(--color-accent)] text-white'
-                      : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]'
-                  }`}
-                >
-                  {CATEGORY_LABELS[category]}
-                </button>
-              ))}
+            <div className="flex flex-col gap-3 items-end">
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIES.map((category) => (
+                  <button
+                    type="button"
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      selectedCategory === category
+                        ? 'bg-[var(--color-accent)] text-white'
+                        : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]'
+                    }`}
+                  >
+                    {CATEGORY_LABELS[category]}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowStaging(!showStaging)}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  showStaging
+                    ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30'
+                    : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]'
+                }`}
+              >
+                <Beaker className="w-4 h-4" />
+                {showStaging ? 'Hide' : 'Show'} Staging ({stagingCount})
+              </button>
             </div>
           </div>
 
