@@ -1,12 +1,76 @@
 import type { A2UIMessage } from 'a2ui-shadcn-ui'
 import { useA2UI } from 'a2ui-shadcn-ui'
-import { Beaker, Copy, Github, MessageSquare, Terminal } from 'lucide-react'
+import { Beaker, Github, MessageSquare, Terminal } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AnimatedCopyButton } from '../components/AnimatedCopyButton'
 import { ComponentCard } from '../components/ComponentCard'
 import { ThemeToggle } from '../components/ThemeToggle'
 
 const SHOW_STAGING_KEY = 'a2ui-show-staging'
+
+// Code snippets for Quick Start section
+const INSTALL_COMMAND = 'npm install a2ui-shadcn-ui'
+
+const SETUP_PROVIDER_CODE = `import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
+
+function App() {
+  return (
+    <A2UIProvider renderers={shadcnRenderers}>
+      {/* Your app */}
+    </A2UIProvider>
+  )
+}`
+
+const RENDER_COMPONENTS_CODE = `import { A2UISurface } from 'a2ui-shadcn-ui'
+
+function MyComponent({ messages }) {
+  return (
+    <A2UISurface
+      surfaceId="my-surface"
+      messages={messages}
+    />
+  )
+}`
+
+const USE_HOOKS_CODE = `import { useA2UI } from 'a2ui-shadcn-ui'
+
+function MyComponent() {
+  const { registry } = useA2UI()
+
+  // Access registered renderers
+  const button = registry.get('Button')
+}`
+
+// Combined quickstart for LLM consumption
+const FULL_QUICKSTART = `# A2UI + shadcn/ui Quick Start
+
+## Installation
+\`\`\`bash
+${INSTALL_COMMAND}
+\`\`\`
+
+## 1. Setup Provider
+Wrap your app with A2UIProvider and pass shadcn renderers:
+
+\`\`\`tsx
+${SETUP_PROVIDER_CODE}
+\`\`\`
+
+## 2. Render Components
+Use A2UISurface to render protocol messages:
+
+\`\`\`tsx
+${RENDER_COMPONENTS_CODE}
+\`\`\`
+
+## 3. Use Hooks
+Access A2UI context with useA2UI hook:
+
+\`\`\`tsx
+${USE_HOOKS_CODE}
+\`\`\`
+`
 
 type BaseCategory = 'layout' | 'display' | 'interactive' | 'container'
 type Category = 'All' | BaseCategory
@@ -53,7 +117,6 @@ const EARLY_STAGE_COMPONENTS = new Set([
 
 export function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All')
-  const [copied, setCopied] = useState(false)
   const [showStaging, setShowStaging] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(SHOW_STAGING_KEY) === 'true'
@@ -66,8 +129,6 @@ export function HomePage() {
   useEffect(() => {
     localStorage.setItem(SHOW_STAGING_KEY, showStaging.toString())
   }, [showStaging])
-
-  const installCommand = 'npm install a2ui-shadcn-ui'
 
   const examples: RendererExample[] = useMemo(() => {
     return registry
@@ -102,16 +163,6 @@ export function HomePage() {
 
   const stagingCount = examples.filter((ex) => EARLY_STAGE_COMPONENTS.has(ex.type)).length
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(installCommand)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
-      console.error('Failed to copy:', err)
-    }
-  }
-
   return (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
       {/* Hero Section */}
@@ -134,18 +185,9 @@ export function HomePage() {
             <div className="flex items-center justify-center gap-3 bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-lg p-4 max-w-md mx-auto mb-3">
               <Terminal className="w-5 h-5 text-[var(--color-text-tertiary)]" />
               <code className="flex-1 text-sm text-[var(--color-text-primary)] font-mono">
-                {installCommand}
+                {INSTALL_COMMAND}
               </code>
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="p-2 hover:bg-[var(--color-bg-secondary)] rounded transition-colors"
-                title={copied ? 'Copied!' : 'Copy command'}
-              >
-                <Copy
-                  className={`w-4 h-4 ${copied ? 'text-green-600' : 'text-[var(--color-text-secondary)]'}`}
-                />
-              </button>
+              <AnimatedCopyButton text={INSTALL_COMMAND} variant="icon" />
             </div>
             <p className="text-sm text-[var(--color-text-tertiary)] italic">
               (Coming soon to npm. For now, install from GitHub)
@@ -193,88 +235,79 @@ export function HomePage() {
 
         {/* Quick Start Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Quick Start</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Quick Start</h2>
+            <AnimatedCopyButton
+              text={FULL_QUICKSTART}
+              label="Copy All"
+              copiedLabel="Copied!"
+              variant="outline"
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-              <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-3">
-                1. Setup Provider
-              </h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                  1. Setup Provider
+                </h3>
+                <AnimatedCopyButton text={SETUP_PROVIDER_CODE} variant="icon" />
+              </div>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                 Wrap your app with A2UIProvider and pass shadcn renderers:
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">
-                  {`import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
-
-function App() {
-  return (
-    <A2UIProvider renderers={shadcnRenderers}>
-      {/* Your app */}
-    </A2UIProvider>
-  )
-}`}
-                </code>
+                <code className="text-[var(--color-text-primary)]">{SETUP_PROVIDER_CODE}</code>
               </pre>
             </div>
 
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-              <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-3">
-                2. Render Components
-              </h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                  2. Render Components
+                </h3>
+                <AnimatedCopyButton text={RENDER_COMPONENTS_CODE} variant="icon" />
+              </div>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                 Use A2UISurface to render protocol messages:
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">
-                  {`import { A2UISurface } from 'a2ui-shadcn-ui'
-
-function MyComponent({ messages }) {
-  return (
-    <A2UISurface
-      surfaceId="my-surface"
-      messages={messages}
-    />
-  )
-}`}
-                </code>
+                <code className="text-[var(--color-text-primary)]">{RENDER_COMPONENTS_CODE}</code>
               </pre>
             </div>
 
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-              <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-3">
-                3. Use Hooks
-              </h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                  3. Use Hooks
+                </h3>
+                <AnimatedCopyButton text={USE_HOOKS_CODE} variant="icon" />
+              </div>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                 Access A2UI context with useA2UI hook:
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">
-                  {`import { useA2UI } from 'a2ui-shadcn-ui'
-
-function MyComponent() {
-  const { registry } = useA2UI()
-
-  // Access registered renderers
-  const button = registry.get('Button')
-}`}
-                </code>
+                <code className="text-[var(--color-text-primary)]">{USE_HOOKS_CODE}</code>
               </pre>
             </div>
+          </div>
+        </section>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-              <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-3">
-                4. Try the Simulator
-              </h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Experiment with the interactive protocol simulator:
-              </p>
-              <Link
-                to="/simulator"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
-              >
-                Open Simulator
-              </Link>
-            </div>
+        {/* Interactive Simulator Section */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">
+            Interactive Simulator
+          </h2>
+          <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <p className="text-[var(--color-text-secondary)] mb-4">
+              Experiment with the A2UI protocol in real-time. Send messages, see components render
+              live, and understand how the protocol works.
+            </p>
+            <Link
+              to="/simulator"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
+            >
+              Open Simulator
+            </Link>
           </div>
         </section>
 
