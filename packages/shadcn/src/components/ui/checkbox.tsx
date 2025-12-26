@@ -15,35 +15,30 @@ function Checkbox({
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        'peer size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
-        // Use data attributes for state styling
-        'data-[state=checked]:border-transparent',
+        'peer size-4 shrink-0 rounded-[4px] border shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
         className,
       )}
-      style={{
-        borderColor: 'hsl(var(--input))',
-        // These will be overridden by data-state styles below
-      }}
       {...props}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
         className="flex items-center justify-center text-current"
-        style={{ color: 'hsl(var(--primary-foreground))' }}
       >
         <Check className="size-3.5" strokeWidth={2} />
       </CheckboxPrimitive.Indicator>
       <style>{`
+        [data-slot="checkbox"] {
+          border-color: hsl(var(--border));
+          background-color: transparent;
+        }
         [data-slot="checkbox"][data-state="checked"] {
           background-color: hsl(var(--primary));
           border-color: hsl(var(--primary));
-        }
-        [data-slot="checkbox"][data-state="unchecked"] {
-          background-color: transparent;
+          color: hsl(var(--primary-foreground));
         }
         [data-slot="checkbox"]:focus-visible {
           border-color: hsl(var(--ring));
-          box-shadow: 0 0 0 3px hsl(var(--ring) / 0.5);
+          box-shadow: 0 0 0 3px hsl(var(--ring) / 0.3);
         }
       `}</style>
     </CheckboxPrimitive.Root>
