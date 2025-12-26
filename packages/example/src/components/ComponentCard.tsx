@@ -68,7 +68,7 @@ export function ComponentCard({
         </button>
       </div>
 
-      <div className="border border-[var(--color-border)] rounded p-3 bg-[var(--color-bg-primary)] min-h-[120px]">
+      <div className="border border-[var(--color-border)] rounded p-3 bg-[var(--color-bg-primary)] min-h-[120px] overflow-hidden relative">
         <LivePreview messages={messages} onAction={handleAction} />
       </div>
 
