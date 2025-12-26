@@ -60,8 +60,8 @@ export interface RendererExample {
   name: string
   /** Description of what this renderer does */
   description: string
-  /** Category for grouping in showcases */
-  category: 'layout' | 'display' | 'interactive' | 'container' | 'animated'
+  /** Category for grouping in showcases. 'a11y' is @extension a2ui-shadcn-ui */
+  category: 'layout' | 'display' | 'interactive' | 'container' | 'animated' | 'charts' | 'a11y'
   /** Example A2UI messages demonstrating this renderer */
   messages: A2UIMessage[]
 }

@@ -1,3 +1,7 @@
+/**
+ * Slider Component Renderer
+ * Supports @extension a2ui-shadcn-ui accessibility props (required, disabled, errorMessage, helpText)
+ */
 import type { SliderComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Label } from '../../components/ui/label.js'
@@ -18,9 +22,19 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
     const max = component.max ?? 100
     const step = component.step ?? 1
 
+    // @extension a2ui-shadcn-ui: Extended accessibility props
+    const errorId = component.errorMessage ? `${id}-error` : undefined
+    const helpId = component.helpText ? `${id}-help` : undefined
+    const describedBy = [errorId, helpId].filter(Boolean).join(' ') || undefined
+
     return (
       <div className="space-y-2 w-full min-w-[200px]">
-        {component.label && <Label htmlFor={id}>{component.label}</Label>}
+        {component.label && (
+          <Label htmlFor={id} className={component.disabled ? 'opacity-50' : ''}>
+            {component.label}
+            {component.required && <span className="text-destructive ml-1">*</span>}
+          </Label>
+        )}
         <Slider
           id={id}
           min={min}
@@ -28,10 +42,14 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
           step={step}
           value={[value ?? min]}
           onValueChange={handleChange}
+          disabled={component.disabled}
           aria-label={component.label || 'Slider'}
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={value ?? min}
+          aria-required={component.required}
+          aria-invalid={!!component.errorMessage}
+          aria-describedby={describedBy}
           className="w-full"
         />
         <div
@@ -41,6 +59,18 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
         >
           {value ?? min}
         </div>
+        {/* @extension a2ui-shadcn-ui: Help text */}
+        {component.helpText && (
+          <p id={helpId} className="text-sm text-muted-foreground">
+            {component.helpText}
+          </p>
+        )}
+        {/* @extension a2ui-shadcn-ui: Error message */}
+        {component.errorMessage && (
+          <p id={errorId} className="text-sm text-destructive">
+            {component.errorMessage}
+          </p>
+        )}
       </div>
     )
   },

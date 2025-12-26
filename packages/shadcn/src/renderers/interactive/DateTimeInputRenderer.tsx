@@ -1,3 +1,7 @@
+/**
+ * DateTimeInput Component Renderer
+ * Supports @extension a2ui-shadcn-ui accessibility props (required, disabled, errorMessage, helpText)
+ */
 import type { DateTimeInputComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Input } from '../../components/ui/input.js'
@@ -14,16 +18,43 @@ export const DateTimeInputRenderer: A2UIRenderer<DateTimeInputComponent> = {
       }
     }
 
+    // @extension a2ui-shadcn-ui: Extended accessibility props
+    const errorId = component.errorMessage ? `${id}-error` : undefined
+    const helpId = component.helpText ? `${id}-help` : undefined
+    const describedBy = [errorId, helpId].filter(Boolean).join(' ') || undefined
+
     return (
       <div className="grid gap-2">
-        {component.label && <Label htmlFor={id}>{component.label}</Label>}
+        {component.label && (
+          <Label htmlFor={id} className={component.disabled ? 'opacity-50' : ''}>
+            {component.label}
+            {component.required && <span className="text-destructive ml-1">*</span>}
+          </Label>
+        )}
         <Input
           id={id}
           type={component.inputType}
           value={value}
           onChange={handleChange}
+          disabled={component.disabled}
+          required={component.required}
           aria-label={component.label || `${component.inputType} input`}
+          aria-required={component.required}
+          aria-invalid={!!component.errorMessage}
+          aria-describedby={describedBy}
         />
+        {/* @extension a2ui-shadcn-ui: Help text */}
+        {component.helpText && (
+          <p id={helpId} className="text-sm text-muted-foreground">
+            {component.helpText}
+          </p>
+        )}
+        {/* @extension a2ui-shadcn-ui: Error message */}
+        {component.errorMessage && (
+          <p id={errorId} className="text-sm text-destructive">
+            {component.errorMessage}
+          </p>
+        )}
       </div>
     )
   },
