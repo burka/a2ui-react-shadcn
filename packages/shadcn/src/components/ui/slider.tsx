@@ -5,7 +5,7 @@ import * as React from 'react'
 
 import { cn } from '../../lib/utils.js'
 
-// shadcn/ui v4 Slider - https://ui.shadcn.com/docs/components/slider
+// Exact shadcn/ui v4 Slider - https://ui.shadcn.com/docs/components/slider
 function Slider({
   className,
   defaultValue,
@@ -20,8 +20,8 @@ function Slider({
         ? value
         : Array.isArray(defaultValue)
           ? defaultValue
-          : [min],
-    [value, defaultValue, min],
+          : [min, max],
+    [value, defaultValue, min, max],
   )
 
   return (
@@ -39,41 +39,24 @@ function Slider({
     >
       <SliderPrimitive.Track
         data-slot="slider-track"
-        className="relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
+        className={cn(
+          'bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5',
+        )}
       >
         <SliderPrimitive.Range
           data-slot="slider-range"
-          className="absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+          className={cn(
+            'bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full',
+          )}
         />
       </SliderPrimitive.Track>
       {Array.from({ length: _values.length }, (_, index) => (
         <SliderPrimitive.Thumb
           data-slot="slider-thumb"
           key={index}
-          className="block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+          className="border-primary ring-ring/50 block size-4 shrink-0 rounded-full border bg-background shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
         />
       ))}
-      <style>{`
-        /* Track - the unfilled part */
-        [data-slot="slider-track"] {
-          background-color: hsl(var(--border));
-        }
-        /* Range - the filled part */
-        [data-slot="slider-range"] {
-          background-color: hsl(var(--foreground));
-        }
-        /* Thumb */
-        [data-slot="slider-thumb"] {
-          background-color: hsl(var(--background));
-          border-color: hsl(var(--foreground));
-        }
-        [data-slot="slider-thumb"]:hover {
-          box-shadow: 0 0 0 4px hsl(var(--ring) / 0.3);
-        }
-        [data-slot="slider-thumb"]:focus-visible {
-          box-shadow: 0 0 0 4px hsl(var(--ring) / 0.5);
-        }
-      `}</style>
     </SliderPrimitive.Root>
   )
 }
