@@ -1,6 +1,7 @@
 import type { DateTimeInputComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Input } from '../../components/ui/input.js'
+import { Label } from '../../components/ui/label.js'
 
 export const DateTimeInputRenderer: A2UIRenderer<DateTimeInputComponent> = {
   type: 'DateTimeInput',
@@ -14,18 +15,14 @@ export const DateTimeInputRenderer: A2UIRenderer<DateTimeInputComponent> = {
     }
 
     return (
-      <div className="space-y-2">
-        {component.label && (
-          <label htmlFor={id} className="text-sm font-medium block">
-            {component.label}
-          </label>
-        )}
+      <div className="grid gap-2">
+        {component.label && <Label htmlFor={id}>{component.label}</Label>}
         <Input
           id={id}
           type={component.inputType}
           value={value}
           onChange={handleChange}
-          placeholder={component.label}
+          aria-label={component.label || `${component.inputType} input`}
         />
       </div>
     )

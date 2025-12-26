@@ -27,8 +27,8 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
       data.set(component.dataPath, newSelection)
     }
 
-    return (
-      <div className="flex flex-col gap-3">
+    const content = (
+      <>
         {component.options.map((option) => {
           const isChecked = currentSelection.includes(option.value)
           const isDisabled =
@@ -65,8 +65,22 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
             {currentSelection.length} of {component.maxSelections} selected
           </p>
         )}
-      </div>
+      </>
     )
+
+    // Use fieldset/legend for proper accessibility grouping when label is provided
+    if (component.label) {
+      return (
+        <fieldset className="flex flex-col gap-3 border-0 p-0 m-0">
+          <legend className="text-sm font-medium mb-2" style={{ color: 'hsl(var(--foreground))' }}>
+            {component.label}
+          </legend>
+          {content}
+        </fieldset>
+      )
+    }
+
+    return <div className="flex flex-col gap-3" role="group" aria-label="Options">{content}</div>
   },
   example: {
     name: 'MultipleChoice',

@@ -168,6 +168,8 @@ export interface DateTimeInputComponent extends BaseComponent {
 
 export interface MultipleChoiceComponent extends BaseComponent {
   type: 'MultipleChoice'
+  /** Label for the entire checkbox group (rendered as fieldset legend) */
+  label?: string
   options: SelectOption[]
   maxSelections?: number
   dataPath?: string
