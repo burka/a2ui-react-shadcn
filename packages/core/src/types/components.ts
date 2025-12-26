@@ -759,7 +759,11 @@ export interface NavComponent extends BaseComponent {
  */
 export interface SectionComponent extends BaseComponent {
   type: 'Section'
-  /** aria-label or aria-labelledby reference for the section */
+  /** Visible title rendered as a heading (also used for aria-labelledby) */
+  title?: string
+  /** Heading level for the title (default: 'h2') */
+  headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  /** aria-label (only used if different from title, or if no title provided) */
   label?: string
   children?: string[]
 }
@@ -771,7 +775,11 @@ export interface SectionComponent extends BaseComponent {
  */
 export interface AsideComponent extends BaseComponent {
   type: 'Aside'
-  /** aria-label for the aside */
+  /** Visible title rendered as a heading */
+  title?: string
+  /** Heading level for the title (default: 'h3') */
+  headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  /** aria-label (only used if different from title, or if no title provided) */
   label?: string
   children?: string[]
 }
@@ -803,6 +811,10 @@ export interface FooterComponent extends BaseComponent {
  */
 export interface ArticleComponent extends BaseComponent {
   type: 'Article'
+  /** Visible title rendered as a heading (also used for aria-labelledby) */
+  title?: string
+  /** Heading level for the title (default: 'h2') */
+  headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   children?: string[]
 }
 

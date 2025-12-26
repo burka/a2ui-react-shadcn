@@ -27,16 +27,63 @@ export const MainRenderer: A2UIRenderer<MainComponent> = {
   },
   example: {
     name: 'Main',
-    description: 'Main content landmark for page structure',
+    description: 'Main content landmark - full page layout example',
     category: 'a11y',
     messages: [
-      { createSurface: { surfaceId: 'main-example', root: 'main-1' } },
+      { createSurface: { surfaceId: 'page-layout', root: 'page' } },
       {
         updateComponents: {
-          surfaceId: 'main-example',
+          surfaceId: 'page-layout',
           components: [
-            { id: 'main-1', component: { type: 'Main', id: 'main-1', children: ['content'] } },
-            { id: 'content', component: { type: 'Text', id: 'content', content: 'Main content area', style: 'body' } },
+            // Page wrapper
+            {
+              id: 'page',
+              component: { type: 'Column', id: 'page', distribution: 'packed', children: ['header', 'main', 'footer'] },
+            },
+            // Header with navigation
+            {
+              id: 'header',
+              component: { type: 'Header', id: 'header', children: ['nav'] },
+            },
+            {
+              id: 'nav',
+              component: { type: 'Nav', id: 'nav', label: 'Hauptnavigation', children: ['nav-links'] },
+            },
+            {
+              id: 'nav-links',
+              component: { type: 'Row', id: 'nav-links', distribution: 'packed', children: ['home-btn', 'products-btn'] },
+            },
+            { id: 'home-btn', component: { type: 'Button', id: 'home-btn', child: 'btn-home-text' } },
+            { id: 'btn-home-text', component: { type: 'Text', id: 'btn-home-text', content: 'Home' } },
+            { id: 'products-btn', component: { type: 'Button', id: 'products-btn', child: 'btn-products-text' } },
+            { id: 'btn-products-text', component: { type: 'Text', id: 'btn-products-text', content: 'Produkte' } },
+            // Main content area
+            {
+              id: 'main',
+              component: { type: 'Main', id: 'main', children: ['content-row'] },
+            },
+            {
+              id: 'content-row',
+              component: { type: 'Row', id: 'content-row', distribution: 'packed', children: ['features-section', 'sidebar'] },
+            },
+            // Section with title
+            {
+              id: 'features-section',
+              component: { type: 'Section', id: 'features-section', title: 'Unsere Features', children: ['feature-text'] },
+            },
+            { id: 'feature-text', component: { type: 'Text', id: 'feature-text', content: 'Entdecken Sie unsere Funktionen...' } },
+            // Sidebar
+            {
+              id: 'sidebar',
+              component: { type: 'Aside', id: 'sidebar', title: 'Weitere Infos', children: ['sidebar-text'] },
+            },
+            { id: 'sidebar-text', component: { type: 'Text', id: 'sidebar-text', content: 'Hilfreiche Links und Ressourcen' } },
+            // Footer
+            {
+              id: 'footer',
+              component: { type: 'Footer', id: 'footer', children: ['copyright'] },
+            },
+            { id: 'copyright', component: { type: 'Text', id: 'copyright', content: '© 2024 Firma GmbH', style: 'caption' } },
           ],
         },
       },
@@ -75,8 +122,20 @@ export const NavRenderer: A2UIRenderer<NavComponent> = {
 export const SectionRenderer: A2UIRenderer<SectionComponent> = {
   type: 'Section',
   render: ({ component, children, id }: RendererProps<SectionComponent>) => {
+    const titleId = component.title ? `${id}-title` : undefined
+    const HeadingTag = component.headingLevel || 'h2'
+
     return (
-      <section id={id} aria-label={component.label}>
+      <section
+        id={id}
+        aria-labelledby={titleId}
+        aria-label={!component.title ? component.label : undefined}
+      >
+        {component.title && (
+          <HeadingTag id={titleId} className="text-xl font-semibold mb-4">
+            {component.title}
+          </HeadingTag>
+        )}
         {children as ReactNode}
       </section>
     )
@@ -91,8 +150,17 @@ export const SectionRenderer: A2UIRenderer<SectionComponent> = {
         updateComponents: {
           surfaceId: 'section-example',
           components: [
-            { id: 'section-1', component: { type: 'Section', id: 'section-1', label: 'Features', children: ['content'] } },
-            { id: 'content', component: { type: 'Text', id: 'content', content: 'Section content' } },
+            {
+              id: 'section-1',
+              component: {
+                type: 'Section',
+                id: 'section-1',
+                title: 'Features',
+                headingLevel: 'h2',
+                children: ['content'],
+              },
+            },
+            { id: 'content', component: { type: 'Text', id: 'content', content: 'Section content goes here...' } },
           ],
         },
       },
@@ -103,8 +171,21 @@ export const SectionRenderer: A2UIRenderer<SectionComponent> = {
 export const AsideRenderer: A2UIRenderer<AsideComponent> = {
   type: 'Aside',
   render: ({ component, children, id }: RendererProps<AsideComponent>) => {
+    const titleId = component.title ? `${id}-title` : undefined
+    const HeadingTag = component.headingLevel || 'h3'
+
     return (
-      <aside id={id} aria-label={component.label}>
+      <aside
+        id={id}
+        aria-labelledby={titleId}
+        aria-label={!component.title ? component.label : undefined}
+        className="p-4 border-l-2 border-muted"
+      >
+        {component.title && (
+          <HeadingTag id={titleId} className="text-lg font-medium mb-3">
+            {component.title}
+          </HeadingTag>
+        )}
         {children as ReactNode}
       </aside>
     )
@@ -119,8 +200,16 @@ export const AsideRenderer: A2UIRenderer<AsideComponent> = {
         updateComponents: {
           surfaceId: 'aside-example',
           components: [
-            { id: 'aside-1', component: { type: 'Aside', id: 'aside-1', label: 'Related links', children: ['content'] } },
-            { id: 'content', component: { type: 'Text', id: 'content', content: 'Sidebar content' } },
+            {
+              id: 'aside-1',
+              component: {
+                type: 'Aside',
+                id: 'aside-1',
+                title: 'Related Links',
+                children: ['content'],
+              },
+            },
+            { id: 'content', component: { type: 'Text', id: 'content', content: 'Sidebar content here...' } },
           ],
         },
       },
@@ -186,9 +275,17 @@ export const FooterRenderer: A2UIRenderer<FooterComponent> = {
 
 export const ArticleRenderer: A2UIRenderer<ArticleComponent> = {
   type: 'Article',
-  render: ({ children, id }: RendererProps<ArticleComponent>) => {
+  render: ({ component, children, id }: RendererProps<ArticleComponent>) => {
+    const titleId = component.title ? `${id}-title` : undefined
+    const HeadingTag = component.headingLevel || 'h2'
+
     return (
-      <article id={id}>
+      <article id={id} aria-labelledby={titleId} className="prose">
+        {component.title && (
+          <HeadingTag id={titleId} className="text-2xl font-bold mb-4">
+            {component.title}
+          </HeadingTag>
+        )}
         {children as ReactNode}
       </article>
     )
@@ -203,9 +300,16 @@ export const ArticleRenderer: A2UIRenderer<ArticleComponent> = {
         updateComponents: {
           surfaceId: 'article-example',
           components: [
-            { id: 'article-1', component: { type: 'Article', id: 'article-1', children: ['title', 'body'] } },
-            { id: 'title', component: { type: 'Text', id: 'title', content: 'Article Title', style: 'h2' } },
-            { id: 'body', component: { type: 'Text', id: 'body', content: 'Article content...' } },
+            {
+              id: 'article-1',
+              component: {
+                type: 'Article',
+                id: 'article-1',
+                title: 'Getting Started with A2UI',
+                children: ['body'],
+              },
+            },
+            { id: 'body', component: { type: 'Text', id: 'body', content: 'Article content goes here...' } },
           ],
         },
       },
