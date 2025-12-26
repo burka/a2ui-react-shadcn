@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 
-/* Light theme variables */
+/* Dark mode variant for Tailwind v4 */
+@custom-variant dark (&:is(.dark *));
+
+/* Light theme variables - HSL format for compatibility with existing components */
 :root {
   /* Custom app colors */
   --color-bg-primary: #ffffff;
@@ -13,7 +16,7 @@
   --color-accent: #3b82f6;
   --color-accent-hover: #2563eb;
 
-  /* shadcn/ui colors */
+  /* shadcn/ui colors - HSL values (without hsl() wrapper) */
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
@@ -24,18 +27,18 @@
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96%;
   --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96%;
+  --muted: 210 40% 92%;
   --muted-foreground: 215.4 16.3% 46.9%;
   --accent: 210 40% 96%;
   --accent-foreground: 222.2 47.4% 11.2%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
+  --border: 214.3 31.8% 85%;
+  --input: 214.3 31.8% 75%;
   --ring: 221.2 83.2% 53.3%;
   --radius: 0.5rem;
 
-  /* Chart colors */
+  /* Chart colors - HSL values */
   --chart-1: 221 83% 53%;
   --chart-2: 142 71% 45%;
   --chart-3: 47 96% 53%;
@@ -56,7 +59,7 @@
   --color-accent: #3b82f6;
   --color-accent-hover: #60a5fa;
 
-  /* shadcn/ui colors */
+  /* shadcn/ui colors - HSL values */
   --background: 222.2 84% 4.9%;
   --foreground: 210 40% 98%;
   --card: 222.2 84% 4.9%;
@@ -88,8 +91,8 @@
   color-scheme: dark;
 }
 
-/* Tailwind v4 theme tokens */
-@theme {
+/* Tailwind v4 theme tokens - use inline to make available to utilities */
+@theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -110,6 +113,13 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   --radius: var(--radius);
+
+  /* Chart colors for Tailwind utilities */
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
 }
 
 body {
@@ -129,4 +139,13 @@ body {
 
 #root {
   min-height: 100vh;
+}
+
+/* Ensure Radix checkbox renders properly */
+[data-slot="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

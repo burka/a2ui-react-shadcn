@@ -4,7 +4,7 @@ import type { CheckboxComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Checkbox } from '../../../components/ui/checkbox.js'
-import { FieldLabel } from '../../../components/ui/field-label.js'
+import { Label } from '../../../components/ui/label.js'
 
 /**
  * Animated Checkbox override - same type as standard Checkbox but with check animation.
@@ -23,7 +23,7 @@ export const AnimatedCheckboxOverride: A2UIRenderer<CheckboxComponent> = {
 
     return (
       <motion.div
-        className="flex items-center space-x-2"
+        className="flex items-center gap-3"
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.2 }}
@@ -35,7 +35,7 @@ export const AnimatedCheckboxOverride: A2UIRenderer<CheckboxComponent> = {
           <Checkbox id={id} checked={value} onCheckedChange={handleChange} />
         </motion.div>
         {component.label && (
-          <FieldLabel htmlFor={id} variant="inline">
+          <Label htmlFor={id}>
             <AnimatePresence mode="wait">
               <motion.span
                 key={value ? 'checked' : 'unchecked'}
@@ -46,7 +46,7 @@ export const AnimatedCheckboxOverride: A2UIRenderer<CheckboxComponent> = {
                 {component.label}
               </motion.span>
             </AnimatePresence>
-          </FieldLabel>
+          </Label>
         )}
       </motion.div>
     )

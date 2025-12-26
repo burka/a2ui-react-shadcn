@@ -1,7 +1,7 @@
 import type { TextFieldComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { FieldLabel } from '../../components/ui/field-label.js'
 import { Input } from '../../components/ui/input.js'
+import { Label } from '../../components/ui/label.js'
 import { Textarea } from '../../components/ui/textarea.js'
 
 export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
@@ -19,12 +19,8 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
 
     if (inputType === 'longText') {
       return (
-        <div className="space-y-2">
-          {component.label && (
-            <FieldLabel htmlFor={id} variant="block">
-              {component.label}
-            </FieldLabel>
-          )}
+        <div className="grid gap-2">
+          {component.label && <Label htmlFor={id}>{component.label}</Label>}
           <Textarea id={id} value={value} onChange={handleChange} placeholder={component.label} />
         </div>
       )
@@ -47,12 +43,8 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
     }
 
     return (
-      <div className="space-y-2">
-        {component.label && (
-          <FieldLabel htmlFor={id} variant="block">
-            {component.label}
-          </FieldLabel>
-        )}
+      <div className="grid gap-2">
+        {component.label && <Label htmlFor={id}>{component.label}</Label>}
         <Input
           id={id}
           type={type}

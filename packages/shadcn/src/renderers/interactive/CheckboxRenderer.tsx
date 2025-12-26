@@ -1,7 +1,7 @@
 import type { CheckboxComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Checkbox } from '../../components/ui/checkbox.js'
-import { FieldLabel } from '../../components/ui/field-label.js'
+import { Label } from '../../components/ui/label.js'
 
 export const CheckboxRenderer: A2UIRenderer<CheckboxComponent> = {
   type: 'Checkbox',
@@ -15,13 +15,9 @@ export const CheckboxRenderer: A2UIRenderer<CheckboxComponent> = {
     }
 
     return (
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-3">
         <Checkbox id={id} checked={value || false} onCheckedChange={handleChange} />
-        {component.label && (
-          <FieldLabel htmlFor={id} variant="inline">
-            {component.label}
-          </FieldLabel>
-        )}
+        {component.label && <Label htmlFor={id}>{component.label}</Label>}
       </div>
     )
   },
