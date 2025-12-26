@@ -1,6 +1,6 @@
 import type { A2UIMessage } from 'a2ui-shadcn-ui'
 import { useA2UI } from 'a2ui-shadcn-ui'
-import { Beaker, Copy, Github, Terminal } from 'lucide-react'
+import { Beaker, Copy, Github, MessageSquare, Terminal } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ComponentCard } from '../components/ComponentCard'
@@ -47,6 +47,8 @@ const EARLY_STAGE_COMPONENTS = new Set([
   'FlipCard',
   'liquid-button',
   'Spotlight',
+  'MultipleChoice',
+  'Slider',
 ])
 
 export function HomePage() {
@@ -287,6 +289,33 @@ function MyComponent() {
               implementation. Check out the <strong>Animated Button</strong> in the gallery below
               for a working example with full source code.
             </p>
+          </div>
+        </section>
+
+        {/* Feedback CTA */}
+        <section className="mb-12">
+          <div className="border border-[var(--color-border)] rounded-lg p-6 bg-gradient-to-r from-[var(--color-bg-secondary)] to-[var(--color-bg-tertiary)]">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-[var(--color-accent)]" />
+                  Help Us Improve
+                </h3>
+                <p className="text-[var(--color-text-secondary)]">
+                  Try out these components and let us know what you think! Found a bug or have ideas
+                  for making them better? We'd love to hear from you.
+                </p>
+              </div>
+              <a
+                href="https://github.com/anthropics/claude-code/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium whitespace-nowrap"
+              >
+                <Github className="w-4 h-4" />
+                Open an Issue
+              </a>
+            </div>
           </div>
         </section>
 
