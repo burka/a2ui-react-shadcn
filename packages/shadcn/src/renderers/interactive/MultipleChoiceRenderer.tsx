@@ -1,7 +1,6 @@
 import type { MultipleChoiceComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Checkbox } from '../../components/ui/checkbox.js'
-import { FieldLabel } from '../../components/ui/field-label.js'
 
 export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
   type: 'MultipleChoice',
@@ -29,7 +28,7 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
     }
 
     return (
-      <div className="space-y-2">
+      <div className="flex flex-col gap-3">
         {component.options.map((option) => {
           const isChecked = currentSelection.includes(option.value)
           const isDisabled =
@@ -38,39 +37,31 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
             !isChecked
 
           return (
-            <div
+            <label
               key={option.value}
-              className="flex items-center space-x-3 p-2 rounded-lg transition-colors cursor-pointer"
+              className="flex items-center gap-3 cursor-pointer select-none"
               style={{
-                backgroundColor: isChecked ? 'hsl(var(--primary) / 0.08)' : 'transparent',
-                border: `1px solid ${isChecked ? 'hsl(var(--primary) / 0.3)' : 'hsl(var(--border))'}`,
+                opacity: isDisabled ? 0.5 : 1,
+                cursor: isDisabled ? 'not-allowed' : 'pointer',
               }}
-              onClick={() => !isDisabled && handleChange(option.value, !isChecked)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  !isDisabled && handleChange(option.value, !isChecked)
-                }
-              }}
-              role="checkbox"
-              aria-checked={isChecked}
-              tabIndex={0}
             >
               <Checkbox
                 id={`${id}-${option.value}`}
                 checked={isChecked}
                 disabled={isDisabled}
                 onCheckedChange={(checked) => handleChange(option.value, checked === true)}
-                onClick={(e) => e.stopPropagation()}
               />
-              <FieldLabel htmlFor={`${id}-${option.value}`} variant="inline" disabled={isDisabled}>
+              <span
+                className="text-sm font-medium leading-none"
+                style={{ color: 'hsl(var(--foreground))' }}
+              >
                 {option.label}
-              </FieldLabel>
-            </div>
+              </span>
+            </label>
           )
         })}
         {component.maxSelections !== undefined && (
-          <p className="text-xs mt-2" style={{ color: 'hsl(var(--muted-foreground))' }}>
+          <p className="text-xs" style={{ color: 'hsl(var(--muted-foreground))' }}>
             {currentSelection.length} of {component.maxSelections} selected
           </p>
         )}

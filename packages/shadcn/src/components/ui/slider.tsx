@@ -5,48 +5,69 @@ import * as React from 'react'
 
 import { cn } from '../../lib/utils.js'
 
-const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, defaultValue, value, ...props }, ref) => {
-  // Determine number of thumbs needed based on value/defaultValue
-  const values = value ?? defaultValue ?? [0]
-  const thumbCount = Array.isArray(values) ? values.length : 1
+// shadcn/ui v4 Slider - https://ui.shadcn.com/docs/components/slider
+function Slider({
+  className,
+  defaultValue,
+  value,
+  min = 0,
+  max = 100,
+  ...props
+}: React.ComponentProps<typeof SliderPrimitive.Root>) {
+  const _values = React.useMemo(
+    () =>
+      Array.isArray(value)
+        ? value
+        : Array.isArray(defaultValue)
+          ? defaultValue
+          : [min],
+    [value, defaultValue, min],
+  )
 
   return (
     <SliderPrimitive.Root
-      ref={ref}
-      className={cn(
-        'relative flex w-full touch-none select-none items-center',
-        className,
-      )}
+      data-slot="slider"
       defaultValue={defaultValue}
       value={value}
+      min={min}
+      max={max}
+      className={cn(
+        'relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',
+        className,
+      )}
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative h-1.5 w-full grow overflow-hidden rounded-full"
-        style={{ backgroundColor: 'hsl(var(--primary) / 0.2)' }}
+        data-slot="slider-track"
+        className="relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
+        style={{ backgroundColor: 'hsl(var(--muted))' }}
       >
         <SliderPrimitive.Range
-          className="absolute h-full"
+          data-slot="slider-range"
+          className="absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
           style={{ backgroundColor: 'hsl(var(--primary))' }}
         />
       </SliderPrimitive.Track>
-      {Array.from({ length: thumbCount }).map((_, i) => (
+      {Array.from({ length: _values.length }, (_, index) => (
         <SliderPrimitive.Thumb
-          key={i}
-          className="block h-4 w-4 rounded-full border shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50"
+          data-slot="slider-thumb"
+          key={index}
+          className="block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
           style={{
             backgroundColor: 'hsl(var(--background))',
             borderColor: 'hsl(var(--primary))',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            // Ring color on hover/focus
           }}
         />
       ))}
+      <style>{`
+        [data-slot="slider-thumb"]:hover,
+        [data-slot="slider-thumb"]:focus-visible {
+          box-shadow: 0 0 0 4px hsl(var(--ring) / 0.5);
+        }
+      `}</style>
     </SliderPrimitive.Root>
   )
-})
-Slider.displayName = SliderPrimitive.Root.displayName
+}
 
 export { Slider }
