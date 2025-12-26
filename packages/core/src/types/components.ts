@@ -509,6 +509,137 @@ export interface CursorComponent extends BaseComponent {
 }
 
 /**
+ * Chart Components
+ * Data visualization components using Recharts
+ */
+
+/**
+ * Single data point for charts
+ */
+export interface ChartDataItem {
+  /** Label for the data point (x-axis or segment name) */
+  label: string
+  /** Numeric value */
+  value: number
+  /** Optional color override for this data point */
+  color?: string
+  /** Additional data fields for multi-series charts */
+  [key: string]: unknown
+}
+
+/**
+ * Pie/Donut Chart Component
+ */
+export interface PieChartComponent extends BaseComponent {
+  type: 'PieChart'
+  /** Static data array */
+  data?: ChartDataItem[]
+  /** Path to data in data model (alternative to static data) */
+  dataPath?: string
+  /** Render as donut chart (hole in center) */
+  donut?: boolean
+  /** Inner radius for donut (0-1, percentage of outer radius) */
+  innerRadius?: number
+  /** Show labels on segments */
+  showLabels?: boolean
+  /** Show legend */
+  showLegend?: boolean
+  /** Enable animations */
+  animated?: boolean
+  /** Chart height in pixels */
+  height?: number
+  /** Custom colors array */
+  colors?: string[]
+}
+
+/**
+ * Bar Chart Component
+ */
+export interface BarChartComponent extends BaseComponent {
+  type: 'BarChart'
+  /** Static data array */
+  data?: ChartDataItem[]
+  /** Path to data in data model */
+  dataPath?: string
+  /** Horizontal bar orientation */
+  horizontal?: boolean
+  /** Show grid lines */
+  showGrid?: boolean
+  /** Show X axis */
+  showXAxis?: boolean
+  /** Show Y axis */
+  showYAxis?: boolean
+  /** Enable animations */
+  animated?: boolean
+  /** Chart height in pixels */
+  height?: number
+  /** Custom colors array */
+  colors?: string[]
+  /** Bar radius (rounded corners) */
+  radius?: number
+}
+
+/**
+ * Line Chart Component
+ */
+export interface LineChartComponent extends BaseComponent {
+  type: 'LineChart'
+  /** Static data array */
+  data?: ChartDataItem[]
+  /** Path to data in data model */
+  dataPath?: string
+  /** Smooth curve interpolation */
+  smooth?: boolean
+  /** Show dots on data points */
+  showDots?: boolean
+  /** Show grid lines */
+  showGrid?: boolean
+  /** Show X axis */
+  showXAxis?: boolean
+  /** Show Y axis */
+  showYAxis?: boolean
+  /** Enable animations */
+  animated?: boolean
+  /** Chart height in pixels */
+  height?: number
+  /** Line color */
+  color?: string
+  /** Stroke width */
+  strokeWidth?: number
+}
+
+/**
+ * Area Chart Component
+ */
+export interface AreaChartComponent extends BaseComponent {
+  type: 'AreaChart'
+  /** Static data array */
+  data?: ChartDataItem[]
+  /** Path to data in data model */
+  dataPath?: string
+  /** Smooth curve interpolation */
+  smooth?: boolean
+  /** Show dots on data points */
+  showDots?: boolean
+  /** Show grid lines */
+  showGrid?: boolean
+  /** Show X axis */
+  showXAxis?: boolean
+  /** Show Y axis */
+  showYAxis?: boolean
+  /** Enable animations */
+  animated?: boolean
+  /** Chart height in pixels */
+  height?: number
+  /** Area fill color */
+  color?: string
+  /** Fill opacity (0-1) */
+  fillOpacity?: number
+  /** Enable gradient fill */
+  gradient?: boolean
+}
+
+/**
  * Container Components
  */
 
@@ -598,6 +729,11 @@ export type A2UIComponent =
   | HoleBackgroundComponent
   | GravityStarsBackgroundComponent
   | CursorComponent
+  // Chart components
+  | PieChartComponent
+  | BarChartComponent
+  | LineChartComponent
+  | AreaChartComponent
 
 /**
  * Component update for surfaceUpdate messages

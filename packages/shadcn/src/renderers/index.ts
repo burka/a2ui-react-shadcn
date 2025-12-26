@@ -51,6 +51,13 @@ import {
   AnimatedTabsOverride,
   AnimatedTextOverride,
 } from './animated/overrides/index.js'
+// Chart Components
+import {
+  AreaChartRenderer,
+  BarChartRenderer,
+  LineChartRenderer,
+  PieChartRenderer,
+} from './charts/index.js'
 import { CardRenderer, ListRenderer, ModalRenderer, TabsRenderer } from './container/index.js'
 import {
   AudioPlayerRenderer,
@@ -100,6 +107,21 @@ export const shadcnRenderers = [
   ModalRenderer,
   TabsRenderer,
   ListRenderer,
+  // Charts
+  PieChartRenderer,
+  BarChartRenderer,
+  LineChartRenderer,
+  AreaChartRenderer,
+] as A2UIRenderer[]
+
+/**
+ * Array of chart renderers for data visualization
+ */
+export const chartRenderers = [
+  PieChartRenderer,
+  BarChartRenderer,
+  LineChartRenderer,
+  AreaChartRenderer,
 ] as A2UIRenderer[]
 
 /**
@@ -281,6 +303,20 @@ export {
   AnimatedModalOverride,
   AnimatedTextOverride,
   AnimatedSelectOverride,
+  // Charts
+  PieChartRenderer,
+  BarChartRenderer,
+  LineChartRenderer,
+  AreaChartRenderer,
 }
+
+// Re-export chart utilities
+export {
+  buildChartConfig,
+  DEFAULT_CHART_COLORS,
+  getChartColor,
+  getChartData,
+  transformToRechartsData,
+} from './charts/index.js'
 
 export type { RendererRegistry } from './types.js'
