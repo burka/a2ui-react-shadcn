@@ -36,7 +36,7 @@ export const LiquidButtonRenderer: A2UIRenderer<LiquidButtonComponent> = {
           return {
             bg: 'hsl(var(--primary))',
             text: 'hsl(var(--primary-foreground))',
-            liquid: liquidColor || 'hsl(220 90% 60%)',
+            liquid: liquidColor || 'hsl(220 80% 45%)',
           }
       }
     }
