@@ -18,7 +18,7 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
     const step = component.step ?? 1
 
     return (
-      <div className="space-y-2 w-full min-w-[200px]">
+      <div className="space-y-3 w-full min-w-[200px]">
         <Slider
           min={min}
           max={max}
@@ -27,7 +27,19 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
           onValueChange={handleChange}
           className="w-full"
         />
-        <div className="text-sm text-muted-foreground text-center">{value ?? min}</div>
+        <div className="flex justify-between items-center text-xs" style={{ color: 'hsl(var(--muted-foreground))' }}>
+          <span>{min}</span>
+          <span
+            className="px-2 py-1 rounded-md font-medium text-sm"
+            style={{
+              backgroundColor: 'hsl(var(--primary) / 0.1)',
+              color: 'hsl(var(--primary))',
+            }}
+          >
+            {value ?? min}
+          </span>
+          <span>{max}</span>
+        </div>
       </div>
     )
   },

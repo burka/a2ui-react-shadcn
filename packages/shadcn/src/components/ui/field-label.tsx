@@ -26,6 +26,7 @@ export function FieldLabel({
         !disabled && variant === 'inline' && 'cursor-pointer',
         className,
       )}
+      style={{ color: 'hsl(var(--foreground))' }}
     >
       {children}
     </label>

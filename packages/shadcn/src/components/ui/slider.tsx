@@ -15,10 +15,23 @@ const Slider = React.forwardRef<
     )}
     {...props}
   >
-    <SliderPrimitive.Track className="bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5">
-      <SliderPrimitive.Range className="bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full" />
+    <SliderPrimitive.Track
+      className="relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-2 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2"
+      style={{ backgroundColor: 'hsl(var(--muted))' }}
+    >
+      <SliderPrimitive.Range
+        className="absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+        style={{ backgroundColor: 'hsl(var(--primary))' }}
+      />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="border-primary ring-ring/50 block size-4 shrink-0 rounded-full border bg-background shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50" />
+    <SliderPrimitive.Thumb
+      className="block size-5 shrink-0 rounded-full border-2 shadow-md transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50"
+      style={{
+        backgroundColor: 'hsl(var(--background))',
+        borderColor: 'hsl(var(--primary))',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      }}
+    />
   </SliderPrimitive.Root>
 ))
 Slider.displayName = SliderPrimitive.Root.displayName

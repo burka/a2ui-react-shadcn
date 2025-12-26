@@ -29,7 +29,7 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
     }
 
     return (
-      <div className="space-y-3">
+      <div className="space-y-2">
         {component.options.map((option) => {
           const isChecked = currentSelection.includes(option.value)
           const isDisabled =
@@ -38,12 +38,30 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
             !isChecked
 
           return (
-            <div key={option.value} className="flex items-center space-x-2">
+            <div
+              key={option.value}
+              className="flex items-center space-x-3 p-2 rounded-lg transition-colors cursor-pointer"
+              style={{
+                backgroundColor: isChecked ? 'hsl(var(--primary) / 0.08)' : 'transparent',
+                border: `1px solid ${isChecked ? 'hsl(var(--primary) / 0.3)' : 'hsl(var(--border))'}`,
+              }}
+              onClick={() => !isDisabled && handleChange(option.value, !isChecked)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  !isDisabled && handleChange(option.value, !isChecked)
+                }
+              }}
+              role="checkbox"
+              aria-checked={isChecked}
+              tabIndex={0}
+            >
               <Checkbox
                 id={`${id}-${option.value}`}
                 checked={isChecked}
                 disabled={isDisabled}
                 onCheckedChange={(checked) => handleChange(option.value, checked === true)}
+                onClick={(e) => e.stopPropagation()}
               />
               <FieldLabel htmlFor={`${id}-${option.value}`} variant="inline" disabled={isDisabled}>
                 {option.label}
@@ -52,7 +70,7 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
           )
         })}
         {component.maxSelections !== undefined && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs mt-2" style={{ color: 'hsl(var(--muted-foreground))' }}>
             {currentSelection.length} of {component.maxSelections} selected
           </p>
         )}

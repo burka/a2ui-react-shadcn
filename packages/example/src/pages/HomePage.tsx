@@ -111,8 +111,6 @@ const EARLY_STAGE_COMPONENTS = new Set([
   'FlipCard',
   'liquid-button',
   'Spotlight',
-  'MultipleChoice',
-  'Slider',
 ])
 
 export function HomePage() {
