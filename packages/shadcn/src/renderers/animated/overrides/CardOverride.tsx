@@ -2,8 +2,8 @@
 
 import type { CardComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
+import type { ReactNode } from 'react'
 import { Card, CardContent } from '../../../components/ui/card.js'
 
 /**

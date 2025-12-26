@@ -1,9 +1,9 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { GravityStarsBackgroundComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useMemo, useState, useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface Star {
   id: number
@@ -67,7 +67,7 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
             const dy = mousePos.y - starY
             const distance = Math.sqrt(dx * dx + dy * dy) || 1
 
-            const force = Math.min(gravity * 1000 / distance, 0.5)
+            const force = Math.min((gravity * 1000) / distance, 0.5)
             const ax = (dx / distance) * force
             const ay = (dy / distance) * force
 
@@ -94,7 +94,7 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
               vx: newVx,
               vy: newVy,
             }
-          })
+          }),
         )
       }, 16)
 
@@ -163,9 +163,7 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
         )}
 
         {/* Content */}
-        <div className="relative z-10 w-full h-full">
-          {children}
-        </div>
+        <div className="relative z-10 w-full h-full">{children}</div>
       </div>
     )
   },
@@ -179,7 +177,16 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
         updateComponents: {
           surfaceId: 'gravity-stars-example',
           components: [
-            { id: 'bg-1', component: { type: 'gravity-stars-background', id: 'bg-1', starCount: 40, interactive: true, gravity: 0.02 } },
+            {
+              id: 'bg-1',
+              component: {
+                type: 'gravity-stars-background',
+                id: 'bg-1',
+                starCount: 40,
+                interactive: true,
+                gravity: 0.02,
+              },
+            },
           ],
         },
       },

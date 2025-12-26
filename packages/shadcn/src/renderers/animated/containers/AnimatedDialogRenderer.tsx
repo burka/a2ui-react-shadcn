@@ -1,7 +1,7 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, type ReactNode } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
+import { type ReactNode, useState } from 'react'
 
 interface AnimatedDialogComponent {
   type: 'AnimatedDialog'
@@ -113,10 +113,7 @@ export const AnimatedDialogRenderer: A2UIRenderer<AnimatedDialogComponent> = {
 
                   {/* Description */}
                   {component.description && (
-                    <p
-                      className="mt-2 text-sm"
-                      style={{ color: 'hsl(var(--muted-foreground))' }}
-                    >
+                    <p className="mt-2 text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>
                       {component.description}
                     </p>
                   )}
@@ -141,15 +138,62 @@ export const AnimatedDialogRenderer: A2UIRenderer<AnimatedDialogComponent> = {
         updateComponents: {
           surfaceId: 'dialog-example',
           components: [
-            { id: 'row-1', component: { type: 'Row', id: 'row-1', distribution: 'packed', children: ['dialog-1', 'dialog-2'] } },
-            { id: 'dialog-1', component: { type: 'AnimatedDialog', id: 'dialog-1', trigger: 'btn-1', content: 'dialog-content-1', title: 'Scale Animation', description: 'This dialog scales in', animation: 'scale' } },
-            { id: 'btn-1', component: { type: 'Button', id: 'btn-1', child: 'btn-text-1', primary: true } },
-            { id: 'btn-text-1', component: { type: 'Text', id: 'btn-text-1', content: 'Open Scale' } },
-            { id: 'dialog-content-1', component: { type: 'Text', id: 'dialog-content-1', content: 'Dialog content here!' } },
-            { id: 'dialog-2', component: { type: 'AnimatedDialog', id: 'dialog-2', trigger: 'btn-2', content: 'dialog-content-2', title: 'Flip Animation', animation: 'flip' } },
-            { id: 'btn-2', component: { type: 'Button', id: 'btn-2', child: 'btn-text-2', primary: false } },
-            { id: 'btn-text-2', component: { type: 'Text', id: 'btn-text-2', content: 'Open Flip' } },
-            { id: 'dialog-content-2', component: { type: 'Text', id: 'dialog-content-2', content: 'Flipping dialog!' } },
+            {
+              id: 'row-1',
+              component: {
+                type: 'Row',
+                id: 'row-1',
+                distribution: 'packed',
+                children: ['dialog-1', 'dialog-2'],
+              },
+            },
+            {
+              id: 'dialog-1',
+              component: {
+                type: 'AnimatedDialog',
+                id: 'dialog-1',
+                trigger: 'btn-1',
+                content: 'dialog-content-1',
+                title: 'Scale Animation',
+                description: 'This dialog scales in',
+                animation: 'scale',
+              },
+            },
+            {
+              id: 'btn-1',
+              component: { type: 'Button', id: 'btn-1', child: 'btn-text-1', primary: true },
+            },
+            {
+              id: 'btn-text-1',
+              component: { type: 'Text', id: 'btn-text-1', content: 'Open Scale' },
+            },
+            {
+              id: 'dialog-content-1',
+              component: { type: 'Text', id: 'dialog-content-1', content: 'Dialog content here!' },
+            },
+            {
+              id: 'dialog-2',
+              component: {
+                type: 'AnimatedDialog',
+                id: 'dialog-2',
+                trigger: 'btn-2',
+                content: 'dialog-content-2',
+                title: 'Flip Animation',
+                animation: 'flip',
+              },
+            },
+            {
+              id: 'btn-2',
+              component: { type: 'Button', id: 'btn-2', child: 'btn-text-2', primary: false },
+            },
+            {
+              id: 'btn-text-2',
+              component: { type: 'Text', id: 'btn-text-2', content: 'Open Flip' },
+            },
+            {
+              id: 'dialog-content-2',
+              component: { type: 'Text', id: 'dialog-content-2', content: 'Flipping dialog!' },
+            },
           ],
         },
       },

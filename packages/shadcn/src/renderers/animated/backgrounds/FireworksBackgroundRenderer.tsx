@@ -1,9 +1,9 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { FireworksBackgroundComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface Particle {
   id: string
@@ -114,9 +114,7 @@ export const FireworksBackgroundRenderer: A2UIRenderer<FireworksBackgroundCompon
         ))}
 
         {/* Content */}
-        <div className="relative z-10 w-full h-full">
-          {children}
-        </div>
+        <div className="relative z-10 w-full h-full">{children}</div>
       </div>
     )
   },
@@ -130,7 +128,16 @@ export const FireworksBackgroundRenderer: A2UIRenderer<FireworksBackgroundCompon
         updateComponents: {
           surfaceId: 'fireworks-bg-example',
           components: [
-            { id: 'bg-1', component: { type: 'fireworks-background', id: 'bg-1', frequency: 1500, particleCount: 25, autoPlay: true } },
+            {
+              id: 'bg-1',
+              component: {
+                type: 'fireworks-background',
+                id: 'bg-1',
+                frequency: 1500,
+                particleCount: 25,
+                autoPlay: true,
+              },
+            },
           ],
         },
       },

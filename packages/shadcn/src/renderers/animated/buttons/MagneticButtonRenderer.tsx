@@ -1,23 +1,15 @@
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { MagneticButtonComponent } from 'a2ui-shadcn-ui-core'
+import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-shadcn-ui-react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useRef, type ReactNode, type MouseEvent } from 'react'
-
-interface MagneticButtonComponent {
-  type: 'MagneticButton'
-  id: string
-  child: string
-  primary?: boolean
-  action?: string
-  actionPayload?: Record<string, unknown>
-  submitDataPaths?: string[]
-  strength?: number
-}
+import { type MouseEvent, type ReactNode, useRef } from 'react'
+import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 export const MagneticButtonRenderer: A2UIRenderer<MagneticButtonComponent> = {
   type: 'MagneticButton',
   render: ({ component, children, data, onAction }: RendererProps<MagneticButtonComponent>) => {
     const ref = useRef<HTMLButtonElement>(null)
     const strength = component.strength || 0.3
+    const handleClick = createActionHandler(component, data, onAction)
 
     const x = useMotionValue(0)
     const y = useMotionValue(0)
@@ -45,39 +37,6 @@ export const MagneticButtonRenderer: A2UIRenderer<MagneticButtonComponent> = {
       y.set(0)
     }
 
-    const handleClick = () => {
-      if (component.action) {
-        const payload: Record<string, unknown> = component.actionPayload
-          ? { ...component.actionPayload }
-          : {}
-
-        if (component.submitDataPaths) {
-          for (const path of component.submitDataPaths) {
-            const value = data.get(path)
-            if (value !== undefined) {
-              payload[path] = value
-            }
-          }
-        }
-
-        onAction({
-          type: component.action,
-          payload: Object.keys(payload).length > 0 ? payload : undefined,
-        })
-      }
-    }
-
-    const primaryStyle = {
-      backgroundColor: 'hsl(var(--primary))',
-      color: 'hsl(var(--primary-foreground))',
-    }
-
-    const secondaryStyle = {
-      backgroundColor: 'hsl(var(--background))',
-      color: 'hsl(var(--foreground))',
-      borderColor: 'hsl(var(--input))',
-    }
-
     return (
       <motion.button
         ref={ref}
@@ -89,14 +48,10 @@ export const MagneticButtonRenderer: A2UIRenderer<MagneticButtonComponent> = {
           y: springY,
           rotateX,
           rotateY,
-          ...component.primary ? primaryStyle : secondaryStyle,
+          ...getButtonStyle(component.primary),
         }}
         whileTap={{ scale: 0.95 }}
-        className={
-          component.primary
-            ? 'bg-primary text-primary-foreground shadow hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
-            : 'border border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
-        }
+        className={getButtonClassName(component.primary)}
       >
         {children as ReactNode}
       </motion.button>
@@ -112,10 +67,40 @@ export const MagneticButtonRenderer: A2UIRenderer<MagneticButtonComponent> = {
         updateComponents: {
           surfaceId: 'magnetic-btn-example',
           components: [
-            { id: 'row-1', component: { type: 'Row', id: 'row-1', distribution: 'packed', children: ['btn-1', 'btn-2'] } },
-            { id: 'btn-1', component: { type: 'MagneticButton', id: 'btn-1', child: 'text-1', primary: true, action: 'click' } },
-            { id: 'text-1', component: { type: 'Text', id: 'text-1', content: 'Magnetic Primary' } },
-            { id: 'btn-2', component: { type: 'MagneticButton', id: 'btn-2', child: 'text-2', primary: false, strength: 0.5, action: 'click' } },
+            {
+              id: 'row-1',
+              component: {
+                type: 'Row',
+                id: 'row-1',
+                distribution: 'packed',
+                children: ['btn-1', 'btn-2'],
+              },
+            },
+            {
+              id: 'btn-1',
+              component: {
+                type: 'MagneticButton',
+                id: 'btn-1',
+                child: 'text-1',
+                primary: true,
+                action: 'click',
+              },
+            },
+            {
+              id: 'text-1',
+              component: { type: 'Text', id: 'text-1', content: 'Magnetic Primary' },
+            },
+            {
+              id: 'btn-2',
+              component: {
+                type: 'MagneticButton',
+                id: 'btn-2',
+                child: 'text-2',
+                primary: false,
+                strength: 0.5,
+                action: 'click',
+              },
+            },
             { id: 'text-2', component: { type: 'Text', id: 'text-2', content: 'Strong Magnetic' } },
           ],
         },

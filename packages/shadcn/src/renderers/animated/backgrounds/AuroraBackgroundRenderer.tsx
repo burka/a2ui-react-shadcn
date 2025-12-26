@@ -102,10 +102,36 @@ export const AuroraBackgroundRenderer: A2UIRenderer<AuroraBackgroundComponent> =
         updateComponents: {
           surfaceId: 'aurora-example',
           components: [
-            { id: 'aurora-1', component: { type: 'AuroraBackground', id: 'aurora-1', children: ['col-1'], colors: ['#00d4ff', '#7c3aed', '#f472b6'] } },
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', alignment: 'center', children: ['text-1', 'text-2'] } },
-            { id: 'text-1', component: { type: 'Text', id: 'text-1', content: 'Aurora Effect', style: 'h1' } },
-            { id: 'text-2', component: { type: 'Text', id: 'text-2', content: 'Beautiful animated northern lights' } },
+            {
+              id: 'aurora-1',
+              component: {
+                type: 'AuroraBackground',
+                id: 'aurora-1',
+                children: ['col-1'],
+                colors: ['#00d4ff', '#7c3aed', '#f472b6'],
+              },
+            },
+            {
+              id: 'col-1',
+              component: {
+                type: 'Column',
+                id: 'col-1',
+                alignment: 'center',
+                children: ['text-1', 'text-2'],
+              },
+            },
+            {
+              id: 'text-1',
+              component: { type: 'Text', id: 'text-1', content: 'Aurora Effect', style: 'h1' },
+            },
+            {
+              id: 'text-2',
+              component: {
+                type: 'Text',
+                id: 'text-2',
+                content: 'Beautiful animated northern lights',
+              },
+            },
           ],
         },
       },

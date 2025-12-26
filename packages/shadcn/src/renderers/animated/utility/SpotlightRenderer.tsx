@@ -1,6 +1,6 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { useRef, type ReactNode, type MouseEvent } from 'react'
+import { type MouseEvent, type ReactNode, useRef } from 'react'
 
 interface SpotlightComponent {
   type: 'Spotlight'
@@ -105,10 +105,32 @@ export const SpotlightRenderer: A2UIRenderer<SpotlightComponent> = {
         updateComponents: {
           surfaceId: 'spotlight-example',
           components: [
-            { id: 'spotlight-1', component: { type: 'Spotlight', id: 'spotlight-1', children: ['col-1'], spotlightColor: 'rgba(100, 130, 255, 0.2)' } },
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', alignment: 'center', children: ['text-1', 'text-2'] } },
-            { id: 'text-1', component: { type: 'Text', id: 'text-1', content: 'Move your cursor', style: 'h2' } },
-            { id: 'text-2', component: { type: 'Text', id: 'text-2', content: 'Watch the spotlight follow!' } },
+            {
+              id: 'spotlight-1',
+              component: {
+                type: 'Spotlight',
+                id: 'spotlight-1',
+                children: ['col-1'],
+                spotlightColor: 'rgba(100, 130, 255, 0.2)',
+              },
+            },
+            {
+              id: 'col-1',
+              component: {
+                type: 'Column',
+                id: 'col-1',
+                alignment: 'center',
+                children: ['text-1', 'text-2'],
+              },
+            },
+            {
+              id: 'text-1',
+              component: { type: 'Text', id: 'text-1', content: 'Move your cursor', style: 'h2' },
+            },
+            {
+              id: 'text-2',
+              component: { type: 'Text', id: 'text-2', content: 'Watch the spotlight follow!' },
+            },
           ],
         },
       },

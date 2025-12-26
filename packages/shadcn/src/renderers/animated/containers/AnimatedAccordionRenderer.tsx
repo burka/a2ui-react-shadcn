@@ -1,7 +1,7 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, type ReactNode } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import { type ReactNode, useState } from 'react'
 
 interface AccordionItem {
   trigger: string
@@ -60,7 +60,10 @@ export const AnimatedAccordionRenderer: A2UIRenderer<AnimatedAccordionComponent>
                   animate={{ rotate: isOpen ? 180 : 0 }}
                   transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                 >
-                  <ChevronDown className="h-4 w-4" style={{ color: 'hsl(var(--muted-foreground))' }} />
+                  <ChevronDown
+                    className="h-4 w-4"
+                    style={{ color: 'hsl(var(--muted-foreground))' }}
+                  />
                 </motion.span>
               </motion.button>
               <AnimatePresence initial={false}>
@@ -109,10 +112,30 @@ export const AnimatedAccordionRenderer: A2UIRenderer<AnimatedAccordionComponent>
                 defaultOpen: [0],
               },
             },
-            { id: 'trigger-1', component: { type: 'Text', id: 'trigger-1', content: 'What is this?' } },
-            { id: 'content-1', component: { type: 'Text', id: 'content-1', content: 'This is an animated accordion component.' } },
-            { id: 'trigger-2', component: { type: 'Text', id: 'trigger-2', content: 'How does it work?' } },
-            { id: 'content-2', component: { type: 'Text', id: 'content-2', content: 'It uses spring animations for smooth transitions.' } },
+            {
+              id: 'trigger-1',
+              component: { type: 'Text', id: 'trigger-1', content: 'What is this?' },
+            },
+            {
+              id: 'content-1',
+              component: {
+                type: 'Text',
+                id: 'content-1',
+                content: 'This is an animated accordion component.',
+              },
+            },
+            {
+              id: 'trigger-2',
+              component: { type: 'Text', id: 'trigger-2', content: 'How does it work?' },
+            },
+            {
+              id: 'content-2',
+              component: {
+                type: 'Text',
+                id: 'content-2',
+                content: 'It uses spring animations for smooth transitions.',
+              },
+            },
           ],
         },
       },

@@ -2,7 +2,7 @@
 
 import type { CheckboxComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Checkbox } from '../../../components/ui/checkbox.js'
 import { FieldLabel } from '../../../components/ui/field-label.js'
 
@@ -32,11 +32,7 @@ export const AnimatedCheckboxOverride: A2UIRenderer<CheckboxComponent> = {
           whileTap={{ scale: 0.9 }}
           transition={{ type: 'spring', stiffness: 400, damping: 17 }}
         >
-          <Checkbox
-            id={id}
-            checked={value}
-            onCheckedChange={handleChange}
-          />
+          <Checkbox id={id} checked={value} onCheckedChange={handleChange} />
         </motion.div>
         {component.label && (
           <FieldLabel htmlFor={id} variant="inline">

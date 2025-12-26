@@ -1,14 +1,36 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { LucideIcon } from 'lucide-react'
 import {
-  Sun, Moon, Cloud, Play, Pause, Square,
-  Heart, Star, Zap, Flame, HelpCircle,
-  Check, X, Plus, Minus, ChevronUp, ChevronDown,
-  ChevronLeft, ChevronRight, Home, Settings,
-  User, Mail, Phone, Search, Menu, Bell,
+  Bell,
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  Cloud,
+  Flame,
+  Heart,
+  HelpCircle,
+  Home,
+  Mail,
+  Menu,
+  Minus,
+  Moon,
+  Pause,
+  Phone,
+  Play,
+  Plus,
+  Search,
+  Settings,
+  Square,
+  Star,
+  Sun,
+  User,
+  X,
+  Zap,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 interface MorphingIconComponent {
   type: 'MorphingIcon'
@@ -21,11 +43,33 @@ interface MorphingIconComponent {
 }
 
 const iconMap: Record<string, LucideIcon> = {
-  Sun, Moon, Cloud, Play, Pause, Square,
-  Heart, Star, Zap, Flame, HelpCircle,
-  Check, X, Plus, Minus, ChevronUp, ChevronDown,
-  ChevronLeft, ChevronRight, Home, Settings,
-  User, Mail, Phone, Search, Menu, Bell,
+  Sun,
+  Moon,
+  Cloud,
+  Play,
+  Pause,
+  Square,
+  Heart,
+  Star,
+  Zap,
+  Flame,
+  HelpCircle,
+  Check,
+  X,
+  Plus,
+  Minus,
+  ChevronUp,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  Settings,
+  User,
+  Mail,
+  Phone,
+  Search,
+  Menu,
+  Bell,
 }
 
 export const MorphingIconRenderer: A2UIRenderer<MorphingIconComponent> = {
@@ -105,10 +149,46 @@ export const MorphingIconRenderer: A2UIRenderer<MorphingIconComponent> = {
         updateComponents: {
           surfaceId: 'morphing-icon-example',
           components: [
-            { id: 'row-1', component: { type: 'Row', id: 'row-1', distribution: 'spaceAround', children: ['icon-1', 'icon-2', 'icon-3'] } },
-            { id: 'icon-1', component: { type: 'MorphingIcon', id: 'icon-1', icons: ['Sun', 'Moon', 'Cloud'], trigger: 'hover', size: 28 } },
-            { id: 'icon-2', component: { type: 'MorphingIcon', id: 'icon-2', icons: ['Play', 'Pause', 'Square'], trigger: 'click', size: 28 } },
-            { id: 'icon-3', component: { type: 'MorphingIcon', id: 'icon-3', icons: ['Heart', 'Star', 'Zap', 'Flame'], trigger: 'auto', interval: 1500, size: 28 } },
+            {
+              id: 'row-1',
+              component: {
+                type: 'Row',
+                id: 'row-1',
+                distribution: 'spaceAround',
+                children: ['icon-1', 'icon-2', 'icon-3'],
+              },
+            },
+            {
+              id: 'icon-1',
+              component: {
+                type: 'MorphingIcon',
+                id: 'icon-1',
+                icons: ['Sun', 'Moon', 'Cloud'],
+                trigger: 'hover',
+                size: 28,
+              },
+            },
+            {
+              id: 'icon-2',
+              component: {
+                type: 'MorphingIcon',
+                id: 'icon-2',
+                icons: ['Play', 'Pause', 'Square'],
+                trigger: 'click',
+                size: 28,
+              },
+            },
+            {
+              id: 'icon-3',
+              component: {
+                type: 'MorphingIcon',
+                id: 'icon-3',
+                icons: ['Heart', 'Star', 'Zap', 'Flame'],
+                trigger: 'auto',
+                interval: 1500,
+                size: 28,
+              },
+            },
           ],
         },
       },

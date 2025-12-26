@@ -105,9 +105,30 @@ export const TypewriterTextRenderer: A2UIRenderer<TypewriterTextComponent> = {
         updateComponents: {
           surfaceId: 'typewriter-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] } },
-            { id: 'text-1', component: { type: 'TypewriterText', id: 'text-1', content: 'Hello, World!', style: 'h2', speed: 80 } },
-            { id: 'text-2', component: { type: 'TypewriterText', id: 'text-2', content: 'This text loops forever...', loop: true, speed: 60 } },
+            {
+              id: 'col-1',
+              component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] },
+            },
+            {
+              id: 'text-1',
+              component: {
+                type: 'TypewriterText',
+                id: 'text-1',
+                content: 'Hello, World!',
+                style: 'h2',
+                speed: 80,
+              },
+            },
+            {
+              id: 'text-2',
+              component: {
+                type: 'TypewriterText',
+                id: 'text-2',
+                content: 'This text loops forever...',
+                loop: true,
+                speed: 60,
+              },
+            },
           ],
         },
       },

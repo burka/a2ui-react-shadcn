@@ -1,7 +1,7 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { CursorComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
@@ -120,10 +120,7 @@ export const CursorRenderer: A2UIRenderer<CursorComponent> = {
             damping: 20,
           }}
         >
-          <div
-            className="w-full h-full rounded-full"
-            style={{ backgroundColor: color }}
-          />
+          <div className="w-full h-full rounded-full" style={{ backgroundColor: color }} />
         </motion.div>
       </div>
     )
@@ -138,7 +135,17 @@ export const CursorRenderer: A2UIRenderer<CursorComponent> = {
         updateComponents: {
           surfaceId: 'cursor-example',
           components: [
-            { id: 'cursor-1', component: { type: 'cursor', id: 'cursor-1', size: 20, trailLength: 4, showTrail: true, smoothing: 0.15 } },
+            {
+              id: 'cursor-1',
+              component: {
+                type: 'cursor',
+                id: 'cursor-1',
+                size: 20,
+                trailLength: 4,
+                showTrail: true,
+                smoothing: 0.15,
+              },
+            },
           ],
         },
       },

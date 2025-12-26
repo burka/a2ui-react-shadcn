@@ -1,7 +1,7 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { BubbleBackgroundComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 
@@ -66,9 +66,7 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
         ))}
 
         {/* Content */}
-        <div className="relative z-10 w-full h-full">
-          {children}
-        </div>
+        <div className="relative z-10 w-full h-full">{children}</div>
       </div>
     )
   },
@@ -82,7 +80,17 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
         updateComponents: {
           surfaceId: 'bubble-bg-example',
           components: [
-            { id: 'bg-1', component: { type: 'bubble-background', id: 'bg-1', bubbleCount: 15, minSize: 10, maxSize: 40, speed: 1 } },
+            {
+              id: 'bg-1',
+              component: {
+                type: 'bubble-background',
+                id: 'bg-1',
+                bubbleCount: 15,
+                minSize: 10,
+                maxSize: 40,
+                speed: 1,
+              },
+            },
           ],
         },
       },

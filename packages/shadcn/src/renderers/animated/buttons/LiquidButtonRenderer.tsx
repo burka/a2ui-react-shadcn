@@ -1,7 +1,7 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { LiquidButtonComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
@@ -10,12 +10,7 @@ export const LiquidButtonRenderer: A2UIRenderer<LiquidButtonComponent> = {
   render: ({ component, onAction }) => {
     const [isHovered, setIsHovered] = useState(false)
 
-    const {
-      label = 'Click me',
-      variant = 'default',
-      liquidColor,
-      duration = 0.6,
-    } = component
+    const { label = 'Click me', variant = 'default', liquidColor, duration = 0.6 } = component
 
     const getVariantColors = () => {
       switch (variant) {
@@ -114,7 +109,16 @@ export const LiquidButtonRenderer: A2UIRenderer<LiquidButtonComponent> = {
         updateComponents: {
           surfaceId: 'liquid-btn-example',
           components: [
-            { id: 'btn-1', component: { type: 'liquid-button', id: 'btn-1', label: 'Hover me', variant: 'default', duration: 0.6 } },
+            {
+              id: 'btn-1',
+              component: {
+                type: 'liquid-button',
+                id: 'btn-1',
+                label: 'Hover me',
+                variant: 'default',
+                duration: 0.6,
+              },
+            },
           ],
         },
       },

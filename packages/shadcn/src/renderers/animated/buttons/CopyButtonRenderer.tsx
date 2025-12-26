@@ -1,10 +1,10 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { CopyButtonComponent } from 'a2ui-shadcn-ui-core'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Copy } from 'lucide-react'
+import { useState } from 'react'
 
 export const CopyButtonRenderer: A2UIRenderer<CopyButtonComponent> = {
   type: 'copy-button',
@@ -59,11 +59,7 @@ export const CopyButtonRenderer: A2UIRenderer<CopyButtonComponent> = {
               exit={{ scale: 0, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              {copied ? (
-                <Check className="h-4 w-4 text-green-500" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
+              {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
             </motion.span>
           )}
         </AnimatePresence>
@@ -92,7 +88,18 @@ export const CopyButtonRenderer: A2UIRenderer<CopyButtonComponent> = {
         updateComponents: {
           surfaceId: 'copy-btn-example',
           components: [
-            { id: 'btn-1', component: { type: 'copy-button', id: 'btn-1', text: 'npm install a2ui-shadcn-ui', label: 'Copy', copiedLabel: 'Copied!', variant: 'outline', showIcon: true } },
+            {
+              id: 'btn-1',
+              component: {
+                type: 'copy-button',
+                id: 'btn-1',
+                text: 'npm install a2ui-shadcn-ui',
+                label: 'Copy',
+                copiedLabel: 'Copied!',
+                variant: 'outline',
+                showIcon: true,
+              },
+            },
           ],
         },
       },

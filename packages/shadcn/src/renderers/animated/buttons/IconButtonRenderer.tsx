@@ -1,25 +1,25 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { IconButtonComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 import type { LucideIcon } from 'lucide-react'
 import {
-  Heart,
-  Star,
-  Share,
   Bookmark,
-  ThumbsUp,
   Download,
-  Settings,
-  Search,
-  Menu,
-  X,
-  Plus,
-  Minus,
   Edit,
-  Trash,
+  Heart,
   HelpCircle,
+  Menu,
+  Minus,
+  Plus,
+  Search,
+  Settings,
+  Share,
+  Star,
+  ThumbsUp,
+  Trash,
+  X,
 } from 'lucide-react'
 
 const iconMap: Record<string, LucideIcon> = {
@@ -140,7 +140,18 @@ export const IconButtonRenderer: A2UIRenderer<IconButtonComponent> = {
         updateComponents: {
           surfaceId: 'icon-btn-example',
           components: [
-            { id: 'btn-1', component: { type: 'icon-button', id: 'btn-1', icon: 'heart', variant: 'outline', size: 'md', animation: 'scale', tooltip: 'Like' } },
+            {
+              id: 'btn-1',
+              component: {
+                type: 'icon-button',
+                id: 'btn-1',
+                icon: 'heart',
+                variant: 'outline',
+                size: 'md',
+                animation: 'scale',
+                tooltip: 'Like',
+              },
+            },
           ],
         },
       },

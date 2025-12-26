@@ -1,7 +1,7 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { HoleBackgroundComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 
 export const HoleBackgroundRenderer: A2UIRenderer<HoleBackgroundComponent> = {
@@ -80,9 +80,7 @@ export const HoleBackgroundRenderer: A2UIRenderer<HoleBackgroundComponent> = {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 w-full h-full">
-          {children}
-        </div>
+        <div className="relative z-10 w-full h-full">{children}</div>
       </div>
     )
   },
@@ -96,7 +94,17 @@ export const HoleBackgroundRenderer: A2UIRenderer<HoleBackgroundComponent> = {
         updateComponents: {
           surfaceId: 'hole-bg-example',
           components: [
-            { id: 'bg-1', component: { type: 'hole-background', id: 'bg-1', holeSize: 150, rings: 4, animated: true, pulseSpeed: 2 } },
+            {
+              id: 'bg-1',
+              component: {
+                type: 'hole-background',
+                id: 'bg-1',
+                holeSize: 150,
+                rings: 4,
+                animated: true,
+                pulseSpeed: 2,
+              },
+            },
           ],
         },
       },

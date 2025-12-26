@@ -73,13 +73,56 @@ export const AnimatedCardRenderer: A2UIRenderer<AnimatedCardComponent> = {
         updateComponents: {
           surfaceId: 'card-example',
           components: [
-            { id: 'row-1', component: { type: 'Row', id: 'row-1', distribution: 'equal', children: ['card-1', 'card-2', 'card-3'] } },
-            { id: 'card-1', component: { type: 'AnimatedCard', id: 'card-1', children: ['card-text-1'], animation: 'hover-lift' } },
-            { id: 'card-text-1', component: { type: 'Text', id: 'card-text-1', content: 'Hover Lift' } },
-            { id: 'card-2', component: { type: 'AnimatedCard', id: 'card-2', children: ['card-text-2'], animation: 'hover-glow', delay: 0.1 } },
-            { id: 'card-text-2', component: { type: 'Text', id: 'card-text-2', content: 'Hover Glow' } },
-            { id: 'card-3', component: { type: 'AnimatedCard', id: 'card-3', children: ['card-text-3'], animation: 'tilt', delay: 0.2 } },
-            { id: 'card-text-3', component: { type: 'Text', id: 'card-text-3', content: '3D Tilt' } },
+            {
+              id: 'row-1',
+              component: {
+                type: 'Row',
+                id: 'row-1',
+                distribution: 'equal',
+                children: ['card-1', 'card-2', 'card-3'],
+              },
+            },
+            {
+              id: 'card-1',
+              component: {
+                type: 'AnimatedCard',
+                id: 'card-1',
+                children: ['card-text-1'],
+                animation: 'hover-lift',
+              },
+            },
+            {
+              id: 'card-text-1',
+              component: { type: 'Text', id: 'card-text-1', content: 'Hover Lift' },
+            },
+            {
+              id: 'card-2',
+              component: {
+                type: 'AnimatedCard',
+                id: 'card-2',
+                children: ['card-text-2'],
+                animation: 'hover-glow',
+                delay: 0.1,
+              },
+            },
+            {
+              id: 'card-text-2',
+              component: { type: 'Text', id: 'card-text-2', content: 'Hover Glow' },
+            },
+            {
+              id: 'card-3',
+              component: {
+                type: 'AnimatedCard',
+                id: 'card-3',
+                children: ['card-text-3'],
+                animation: 'tilt',
+                delay: 0.2,
+              },
+            },
+            {
+              id: 'card-text-3',
+              component: { type: 'Text', id: 'card-text-3', content: '3D Tilt' },
+            },
           ],
         },
       },

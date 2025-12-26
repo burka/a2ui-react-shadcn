@@ -1,6 +1,6 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useState, type ReactNode } from 'react'
+import { type ReactNode, useState } from 'react'
 
 interface FlipCardComponent {
   type: 'FlipCard'
@@ -111,13 +111,54 @@ export const FlipCardRenderer: A2UIRenderer<FlipCardComponent> = {
         updateComponents: {
           surfaceId: 'flip-card-example',
           components: [
-            { id: 'row-1', component: { type: 'Row', id: 'row-1', distribution: 'equal', children: ['card-1', 'card-2'] } },
-            { id: 'card-1', component: { type: 'FlipCard', id: 'card-1', front: 'front-1', back: 'back-1', trigger: 'hover', height: '150px' } },
-            { id: 'front-1', component: { type: 'Text', id: 'front-1', content: 'Hover me!', style: 'h3' } },
-            { id: 'back-1', component: { type: 'Text', id: 'back-1', content: 'Flipped!', style: 'h3' } },
-            { id: 'card-2', component: { type: 'FlipCard', id: 'card-2', front: 'front-2', back: 'back-2', trigger: 'click', direction: 'vertical', height: '150px' } },
-            { id: 'front-2', component: { type: 'Text', id: 'front-2', content: 'Click me!', style: 'h3' } },
-            { id: 'back-2', component: { type: 'Text', id: 'back-2', content: 'Vertical flip!', style: 'h3' } },
+            {
+              id: 'row-1',
+              component: {
+                type: 'Row',
+                id: 'row-1',
+                distribution: 'equal',
+                children: ['card-1', 'card-2'],
+              },
+            },
+            {
+              id: 'card-1',
+              component: {
+                type: 'FlipCard',
+                id: 'card-1',
+                front: 'front-1',
+                back: 'back-1',
+                trigger: 'hover',
+                height: '150px',
+              },
+            },
+            {
+              id: 'front-1',
+              component: { type: 'Text', id: 'front-1', content: 'Hover me!', style: 'h3' },
+            },
+            {
+              id: 'back-1',
+              component: { type: 'Text', id: 'back-1', content: 'Flipped!', style: 'h3' },
+            },
+            {
+              id: 'card-2',
+              component: {
+                type: 'FlipCard',
+                id: 'card-2',
+                front: 'front-2',
+                back: 'back-2',
+                trigger: 'click',
+                direction: 'vertical',
+                height: '150px',
+              },
+            },
+            {
+              id: 'front-2',
+              component: { type: 'Text', id: 'front-2', content: 'Click me!', style: 'h3' },
+            },
+            {
+              id: 'back-2',
+              component: { type: 'Text', id: 'back-2', content: 'Vertical flip!', style: 'h3' },
+            },
           ],
         },
       },

@@ -74,9 +74,30 @@ export const GradientTextRenderer: A2UIRenderer<GradientTextComponent> = {
         updateComponents: {
           surfaceId: 'gradient-text-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] } },
-            { id: 'text-1', component: { type: 'GradientText', id: 'text-1', content: 'Animated Gradient', style: 'h1' } },
-            { id: 'text-2', component: { type: 'GradientText', id: 'text-2', content: 'Custom Colors', style: 'h3', colors: ['#00d9ff', '#00ff88', '#00d9ff'], animationDuration: 2 } },
+            {
+              id: 'col-1',
+              component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] },
+            },
+            {
+              id: 'text-1',
+              component: {
+                type: 'GradientText',
+                id: 'text-1',
+                content: 'Animated Gradient',
+                style: 'h1',
+              },
+            },
+            {
+              id: 'text-2',
+              component: {
+                type: 'GradientText',
+                id: 'text-2',
+                content: 'Custom Colors',
+                style: 'h3',
+                colors: ['#00d9ff', '#00ff88', '#00d9ff'],
+                animationDuration: 2,
+              },
+            },
           ],
         },
       },

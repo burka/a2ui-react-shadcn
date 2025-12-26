@@ -31,3 +31,6 @@ export type {
 } from './registry/index.js'
 // Export registry
 export { createRegistry } from './registry/index.js'
+// Export utilities
+export type { ActionableComponent } from './utils/index.js'
+export { buildActionPayload, createActionHandler } from './utils/index.js'

@@ -1,5 +1,56 @@
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { createRegistry } from 'a2ui-shadcn-ui-react'
+// Animated UI Components
+import {
+  // Containers
+  AnimatedAccordionRenderer,
+  AnimatedAvatarGroupRenderer,
+  AnimatedCardRenderer,
+  AnimatedDialogRenderer,
+  AnimatedTabsRenderer,
+  // Utility
+  AnimatedTooltipRenderer,
+  AuroraBackgroundRenderer,
+  BlurRevealTextRenderer,
+  BubbleBackgroundRenderer,
+  CopyButtonRenderer,
+  CountUpRenderer,
+  CursorRenderer,
+  FireworksBackgroundRenderer,
+  FlipButtonRenderer,
+  FlipCardRenderer,
+  GlowButtonRenderer,
+  // Backgrounds
+  GradientBackgroundRenderer,
+  GradientTextRenderer,
+  GravityStarsBackgroundRenderer,
+  HexagonBackgroundRenderer,
+  HoleBackgroundRenderer,
+  IconButtonRenderer,
+  LiquidButtonRenderer,
+  MagneticButtonRenderer,
+  MorphingIconRenderer,
+  ParticlesBackgroundRenderer,
+  // Buttons
+  RippleButtonRenderer,
+  ShimmerButtonRenderer,
+  SpotlightRenderer,
+  StarsBackgroundRenderer,
+  TextScrambleRenderer,
+  ThemeTogglerButtonRenderer,
+  // Text
+  TypewriterTextRenderer,
+} from './animated/index.js'
+// Animated Overrides - same types as standard components but with animations
+import {
+  AnimatedButtonOverride,
+  AnimatedCardOverride,
+  AnimatedCheckboxOverride,
+  AnimatedModalOverride,
+  AnimatedSelectOverride,
+  AnimatedTabsOverride,
+  AnimatedTextOverride,
+} from './animated/overrides/index.js'
 import { CardRenderer, ListRenderer, ModalRenderer, TabsRenderer } from './container/index.js'
 import {
   AudioPlayerRenderer,
@@ -20,59 +71,6 @@ import {
   TextFieldRenderer,
 } from './interactive/index.js'
 import { ColumnRenderer, RowRenderer } from './layout/index.js'
-
-// Animated UI Components
-import {
-  // Buttons
-  RippleButtonRenderer,
-  FlipButtonRenderer,
-  ShimmerButtonRenderer,
-  MagneticButtonRenderer,
-  GlowButtonRenderer,
-  LiquidButtonRenderer,
-  CopyButtonRenderer,
-  IconButtonRenderer,
-  ThemeTogglerButtonRenderer,
-  // Text
-  TypewriterTextRenderer,
-  GradientTextRenderer,
-  CountUpRenderer,
-  TextScrambleRenderer,
-  BlurRevealTextRenderer,
-  // Containers
-  AnimatedAccordionRenderer,
-  AnimatedDialogRenderer,
-  AnimatedCardRenderer,
-  AnimatedTabsRenderer,
-  FlipCardRenderer,
-  // Backgrounds
-  GradientBackgroundRenderer,
-  ParticlesBackgroundRenderer,
-  AuroraBackgroundRenderer,
-  BubbleBackgroundRenderer,
-  FireworksBackgroundRenderer,
-  StarsBackgroundRenderer,
-  HexagonBackgroundRenderer,
-  HoleBackgroundRenderer,
-  GravityStarsBackgroundRenderer,
-  // Utility
-  AnimatedTooltipRenderer,
-  AnimatedAvatarGroupRenderer,
-  SpotlightRenderer,
-  MorphingIconRenderer,
-  CursorRenderer,
-} from './animated/index.js'
-
-// Animated Overrides - same types as standard components but with animations
-import {
-  AnimatedButtonOverride,
-  AnimatedTabsOverride,
-  AnimatedCardOverride,
-  AnimatedCheckboxOverride,
-  AnimatedModalOverride,
-  AnimatedTextOverride,
-  AnimatedSelectOverride,
-} from './animated/overrides/index.js'
 
 /**
  * Array of all shadcn renderers (standard, no animations)

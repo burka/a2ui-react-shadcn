@@ -1,17 +1,8 @@
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { FlipButtonComponent } from 'a2ui-shadcn-ui-core'
+import { type A2UIRenderer, buildActionPayload, type RendererProps } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useState, type ReactNode } from 'react'
-
-interface FlipButtonComponent {
-  type: 'FlipButton'
-  id: string
-  frontChild: string
-  backChild: string
-  primary?: boolean
-  action?: string
-  actionPayload?: Record<string, unknown>
-  submitDataPaths?: string[]
-}
+import { type ReactNode, useState } from 'react'
+import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
   type: 'FlipButton',
@@ -23,42 +14,11 @@ export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
 
     const handleClick = () => {
       setIsFlipped((prev) => !prev)
-
-      if (component.action) {
-        const payload: Record<string, unknown> = component.actionPayload
-          ? { ...component.actionPayload }
-          : {}
-
-        if (component.submitDataPaths) {
-          for (const path of component.submitDataPaths) {
-            const value = data.get(path)
-            if (value !== undefined) {
-              payload[path] = value
-            }
-          }
-        }
-
-        onAction({
-          type: component.action,
-          payload: Object.keys(payload).length > 0 ? payload : undefined,
-        })
+      const action = buildActionPayload(component, data)
+      if (action) {
+        onAction(action)
       }
     }
-
-    const primaryStyle = {
-      backgroundColor: 'hsl(var(--primary))',
-      color: 'hsl(var(--primary-foreground))',
-    }
-
-    const secondaryStyle = {
-      backgroundColor: 'hsl(var(--background))',
-      color: 'hsl(var(--foreground))',
-      borderColor: 'hsl(var(--input))',
-    }
-
-    const baseClass = component.primary
-      ? 'bg-primary text-primary-foreground shadow hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
-      : 'border border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
 
     return (
       <div style={{ perspective: 1000 }}>
@@ -66,9 +26,9 @@ export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
           onClick={handleClick}
           animate={{ rotateX: isFlipped ? 180 : 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className={baseClass}
+          className={getButtonClassName(component.primary)}
           style={{
-            ...component.primary ? primaryStyle : secondaryStyle,
+            ...getButtonStyle(component.primary),
             transformStyle: 'preserve-3d',
           }}
         >
@@ -98,9 +58,7 @@ export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
             {backContent as ReactNode}
           </motion.span>
           {/* Invisible content for sizing */}
-          <span style={{ visibility: 'hidden' }}>
-            {frontContent as ReactNode}
-          </span>
+          <span style={{ visibility: 'hidden' }}>{frontContent as ReactNode}</span>
         </motion.button>
       </div>
     )
@@ -115,9 +73,25 @@ export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
         updateComponents: {
           surfaceId: 'flip-btn-example',
           components: [
-            { id: 'row-1', component: { type: 'Row', id: 'row-1', distribution: 'packed', children: ['btn-1'] } },
-            { id: 'btn-1', component: { type: 'FlipButton', id: 'btn-1', frontChild: 'front-text', backChild: 'back-text', primary: true, action: 'flip' } },
-            { id: 'front-text', component: { type: 'Text', id: 'front-text', content: 'Click to Flip' } },
+            {
+              id: 'row-1',
+              component: { type: 'Row', id: 'row-1', distribution: 'packed', children: ['btn-1'] },
+            },
+            {
+              id: 'btn-1',
+              component: {
+                type: 'FlipButton',
+                id: 'btn-1',
+                frontChild: 'front-text',
+                backChild: 'back-text',
+                primary: true,
+                action: 'flip',
+              },
+            },
+            {
+              id: 'front-text',
+              component: { type: 'Text', id: 'front-text', content: 'Click to Flip' },
+            },
             { id: 'back-text', component: { type: 'Text', id: 'back-text', content: 'Flipped!' } },
           ],
         },

@@ -141,7 +141,10 @@ export const AnimatedAvatarGroupRenderer: A2UIRenderer<AnimatedAvatarGroupCompon
         updateComponents: {
           surfaceId: 'avatar-group-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['group-1', 'group-2'] } },
+            {
+              id: 'col-1',
+              component: { type: 'Column', id: 'col-1', children: ['group-1', 'group-2'] },
+            },
             {
               id: 'group-1',
               component: {
@@ -163,11 +166,7 @@ export const AnimatedAvatarGroupRenderer: A2UIRenderer<AnimatedAvatarGroupCompon
               component: {
                 type: 'AnimatedAvatarGroup',
                 id: 'group-2',
-                avatars: [
-                  { fallback: 'JD' },
-                  { fallback: 'AS' },
-                  { fallback: 'MK' },
-                ],
+                avatars: [{ fallback: 'JD' }, { fallback: 'AS' }, { fallback: 'MK' }],
                 size: 'lg',
                 animation: 'pop',
               },

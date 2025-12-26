@@ -1,7 +1,7 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { StarsBackgroundComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 
@@ -72,9 +72,7 @@ export const StarsBackgroundRenderer: A2UIRenderer<StarsBackgroundComponent> = {
         ))}
 
         {/* Content */}
-        <div className="relative z-10 w-full h-full">
-          {children}
-        </div>
+        <div className="relative z-10 w-full h-full">{children}</div>
       </div>
     )
   },
@@ -88,7 +86,16 @@ export const StarsBackgroundRenderer: A2UIRenderer<StarsBackgroundComponent> = {
         updateComponents: {
           surfaceId: 'stars-bg-example',
           components: [
-            { id: 'bg-1', component: { type: 'stars-background', id: 'bg-1', starCount: 80, twinkle: true, speed: 1 } },
+            {
+              id: 'bg-1',
+              component: {
+                type: 'stars-background',
+                id: 'bg-1',
+                starCount: 80,
+                twinkle: true,
+                speed: 1,
+              },
+            },
           ],
         },
       },

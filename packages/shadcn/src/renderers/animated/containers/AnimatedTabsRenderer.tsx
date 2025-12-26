@@ -1,6 +1,6 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, type ReactNode } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { type ReactNode, useState } from 'react'
 
 interface TabItem {
   label: string
@@ -51,19 +51,15 @@ export const AnimatedTabsRenderer: A2UIRenderer<AnimatedTabsComponent> = {
     return (
       <div className="w-full">
         {/* Tab list */}
-        <div
-          className="relative flex border-b"
-          style={{ borderColor: 'hsl(var(--border))' }}
-        >
+        <div className="relative flex border-b" style={{ borderColor: 'hsl(var(--border))' }}>
           {component.tabs.map((tab, index) => (
             <motion.button
               key={`tab-${component.id}-${index}`}
               onClick={() => handleTabChange(index)}
               className="relative px-4 py-2 text-sm font-medium transition-colors"
               style={{
-                color: activeTab === index
-                  ? 'hsl(var(--foreground))'
-                  : 'hsl(var(--muted-foreground))',
+                color:
+                  activeTab === index ? 'hsl(var(--foreground))' : 'hsl(var(--muted-foreground))',
               }}
               whileHover={{ backgroundColor: 'hsl(var(--accent) / 0.5)' }}
             >
@@ -122,9 +118,30 @@ export const AnimatedTabsRenderer: A2UIRenderer<AnimatedTabsComponent> = {
                 animation: 'slide',
               },
             },
-            { id: 'tab-content-1', component: { type: 'Text', id: 'tab-content-1', content: 'Overview content with smooth transitions.' } },
-            { id: 'tab-content-2', component: { type: 'Text', id: 'tab-content-2', content: 'Features content slides in beautifully.' } },
-            { id: 'tab-content-3', component: { type: 'Text', id: 'tab-content-3', content: 'Settings content with spring physics.' } },
+            {
+              id: 'tab-content-1',
+              component: {
+                type: 'Text',
+                id: 'tab-content-1',
+                content: 'Overview content with smooth transitions.',
+              },
+            },
+            {
+              id: 'tab-content-2',
+              component: {
+                type: 'Text',
+                id: 'tab-content-2',
+                content: 'Features content slides in beautifully.',
+              },
+            },
+            {
+              id: 'tab-content-3',
+              component: {
+                type: 'Text',
+                id: 'tab-content-3',
+                content: 'Settings content with spring physics.',
+              },
+            },
           ],
         },
       },

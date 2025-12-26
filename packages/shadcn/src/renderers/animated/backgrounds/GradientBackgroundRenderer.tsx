@@ -92,8 +92,25 @@ export const GradientBackgroundRenderer: A2UIRenderer<GradientBackgroundComponen
         updateComponents: {
           surfaceId: 'gradient-bg-example',
           components: [
-            { id: 'gradient-1', component: { type: 'GradientBackground', id: 'gradient-1', children: ['text-1'], colors: ['#667eea', '#764ba2', '#f093fb'], speed: 8 } },
-            { id: 'text-1', component: { type: 'Text', id: 'text-1', content: 'Beautiful animated gradient!', style: 'h2' } },
+            {
+              id: 'gradient-1',
+              component: {
+                type: 'GradientBackground',
+                id: 'gradient-1',
+                children: ['text-1'],
+                colors: ['#667eea', '#764ba2', '#f093fb'],
+                speed: 8,
+              },
+            },
+            {
+              id: 'text-1',
+              component: {
+                type: 'Text',
+                id: 'text-1',
+                content: 'Beautiful animated gradient!',
+                style: 'h2',
+              },
+            },
           ],
         },
       },

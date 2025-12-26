@@ -1,5 +1,5 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { useMotionValue, animate } from 'framer-motion'
+import { animate, useMotionValue } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 interface CountUpComponent {
@@ -77,10 +77,41 @@ export const CountUpRenderer: A2UIRenderer<CountUpComponent> = {
         updateComponents: {
           surfaceId: 'countup-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['count-1', 'count-2', 'count-3'] } },
-            { id: 'count-1', component: { type: 'CountUp', id: 'count-1', to: 1000, style: 'h1', duration: 2 } },
-            { id: 'count-2', component: { type: 'CountUp', id: 'count-2', to: 99.99, style: 'h2', prefix: '$', decimals: 2 } },
-            { id: 'count-3', component: { type: 'CountUp', id: 'count-3', from: 0, to: 1000000, style: 'h3', suffix: '+', separator: ',' } },
+            {
+              id: 'col-1',
+              component: {
+                type: 'Column',
+                id: 'col-1',
+                children: ['count-1', 'count-2', 'count-3'],
+              },
+            },
+            {
+              id: 'count-1',
+              component: { type: 'CountUp', id: 'count-1', to: 1000, style: 'h1', duration: 2 },
+            },
+            {
+              id: 'count-2',
+              component: {
+                type: 'CountUp',
+                id: 'count-2',
+                to: 99.99,
+                style: 'h2',
+                prefix: '$',
+                decimals: 2,
+              },
+            },
+            {
+              id: 'count-3',
+              component: {
+                type: 'CountUp',
+                id: 'count-3',
+                from: 0,
+                to: 1000000,
+                style: 'h3',
+                suffix: '+',
+                separator: ',',
+              },
+            },
           ],
         },
       },

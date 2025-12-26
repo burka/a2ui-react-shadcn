@@ -1,34 +1,12 @@
 import type { ButtonComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-shadcn-ui-react'
 import type { ReactNode } from 'react'
 import { Button } from '../../components/ui/button.js'
 
 export const ButtonRenderer: A2UIRenderer<ButtonComponent> = {
   type: 'Button',
   render: ({ component, children, data, onAction }: RendererProps<ButtonComponent>) => {
-    const handleClick = () => {
-      if (component.action) {
-        // Build payload from static actionPayload and data model paths
-        const payload: Record<string, unknown> = component.actionPayload
-          ? { ...component.actionPayload }
-          : {}
-
-        // Read values from data model for specified paths
-        if (component.submitDataPaths) {
-          for (const path of component.submitDataPaths) {
-            const value = data.get(path)
-            if (value !== undefined) {
-              payload[path] = value
-            }
-          }
-        }
-
-        onAction({
-          type: component.action,
-          payload: Object.keys(payload).length > 0 ? payload : undefined,
-        })
-      }
-    }
+    const handleClick = createActionHandler(component, data, onAction)
 
     return (
       <Button variant={component.primary ? 'default' : 'outline'} onClick={handleClick}>

@@ -1,17 +1,8 @@
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, type ReactNode, type MouseEvent } from 'react'
-
-interface RippleButtonComponent {
-  type: 'RippleButton'
-  id: string
-  child: string
-  primary?: boolean
-  action?: string
-  actionPayload?: Record<string, unknown>
-  submitDataPaths?: string[]
-  rippleColor?: string
-}
+import type { RippleButtonComponent } from 'a2ui-shadcn-ui-core'
+import { type A2UIRenderer, buildActionPayload, type RendererProps } from 'a2ui-shadcn-ui-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { type MouseEvent, type ReactNode, useState } from 'react'
+import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 interface Ripple {
   id: number
@@ -35,39 +26,14 @@ export const RippleButtonRenderer: A2UIRenderer<RippleButtonComponent> = {
         setRipples((prev) => prev.filter((r) => r.id !== rippleId))
       }, 600)
 
-      if (component.action) {
-        const payload: Record<string, unknown> = component.actionPayload
-          ? { ...component.actionPayload }
-          : {}
-
-        if (component.submitDataPaths) {
-          for (const path of component.submitDataPaths) {
-            const value = data.get(path)
-            if (value !== undefined) {
-              payload[path] = value
-            }
-          }
-        }
-
-        onAction({
-          type: component.action,
-          payload: Object.keys(payload).length > 0 ? payload : undefined,
-        })
+      const action = buildActionPayload(component, data)
+      if (action) {
+        onAction(action)
       }
     }
 
-    const primaryStyle = {
-      backgroundColor: 'hsl(var(--primary))',
-      color: 'hsl(var(--primary-foreground))',
-    }
-
-    const secondaryStyle = {
-      backgroundColor: 'hsl(var(--background))',
-      color: 'hsl(var(--foreground))',
-      borderColor: 'hsl(var(--input))',
-    }
-
-    const rippleColor = component.rippleColor || (component.primary ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.1)')
+    const rippleColor =
+      component.rippleColor || (component.primary ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.1)')
 
     return (
       <motion.button
@@ -75,12 +41,8 @@ export const RippleButtonRenderer: A2UIRenderer<RippleButtonComponent> = {
         whileTap={{ scale: 0.98 }}
         transition={{ type: 'spring', stiffness: 400, damping: 25 }}
         onClick={handleClick}
-        className={
-          component.primary
-            ? 'relative overflow-hidden bg-primary text-primary-foreground shadow hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
-            : 'relative overflow-hidden border border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-4 py-2'
-        }
-        style={component.primary ? primaryStyle : secondaryStyle}
+        className={getButtonClassName(component.primary, 'relative overflow-hidden')}
+        style={getButtonStyle(component.primary)}
       >
         {children as ReactNode}
         <AnimatePresence>
@@ -118,11 +80,40 @@ export const RippleButtonRenderer: A2UIRenderer<RippleButtonComponent> = {
         updateComponents: {
           surfaceId: 'ripple-btn-example',
           components: [
-            { id: 'row-1', component: { type: 'Row', id: 'row-1', distribution: 'packed', children: ['btn-1', 'btn-2'] } },
-            { id: 'btn-1', component: { type: 'RippleButton', id: 'btn-1', child: 'text-1', primary: true, action: 'click' } },
+            {
+              id: 'row-1',
+              component: {
+                type: 'Row',
+                id: 'row-1',
+                distribution: 'packed',
+                children: ['btn-1', 'btn-2'],
+              },
+            },
+            {
+              id: 'btn-1',
+              component: {
+                type: 'RippleButton',
+                id: 'btn-1',
+                child: 'text-1',
+                primary: true,
+                action: 'click',
+              },
+            },
             { id: 'text-1', component: { type: 'Text', id: 'text-1', content: 'Ripple Primary' } },
-            { id: 'btn-2', component: { type: 'RippleButton', id: 'btn-2', child: 'text-2', primary: false, action: 'click' } },
-            { id: 'text-2', component: { type: 'Text', id: 'text-2', content: 'Ripple Secondary' } },
+            {
+              id: 'btn-2',
+              component: {
+                type: 'RippleButton',
+                id: 'btn-2',
+                child: 'text-2',
+                primary: false,
+                action: 'click',
+              },
+            },
+            {
+              id: 'text-2',
+              component: { type: 'Text', id: 'text-2', content: 'Ripple Secondary' },
+            },
           ],
         },
       },

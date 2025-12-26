@@ -82,7 +82,12 @@ export const BlurRevealTextRenderer: A2UIRenderer<BlurRevealTextComponent> = {
     return (
       <motion.span
         className={className}
-        style={{ color: 'hsl(var(--foreground))', display: 'inline-flex', flexWrap: 'wrap', gap: '0.25em' }}
+        style={{
+          color: 'hsl(var(--foreground))',
+          display: 'inline-flex',
+          flexWrap: 'wrap',
+          gap: '0.25em',
+        }}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -105,9 +110,29 @@ export const BlurRevealTextRenderer: A2UIRenderer<BlurRevealTextComponent> = {
         updateComponents: {
           surfaceId: 'blur-reveal-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] } },
-            { id: 'text-1', component: { type: 'BlurRevealText', id: 'text-1', content: 'Welcome to the future of UI', style: 'h2' } },
-            { id: 'text-2', component: { type: 'BlurRevealText', id: 'text-2', content: 'This text fades in from the right', direction: 'right', delay: 1 } },
+            {
+              id: 'col-1',
+              component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] },
+            },
+            {
+              id: 'text-1',
+              component: {
+                type: 'BlurRevealText',
+                id: 'text-1',
+                content: 'Welcome to the future of UI',
+                style: 'h2',
+              },
+            },
+            {
+              id: 'text-2',
+              component: {
+                type: 'BlurRevealText',
+                id: 'text-2',
+                content: 'This text fades in from the right',
+                direction: 'right',
+                delay: 1,
+              },
+            },
           ],
         },
       },

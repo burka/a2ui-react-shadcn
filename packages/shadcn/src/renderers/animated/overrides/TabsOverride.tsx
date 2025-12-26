@@ -2,8 +2,8 @@
 
 import type { TabsComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs.js'
 
@@ -33,20 +33,21 @@ export const AnimatedTabsOverride: A2UIRenderer<TabsComponent> = {
           ))}
         </TabsList>
         <AnimatePresence mode="wait">
-          {component.tabs.map((tab, index) => (
-            activeTab === tab.label && (
-              <TabsContent key={tab.label} value={tab.label} forceMount>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {childArray[index] as ReactNode}
-                </motion.div>
-              </TabsContent>
-            )
-          ))}
+          {component.tabs.map(
+            (tab, index) =>
+              activeTab === tab.label && (
+                <TabsContent key={tab.label} value={tab.label} forceMount>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {childArray[index] as ReactNode}
+                  </motion.div>
+                </TabsContent>
+              ),
+          )}
         </AnimatePresence>
       </Tabs>
     )

@@ -53,7 +53,7 @@ export const TextScrambleRenderer: A2UIRenderer<TextScrambleComponent> = {
               }
               return characters[Math.floor(Math.random() * characters.length)]
             })
-            .join('')
+            .join(''),
         )
 
         iteration++
@@ -100,9 +100,29 @@ export const TextScrambleRenderer: A2UIRenderer<TextScrambleComponent> = {
         updateComponents: {
           surfaceId: 'scramble-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] } },
-            { id: 'text-1', component: { type: 'TextScramble', id: 'text-1', content: 'DECODING...', style: 'h2' } },
-            { id: 'text-2', component: { type: 'TextScramble', id: 'text-2', content: 'Hover to scramble', style: 'body', trigger: 'hover' } },
+            {
+              id: 'col-1',
+              component: { type: 'Column', id: 'col-1', children: ['text-1', 'text-2'] },
+            },
+            {
+              id: 'text-1',
+              component: {
+                type: 'TextScramble',
+                id: 'text-1',
+                content: 'DECODING...',
+                style: 'h2',
+              },
+            },
+            {
+              id: 'text-2',
+              component: {
+                type: 'TextScramble',
+                id: 'text-2',
+                content: 'Hover to scramble',
+                style: 'body',
+                trigger: 'hover',
+              },
+            },
           ],
         },
       },

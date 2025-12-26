@@ -1,21 +1,17 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { ThemeTogglerButtonComponent } from 'a2ui-shadcn-ui-core'
-import { motion, AnimatePresence } from 'framer-motion'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Moon, Sun } from 'lucide-react'
 import { useState } from 'react'
-import { Sun, Moon } from 'lucide-react'
 
 export const ThemeTogglerButtonRenderer: A2UIRenderer<ThemeTogglerButtonComponent> = {
   type: 'theme-toggler-button',
   render: ({ component, onAction }) => {
     const [isDark, setIsDark] = useState(component.initialTheme === 'dark')
 
-    const {
-      variant = 'default',
-      size = 'md',
-      animation = 'rotate',
-    } = component
+    const { variant = 'default', size = 'md', animation = 'rotate' } = component
 
     const sizeStyles = {
       sm: 'h-8 w-8',
@@ -112,7 +108,17 @@ export const ThemeTogglerButtonRenderer: A2UIRenderer<ThemeTogglerButtonComponen
         updateComponents: {
           surfaceId: 'theme-toggler-example',
           components: [
-            { id: 'btn-1', component: { type: 'theme-toggler-button', id: 'btn-1', initialTheme: 'light', variant: 'outline', size: 'md', animation: 'rotate' } },
+            {
+              id: 'btn-1',
+              component: {
+                type: 'theme-toggler-button',
+                id: 'btn-1',
+                initialTheme: 'light',
+                variant: 'outline',
+                size: 'md',
+                animation: 'rotate',
+              },
+            },
           ],
         },
       },

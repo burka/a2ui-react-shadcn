@@ -1,7 +1,7 @@
 'use client'
 
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import type { HexagonBackgroundComponent } from 'a2ui-shadcn-ui-core'
+import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 
@@ -102,9 +102,7 @@ export const HexagonBackgroundRenderer: A2UIRenderer<HexagonBackgroundComponent>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 w-full h-full">
-          {children}
-        </div>
+        <div className="relative z-10 w-full h-full">{children}</div>
       </div>
     )
   },
@@ -118,7 +116,17 @@ export const HexagonBackgroundRenderer: A2UIRenderer<HexagonBackgroundComponent>
         updateComponents: {
           surfaceId: 'hexagon-bg-example',
           components: [
-            { id: 'bg-1', component: { type: 'hexagon-background', id: 'bg-1', rows: 6, cols: 10, hoverEffect: true, animated: true } },
+            {
+              id: 'bg-1',
+              component: {
+                type: 'hexagon-background',
+                id: 'bg-1',
+                rows: 6,
+                cols: 10,
+                hoverEffect: true,
+                animated: true,
+              },
+            },
           ],
         },
       },

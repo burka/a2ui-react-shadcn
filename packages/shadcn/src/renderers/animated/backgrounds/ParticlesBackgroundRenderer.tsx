@@ -1,6 +1,6 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useMemo, type ReactNode } from 'react'
+import { type ReactNode, useMemo } from 'react'
 
 interface ParticlesBackgroundComponent {
   type: 'ParticlesBackground'
@@ -63,7 +63,11 @@ export const ParticlesBackgroundRenderer: A2UIRenderer<ParticlesBackgroundCompon
             }}
             animate={{
               y: [`${particle.y}%`, `${particle.y - 30}%`, `${particle.y}%`],
-              x: [`${particle.x}%`, `${particle.x + (Math.random() - 0.5) * 20}%`, `${particle.x}%`],
+              x: [
+                `${particle.x}%`,
+                `${particle.x + (Math.random() - 0.5) * 20}%`,
+                `${particle.x}%`,
+              ],
               opacity: [0, 0.8, 0],
               scale: [0, 1, 0],
             }}
@@ -108,8 +112,25 @@ export const ParticlesBackgroundRenderer: A2UIRenderer<ParticlesBackgroundCompon
         updateComponents: {
           surfaceId: 'particles-example',
           components: [
-            { id: 'particles-1', component: { type: 'ParticlesBackground', id: 'particles-1', children: ['text-1'], particleCount: 40, particleColor: '#667eea' } },
-            { id: 'text-1', component: { type: 'Text', id: 'text-1', content: 'Floating particles!', style: 'h2' } },
+            {
+              id: 'particles-1',
+              component: {
+                type: 'ParticlesBackground',
+                id: 'particles-1',
+                children: ['text-1'],
+                particleCount: 40,
+                particleColor: '#667eea',
+              },
+            },
+            {
+              id: 'text-1',
+              component: {
+                type: 'Text',
+                id: 'text-1',
+                content: 'Floating particles!',
+                style: 'h2',
+              },
+            },
           ],
         },
       },

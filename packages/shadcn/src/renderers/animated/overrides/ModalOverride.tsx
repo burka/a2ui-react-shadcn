@@ -2,14 +2,10 @@
 
 import type { ModalComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from '../../../components/ui/dialog.js'
+import { Dialog, DialogContent, DialogTrigger } from '../../../components/ui/dialog.js'
 
 /**
  * Animated Modal override - same type as standard Modal but with smooth open/close.
@@ -25,10 +21,7 @@ export const AnimatedModalOverride: A2UIRenderer<ModalComponent> = {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             {trigger as ReactNode}
           </motion.div>
         </DialogTrigger>
