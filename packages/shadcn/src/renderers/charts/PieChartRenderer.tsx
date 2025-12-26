@@ -12,6 +12,7 @@ import {
 } from '../../components/ui/chart.js'
 import {
   buildChartConfig,
+  generateChartDescription,
   getChartColor,
   getChartData,
   transformToRechartsData,
@@ -37,34 +38,38 @@ export const PieChartRenderer: A2UIRenderer<PieChartComponent> = {
       )
     }
 
+    const chartDescription = generateChartDescription(component.donut ? 'Donut chart' : 'Pie chart', rawData)
+
     return (
-      <ChartContainer config={chartConfig} className="mx-auto" style={{ height, width: '100%' }}>
-        <PieChart>
-          <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-          <Pie
-            data={chartData}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            innerRadius={innerRadius}
-            outerRadius={outerRadius}
-            paddingAngle={2}
-            isAnimationActive={animated}
-            label={
-              component.showLabels
-                ? ({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`
-                : undefined
-            }
-            labelLine={component.showLabels}
-          >
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${entry.name}`} fill={getChartColor(index, component.colors)} />
-            ))}
-          </Pie>
-          {component.showLegend && <ChartLegend content={<ChartLegendContent />} />}
-        </PieChart>
-      </ChartContainer>
+      <div role="img" aria-label={chartDescription}>
+        <ChartContainer config={chartConfig} className="mx-auto" style={{ height, width: '100%' }}>
+          <PieChart>
+            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+            <Pie
+              data={chartData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              innerRadius={innerRadius}
+              outerRadius={outerRadius}
+              paddingAngle={2}
+              isAnimationActive={animated}
+              label={
+                component.showLabels
+                  ? ({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`
+                  : undefined
+              }
+              labelLine={component.showLabels}
+            >
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${entry.name}`} fill={getChartColor(index, component.colors)} />
+              ))}
+            </Pie>
+            {component.showLegend && <ChartLegend content={<ChartLegendContent />} />}
+          </PieChart>
+        </ChartContainer>
+      </div>
     )
   },
   example: {

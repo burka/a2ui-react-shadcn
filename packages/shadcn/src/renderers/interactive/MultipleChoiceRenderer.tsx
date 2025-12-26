@@ -1,3 +1,7 @@
+/**
+ * MultipleChoice Component Renderer
+ * Supports @extension a2ui-shadcn-ui accessibility props (required, disabled, errorMessage, helpText)
+ */
 import type { MultipleChoiceComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Checkbox } from '../../components/ui/checkbox.js'
@@ -27,14 +31,20 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
       data.set(component.dataPath, newSelection)
     }
 
-    return (
-      <div className="flex flex-col gap-3">
+    // @extension a2ui-shadcn-ui: Extended accessibility props
+    const errorId = component.errorMessage ? `${id}-error` : undefined
+    const helpId = component.helpText ? `${id}-help` : undefined
+    const isGroupDisabled = component.disabled
+
+    const content = (
+      <>
         {component.options.map((option) => {
           const isChecked = currentSelection.includes(option.value)
           const isDisabled =
-            component.maxSelections !== undefined &&
-            currentSelection.length >= component.maxSelections &&
-            !isChecked
+            isGroupDisabled ||
+            (component.maxSelections !== undefined &&
+              currentSelection.length >= component.maxSelections &&
+              !isChecked)
 
           return (
             <label
@@ -65,6 +75,52 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
             {currentSelection.length} of {component.maxSelections} selected
           </p>
         )}
+        {/* @extension a2ui-shadcn-ui: Help text */}
+        {component.helpText && (
+          <p id={helpId} className="text-sm text-muted-foreground">
+            {component.helpText}
+          </p>
+        )}
+        {/* @extension a2ui-shadcn-ui: Error message */}
+        {component.errorMessage && (
+          <p id={errorId} className="text-sm text-destructive">
+            {component.errorMessage}
+          </p>
+        )}
+      </>
+    )
+
+    // Use fieldset/legend for proper accessibility grouping when label is provided
+    if (component.label) {
+      return (
+        <fieldset
+          className="flex flex-col gap-3 border-0 p-0 m-0"
+          aria-required={component.required}
+          aria-invalid={!!component.errorMessage}
+          aria-describedby={[errorId, helpId].filter(Boolean).join(' ') || undefined}
+        >
+          <legend
+            className="text-sm font-medium mb-2"
+            style={{ color: 'hsl(var(--foreground))', opacity: isGroupDisabled ? 0.5 : 1 }}
+          >
+            {component.label}
+            {component.required && <span className="text-destructive ml-1">*</span>}
+          </legend>
+          {content}
+        </fieldset>
+      )
+    }
+
+    return (
+      <div
+        className="flex flex-col gap-3"
+        role="group"
+        aria-label="Options"
+        aria-required={component.required}
+        aria-invalid={!!component.errorMessage}
+        aria-describedby={[errorId, helpId].filter(Boolean).join(' ') || undefined}
+      >
+        {content}
       </div>
     )
   },

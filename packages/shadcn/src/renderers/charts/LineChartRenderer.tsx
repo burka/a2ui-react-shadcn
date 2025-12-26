@@ -6,6 +6,7 @@ import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../../components/ui/chart.js'
 import {
   buildChartConfig,
+  generateChartDescription,
   getChartColor,
   getChartData,
   transformToRechartsData,
@@ -38,23 +39,27 @@ export const LineChartRenderer: A2UIRenderer<LineChartComponent> = {
       )
     }
 
+    const chartDescription = generateChartDescription('Line chart', rawData)
+
     return (
-      <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
-        <LineChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
-          {showGrid && <CartesianGrid strokeDasharray="3 3" />}
-          {showXAxis && <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />}
-          {showYAxis && <YAxis tickLine={false} axisLine={false} tickMargin={10} />}
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Line
-            type={component.smooth ? 'monotone' : 'linear'}
-            dataKey="value"
-            stroke={lineColor}
-            strokeWidth={strokeWidth}
-            dot={showDots}
-            isAnimationActive={animated}
-          />
-        </LineChart>
-      </ChartContainer>
+      <div role="img" aria-label={chartDescription}>
+        <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
+          <LineChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
+            {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+            {showXAxis && <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />}
+            {showYAxis && <YAxis tickLine={false} axisLine={false} tickMargin={10} />}
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Line
+              type={component.smooth ? 'monotone' : 'linear'}
+              dataKey="value"
+              stroke={lineColor}
+              strokeWidth={strokeWidth}
+              dot={showDots}
+              isAnimationActive={animated}
+            />
+          </LineChart>
+        </ChartContainer>
+      </div>
     )
   },
   example: {

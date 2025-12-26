@@ -1,3 +1,7 @@
+/**
+ * Checkbox Component Renderer
+ * Supports @extension a2ui-shadcn-ui accessibility props (required, disabled, errorMessage, helpText)
+ */
 import type { CheckboxComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { Checkbox } from '../../components/ui/checkbox.js'
@@ -14,10 +18,43 @@ export const CheckboxRenderer: A2UIRenderer<CheckboxComponent> = {
       }
     }
 
+    // @extension a2ui-shadcn-ui: Extended accessibility props
+    const errorId = component.errorMessage ? `${id}-error` : undefined
+    const helpId = component.helpText ? `${id}-help` : undefined
+    const describedBy = [errorId, helpId].filter(Boolean).join(' ') || undefined
+
     return (
-      <div className="flex items-center gap-3">
-        <Checkbox id={id} checked={value || false} onCheckedChange={handleChange} />
-        {component.label && <Label htmlFor={id}>{component.label}</Label>}
+      <div className="space-y-2">
+        <div className="flex items-center gap-3">
+          <Checkbox
+            id={id}
+            checked={value || false}
+            onCheckedChange={handleChange}
+            disabled={component.disabled}
+            required={component.required}
+            aria-required={component.required}
+            aria-invalid={!!component.errorMessage}
+            aria-describedby={describedBy}
+          />
+          {component.label && (
+            <Label htmlFor={id} className={component.disabled ? 'opacity-50' : ''}>
+              {component.label}
+              {component.required && <span className="text-destructive ml-1">*</span>}
+            </Label>
+          )}
+        </div>
+        {/* @extension a2ui-shadcn-ui: Help text */}
+        {component.helpText && (
+          <p id={helpId} className="text-sm text-muted-foreground ml-7">
+            {component.helpText}
+          </p>
+        )}
+        {/* @extension a2ui-shadcn-ui: Error message */}
+        {component.errorMessage && (
+          <p id={errorId} className="text-sm text-destructive ml-7">
+            {component.errorMessage}
+          </p>
+        )}
       </div>
     )
   },

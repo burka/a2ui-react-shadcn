@@ -1,5 +1,19 @@
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { createRegistry } from 'a2ui-shadcn-ui-react'
+// Accessibility Extension Components (@extension a2ui-shadcn-ui)
+import {
+  AlertRenderer,
+  ArticleRenderer,
+  AsideRenderer,
+  FooterRenderer,
+  HeaderRenderer,
+  LiveRegionRenderer,
+  MainRenderer,
+  NavRenderer,
+  ProgressRenderer,
+  SectionRenderer,
+  SkipLinkRenderer,
+} from './a11y/index.js'
 // Animated UI Components
 import {
   // Containers
@@ -125,6 +139,30 @@ export const chartRenderers = [
 ] as A2UIRenderer[]
 
 /**
+ * @extension a2ui-shadcn-ui
+ * Accessibility extension renderers for WCAG 2.1 AA compliance.
+ * These are NOT part of the official A2UI standard but are recommended for accessibility.
+ * Includes: Landmarks (Main, Nav, Section, Aside, Header, Footer, Article),
+ * Alert, LiveRegion, SkipLink, and Progress components.
+ */
+export const a11yRenderers = [
+  // Landmark Components
+  MainRenderer,
+  NavRenderer,
+  SectionRenderer,
+  AsideRenderer,
+  HeaderRenderer,
+  FooterRenderer,
+  ArticleRenderer,
+  // Alert & Live Region Components
+  AlertRenderer,
+  LiveRegionRenderer,
+  // Navigation & Progress Components
+  SkipLinkRenderer,
+  ProgressRenderer,
+] as A2UIRenderer[]
+
+/**
  * Animated overrides for standard components
  * These use the SAME type names but add Framer Motion animations
  */
@@ -202,17 +240,26 @@ export const allAnimatedRenderers = [
  * Creates a shadcn renderer registry with all renderers registered
  * @param options.includeAnimated - Include animated components (RippleButton, etc.)
  * @param options.useAnimatedOverrides - Replace standard components with animated versions
+ * @param options.includeA11y - Include accessibility extension components (@extension a2ui-shadcn-ui)
  * @returns A component registry with all shadcn renderers
  */
 export function createShadcnRegistry(options?: {
   includeAnimated?: boolean
   useAnimatedOverrides?: boolean
+  includeA11y?: boolean
 }) {
   const registry = createRegistry()
 
   // Register standard renderers first
   for (const renderer of shadcnRenderers) {
     registry.register(renderer)
+  }
+
+  // Add accessibility extension components if requested (@extension a2ui-shadcn-ui)
+  if (options?.includeA11y) {
+    for (const renderer of a11yRenderers) {
+      registry.register(renderer)
+    }
   }
 
   // Add animated components if requested
@@ -252,6 +299,30 @@ export function createFullyAnimatedRegistry() {
   return createShadcnRegistry({
     includeAnimated: true,
     useAnimatedOverrides: true,
+  })
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Creates a registry with accessibility extension components for WCAG 2.1 AA compliance.
+ * @returns A component registry with standard shadcn + a11y extension renderers
+ */
+export function createAccessibleRegistry() {
+  return createShadcnRegistry({
+    includeA11y: true,
+  })
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Creates a complete registry with all features: standard, animated, and accessibility.
+ * @returns A component registry with all renderers
+ */
+export function createCompleteRegistry() {
+  return createShadcnRegistry({
+    includeAnimated: true,
+    useAnimatedOverrides: true,
+    includeA11y: true,
   })
 }
 
@@ -308,6 +379,24 @@ export {
   BarChartRenderer,
   LineChartRenderer,
   AreaChartRenderer,
+}
+
+// Re-export accessibility extension components (@extension a2ui-shadcn-ui)
+export {
+  // Landmark Components
+  MainRenderer,
+  NavRenderer,
+  SectionRenderer,
+  AsideRenderer,
+  HeaderRenderer,
+  FooterRenderer,
+  ArticleRenderer,
+  // Alert & Live Region Components
+  AlertRenderer,
+  LiveRegionRenderer,
+  // Navigation & Progress Components
+  SkipLinkRenderer,
+  ProgressRenderer,
 }
 
 // Re-export chart utilities

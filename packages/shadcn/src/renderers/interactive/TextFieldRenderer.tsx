@@ -17,11 +17,45 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
 
     const inputType = component.inputType || 'shortText'
 
+    // @extension a2ui-shadcn-ui: Extended accessibility props
+    const errorId = component.errorMessage ? `${id}-error` : undefined
+    const helpId = component.helpText ? `${id}-help` : undefined
+    const describedBy = [errorId, helpId].filter(Boolean).join(' ') || undefined
+
+    const sharedProps = {
+      id,
+      disabled: component.disabled,
+      required: component.required,
+      'aria-required': component.required,
+      'aria-invalid': !!component.errorMessage,
+      'aria-describedby': describedBy,
+    }
+
     if (inputType === 'longText') {
       return (
         <div className="grid gap-2">
-          {component.label && <Label htmlFor={id}>{component.label}</Label>}
-          <Textarea id={id} value={value} onChange={handleChange} placeholder={component.label} />
+          {component.label && (
+            <Label htmlFor={id}>
+              {component.label}
+              {component.required && <span className="text-destructive ml-1">*</span>}
+            </Label>
+          )}
+          <Textarea
+            {...sharedProps}
+            value={value}
+            onChange={handleChange}
+            placeholder={component.placeholder || component.label}
+          />
+          {component.helpText && (
+            <p id={helpId} className="text-sm text-muted-foreground">
+              {component.helpText}
+            </p>
+          )}
+          {component.errorMessage && (
+            <p id={errorId} className="text-sm text-destructive" role="alert">
+              {component.errorMessage}
+            </p>
+          )}
         </div>
       )
     }
@@ -44,14 +78,29 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
 
     return (
       <div className="grid gap-2">
-        {component.label && <Label htmlFor={id}>{component.label}</Label>}
+        {component.label && (
+          <Label htmlFor={id}>
+            {component.label}
+            {component.required && <span className="text-destructive ml-1">*</span>}
+          </Label>
+        )}
         <Input
-          id={id}
+          {...sharedProps}
           type={type}
           value={value}
           onChange={handleChange}
-          placeholder={component.label}
+          placeholder={component.placeholder || component.label}
         />
+        {component.helpText && (
+          <p id={helpId} className="text-sm text-muted-foreground">
+            {component.helpText}
+          </p>
+        )}
+        {component.errorMessage && (
+          <p id={errorId} className="text-sm text-destructive" role="alert">
+            {component.errorMessage}
+          </p>
+        )}
       </div>
     )
   },

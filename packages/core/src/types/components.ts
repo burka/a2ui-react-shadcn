@@ -3,6 +3,45 @@
  * Defines all component types supported by the A2UI protocol
  */
 
+// ============================================================================
+// ACCESSIBILITY EXTENSIONS (a2ui-shadcn-ui)
+// These properties extend the base A2UI protocol for enhanced accessibility.
+// They are NOT part of the official A2UI standard but are recommended for
+// WCAG 2.1 AA compliance.
+// ============================================================================
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Extended accessibility properties for form fields.
+ * These can be added to any form component (TextField, Checkbox, Select, etc.)
+ */
+export interface FormFieldAccessibility {
+  /** @extension Mark field as required (renders aria-required) */
+  required?: boolean
+  /** @extension Mark field as disabled (renders disabled + aria-disabled) */
+  disabled?: boolean
+  /** @extension Validation error message (linked via aria-describedby) */
+  errorMessage?: string
+  /** @extension Help text shown below the field (linked via aria-describedby) */
+  helpText?: string
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Alert/notification variant types
+ */
+export type AlertVariant = 'info' | 'warning' | 'error' | 'success'
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Live region politeness levels for screen reader announcements
+ */
+export type LiveRegionPoliteness = 'polite' | 'assertive' | 'off'
+
+// ============================================================================
+// STANDARD A2UI TYPES
+// ============================================================================
+
 /**
  * Distribution strategy for Row/Column layouts
  */
@@ -89,6 +128,10 @@ export interface VideoComponent extends BaseComponent {
   controls?: boolean
   loop?: boolean
   muted?: boolean
+  /** URL to WebVTT captions file for accessibility */
+  captionUrl?: string
+  /** Label for the captions track (e.g., "English") */
+  captionLabel?: string
 }
 
 export interface AudioPlayerComponent extends BaseComponent {
@@ -97,6 +140,10 @@ export interface AudioPlayerComponent extends BaseComponent {
   autoplay?: boolean
   controls?: boolean
   loop?: boolean
+  /** URL to WebVTT captions file for accessibility */
+  captionUrl?: string
+  /** Label for the captions track (e.g., "English") */
+  captionLabel?: string
 }
 
 /**
@@ -113,14 +160,16 @@ export interface ButtonComponent extends BaseComponent {
   submitDataPaths?: string[]
 }
 
-export interface TextFieldComponent extends BaseComponent {
+export interface TextFieldComponent extends BaseComponent, FormFieldAccessibility {
   type: 'TextField'
   label?: string
   inputType?: InputType
   dataPath?: string
+  /** @extension Placeholder text */
+  placeholder?: string
 }
 
-export interface CheckboxComponent extends BaseComponent {
+export interface CheckboxComponent extends BaseComponent, FormFieldAccessibility {
   type: 'Checkbox'
   label?: string
   dataPath?: string
@@ -134,30 +183,34 @@ export interface SelectOption {
   label: string
 }
 
-export interface SelectComponent extends BaseComponent {
+export interface SelectComponent extends BaseComponent, FormFieldAccessibility {
   type: 'Select'
+  label?: string
   options: SelectOption[]
   placeholder?: string
   dataPath?: string
 }
 
-export interface SliderComponent extends BaseComponent {
+export interface SliderComponent extends BaseComponent, FormFieldAccessibility {
   type: 'Slider'
+  label?: string
   min?: number
   max?: number
   step?: number
   dataPath?: string
 }
 
-export interface DateTimeInputComponent extends BaseComponent {
+export interface DateTimeInputComponent extends BaseComponent, FormFieldAccessibility {
   type: 'DateTimeInput'
   inputType: 'date' | 'time' | 'datetime-local'
   label?: string
   dataPath?: string
 }
 
-export interface MultipleChoiceComponent extends BaseComponent {
+export interface MultipleChoiceComponent extends BaseComponent, FormFieldAccessibility {
   type: 'MultipleChoice'
+  /** Label for the entire checkbox group (rendered as fieldset legend) */
+  label?: string
   options: SelectOption[]
   maxSelections?: number
   dataPath?: string
@@ -670,6 +723,158 @@ export interface ListComponent extends BaseComponent {
   dataPath?: string
 }
 
+// ============================================================================
+// ACCESSIBILITY EXTENSION COMPONENTS (a2ui-shadcn-ui)
+// These components extend the A2UI protocol for enhanced accessibility.
+// They render semantic HTML landmarks and ARIA live regions.
+// ============================================================================
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Main landmark component - renders <main> element
+ * Use for the primary content area of your application.
+ * There should only be one Main component per page.
+ */
+export interface MainComponent extends BaseComponent {
+  type: 'Main'
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Navigation landmark component - renders <nav> element
+ * Use for navigation links. Multiple Nav components are allowed.
+ */
+export interface NavComponent extends BaseComponent {
+  type: 'Nav'
+  /** aria-label for distinguishing multiple navs (e.g., "Main navigation", "Footer navigation") */
+  label?: string
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Section landmark component - renders <section> element
+ * Use for thematic groupings of content with a heading.
+ */
+export interface SectionComponent extends BaseComponent {
+  type: 'Section'
+  /** Visible title rendered as a heading (also used for aria-labelledby) */
+  title?: string
+  /** Heading level for the title (default: 'h2') */
+  headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  /** aria-label (only used if different from title, or if no title provided) */
+  label?: string
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Aside landmark component - renders <aside> element
+ * Use for content tangentially related to the main content (sidebars, callouts).
+ */
+export interface AsideComponent extends BaseComponent {
+  type: 'Aside'
+  /** Visible title rendered as a heading */
+  title?: string
+  /** Heading level for the title (default: 'h3') */
+  headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  /** aria-label (only used if different from title, or if no title provided) */
+  label?: string
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Header landmark component - renders <header> element
+ * Use for introductory content or navigational aids.
+ */
+export interface HeaderComponent extends BaseComponent {
+  type: 'Header'
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Footer landmark component - renders <footer> element
+ * Use for footer content like copyright, links, etc.
+ */
+export interface FooterComponent extends BaseComponent {
+  type: 'Footer'
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Article component - renders <article> element
+ * Use for self-contained, independently distributable content.
+ */
+export interface ArticleComponent extends BaseComponent {
+  type: 'Article'
+  /** Visible title rendered as a heading (also used for aria-labelledby) */
+  title?: string
+  /** Heading level for the title (default: 'h2') */
+  headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Alert component - renders with role="alert"
+ * Use for important messages that require immediate attention.
+ * Automatically announced by screen readers.
+ */
+export interface AlertComponent extends BaseComponent {
+  type: 'Alert'
+  /** Visual variant of the alert */
+  variant?: AlertVariant
+  /** Title of the alert */
+  title?: string
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * LiveRegion component - renders aria-live region
+ * Use for dynamic content that should be announced to screen readers.
+ */
+export interface LiveRegionComponent extends BaseComponent {
+  type: 'LiveRegion'
+  /** How urgently the update should be announced */
+  politeness?: LiveRegionPoliteness
+  /** Whether to announce the entire region or just changes */
+  atomic?: boolean
+  children?: string[]
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * SkipLink component - renders a skip navigation link
+ * Use at the top of the page to allow keyboard users to skip to main content.
+ */
+export interface SkipLinkComponent extends BaseComponent {
+  type: 'SkipLink'
+  /** ID of the target element to skip to */
+  targetId: string
+  /** Link text (default: "Skip to main content") */
+  label?: string
+}
+
+/**
+ * @extension a2ui-shadcn-ui
+ * Progress indicator component
+ * Use to show loading or completion progress.
+ */
+export interface ProgressComponent extends BaseComponent {
+  type: 'Progress'
+  /** Current value (0-100). Undefined = indeterminate */
+  value?: number
+  /** Maximum value (default: 100) */
+  max?: number
+  /** Accessible label for the progress bar */
+  label?: string
+}
+
 /**
  * Union type of all components
  */
@@ -734,6 +939,18 @@ export type A2UIComponent =
   | BarChartComponent
   | LineChartComponent
   | AreaChartComponent
+  // Accessibility extension components (a2ui-shadcn-ui)
+  | MainComponent
+  | NavComponent
+  | SectionComponent
+  | AsideComponent
+  | HeaderComponent
+  | FooterComponent
+  | ArticleComponent
+  | AlertComponent
+  | LiveRegionComponent
+  | SkipLinkComponent
+  | ProgressComponent
 
 /**
  * Component update for surfaceUpdate messages

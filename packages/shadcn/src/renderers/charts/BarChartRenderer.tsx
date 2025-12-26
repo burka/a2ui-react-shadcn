@@ -6,6 +6,7 @@ import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from 'recharts'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../../components/ui/chart.js'
 import {
   buildChartConfig,
+  generateChartDescription,
   getChartColor,
   getChartData,
   transformToRechartsData,
@@ -68,10 +69,14 @@ export const BarChartRenderer: A2UIRenderer<BarChartComponent> = {
       </BarChart>
     )
 
+    const chartDescription = generateChartDescription('Bar chart', rawData)
+
     return (
-      <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
-        {ChartComponent}
-      </ChartContainer>
+      <div role="img" aria-label={chartDescription}>
+        <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
+          {ChartComponent}
+        </ChartContainer>
+      </div>
     )
   },
   example: {
