@@ -3,7 +3,7 @@
 import type { BubbleBackgroundComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface Bubble {
   id: number
@@ -25,6 +25,23 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
       speed = 1,
     } = component
 
+    const containerRef = useRef<HTMLDivElement>(null)
+    const [containerHeight, setContainerHeight] = useState(300)
+
+    useEffect(() => {
+      const updateHeight = () => {
+        if (containerRef.current) {
+          setContainerHeight(containerRef.current.offsetHeight)
+        }
+      }
+      updateHeight()
+      const observer = new ResizeObserver(updateHeight)
+      if (containerRef.current) {
+        observer.observe(containerRef.current)
+      }
+      return () => observer.disconnect()
+    }, [])
+
     const bubbles = useMemo<Bubble[]>(() => {
       return Array.from({ length: bubbleCount }, (_, i) => ({
         id: i,
@@ -37,7 +54,10 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
     }, [bubbleCount, minSize, maxSize, speed])
 
     return (
-      <div className="relative w-full h-full min-h-[300px] overflow-hidden bg-[hsl(var(--background))]">
+      <div
+        ref={containerRef}
+        className="relative w-full h-full min-h-[300px] overflow-hidden bg-[hsl(var(--background))]"
+      >
         {/* Bubbles */}
         {bubbles.map((bubble) => (
           <motion.div
@@ -53,7 +73,7 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
               opacity: bubble.opacity,
             }}
             animate={{
-              y: [0, -window.innerHeight - bubble.size * 2],
+              y: [0, -(containerHeight + bubble.size * 2)],
               x: [0, Math.sin(bubble.id) * 50],
             }}
             transition={{

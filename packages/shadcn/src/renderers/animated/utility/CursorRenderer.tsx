@@ -3,13 +3,14 @@
 import type { CursorComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
 
 export const CursorRenderer: A2UIRenderer<CursorComponent> = {
   type: 'cursor',
   render: ({ component, children }) => {
     const [isHovering, setIsHovering] = useState(false)
     const [isClicking, setIsClicking] = useState(false)
+    const containerRef = useRef<HTMLDivElement>(null)
 
     const {
       size = 20,
@@ -35,48 +36,42 @@ export const CursorRenderer: A2UIRenderer<CursorComponent> = {
       opacity: 0.5 - i * 0.1,
     }))
 
-    useEffect(() => {
-      const handleMouseMove = (e: MouseEvent) => {
-        mouseX.set(e.clientX)
-        mouseY.set(e.clientY)
+    const handleMouseMove = (e: React.MouseEvent) => {
+      if (!containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      mouseX.set(e.clientX - rect.left)
+      mouseY.set(e.clientY - rect.top)
+    }
+
+    const handleMouseDown = () => setIsClicking(true)
+    const handleMouseUp = () => setIsClicking(false)
+
+    const handleMouseOver = (e: React.MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (
+        target.tagName === 'BUTTON' ||
+        target.tagName === 'A' ||
+        target.closest('button') ||
+        target.closest('a')
+      ) {
+        setIsHovering(true)
       }
+    }
 
-      const handleMouseDown = () => setIsClicking(true)
-      const handleMouseUp = () => setIsClicking(false)
-
-      const handleMouseOver = (e: MouseEvent) => {
-        const target = e.target as HTMLElement
-        if (
-          target.tagName === 'BUTTON' ||
-          target.tagName === 'A' ||
-          target.closest('button') ||
-          target.closest('a')
-        ) {
-          setIsHovering(true)
-        }
-      }
-
-      const handleMouseOut = () => setIsHovering(false)
-
-      window.addEventListener('mousemove', handleMouseMove)
-      window.addEventListener('mousedown', handleMouseDown)
-      window.addEventListener('mouseup', handleMouseUp)
-      window.addEventListener('mouseover', handleMouseOver)
-      window.addEventListener('mouseout', handleMouseOut)
-
-      return () => {
-        window.removeEventListener('mousemove', handleMouseMove)
-        window.removeEventListener('mousedown', handleMouseDown)
-        window.removeEventListener('mouseup', handleMouseUp)
-        window.removeEventListener('mouseover', handleMouseOver)
-        window.removeEventListener('mouseout', handleMouseOut)
-      }
-    }, [mouseX, mouseY])
+    const handleMouseOut = () => setIsHovering(false)
 
     const cursorSize = isHovering ? size * 1.5 : isClicking ? size * 0.8 : size
 
     return (
-      <div className="relative w-full h-full">
+      <div
+        ref={containerRef}
+        className="relative w-full h-full min-h-[120px] overflow-hidden"
+        onMouseMove={handleMouseMove}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      >
         {/* Content */}
         {children}
 
@@ -85,7 +80,7 @@ export const CursorRenderer: A2UIRenderer<CursorComponent> = {
           trailConfigs.map((trail, i) => (
             <motion.div
               key={i}
-              className="fixed top-0 left-0 rounded-full pointer-events-none z-[9998]"
+              className="absolute top-0 left-0 rounded-full pointer-events-none"
               style={{
                 x: trail.x,
                 y: trail.y,
@@ -102,7 +97,7 @@ export const CursorRenderer: A2UIRenderer<CursorComponent> = {
 
         {/* Main cursor */}
         <motion.div
-          className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999]"
+          className="absolute top-0 left-0 rounded-full pointer-events-none"
           style={{
             x: cursorX,
             y: cursorY,

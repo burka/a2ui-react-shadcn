@@ -42,13 +42,18 @@ export const HexagonBackgroundRenderer: A2UIRenderer<HexagonBackgroundComponent>
     const hexSize = 40
     const hexHeight = hexSize * 0.866
 
+    // Calculate total SVG dimensions
+    const svgWidth = cols * (hexSize + gap) + (hexSize + gap) / 2
+    const svgHeight = rows * (hexHeight * 0.75 + gap) + hexHeight / 2
+
     return (
       <div className="relative w-full h-full min-h-[300px] overflow-hidden bg-[hsl(var(--background))]">
         {/* Hexagon grid */}
-        <div className="absolute inset-0 flex flex-wrap justify-center items-center">
+        <div className="absolute inset-0 flex items-center justify-center">
           <svg
-            className="absolute inset-0 w-full h-full"
-            style={{ minHeight: rows * (hexHeight + gap) }}
+            className="w-full h-full"
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+            preserveAspectRatio="xMidYMid meet"
           >
             {hexagons.map((hex) => {
               const xOffset = hex.row % 2 === 0 ? 0 : (hexSize + gap) / 2

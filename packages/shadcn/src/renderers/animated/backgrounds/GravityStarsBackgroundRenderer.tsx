@@ -3,7 +3,7 @@
 import type { GravityStarsBackgroundComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface Star {
   id: number
@@ -27,7 +27,8 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
     } = component
 
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-    const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
+    const [dimensions, setDimensions] = useState({ width: 400, height: 300 })
+    const containerRef = useRef<HTMLDivElement>(null)
 
     const initialStars = useMemo<Star[]>(() => {
       return Array.from({ length: starCount }, (_, i) => ({
@@ -43,15 +44,20 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
     const [stars, setStars] = useState(initialStars)
 
     useEffect(() => {
-      const handleResize = () => {
-        setDimensions({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        })
+      const updateDimensions = () => {
+        if (containerRef.current) {
+          setDimensions({
+            width: containerRef.current.offsetWidth,
+            height: containerRef.current.offsetHeight,
+          })
+        }
       }
-      handleResize()
-      window.addEventListener('resize', handleResize)
-      return () => window.removeEventListener('resize', handleResize)
+      updateDimensions()
+      const observer = new ResizeObserver(updateDimensions)
+      if (containerRef.current) {
+        observer.observe(containerRef.current)
+      }
+      return () => observer.disconnect()
     }, [])
 
     useEffect(() => {
@@ -112,6 +118,7 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
 
     return (
       <div
+        ref={containerRef}
         className="relative w-full h-full min-h-[300px] overflow-hidden bg-slate-950"
         onMouseMove={handleMouseMove}
       >
