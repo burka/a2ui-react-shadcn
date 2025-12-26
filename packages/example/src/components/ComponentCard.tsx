@@ -1,5 +1,5 @@
 import type { A2UIAction, A2UIMessage } from 'a2ui-shadcn-ui'
-import { Code2, Zap } from 'lucide-react'
+import { Beaker, Code2, Zap } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { CodeModal } from './CodeModal'
 import { LivePreview } from './LivePreview'
@@ -12,6 +12,7 @@ interface ComponentCardProps {
   category: Category
   messages: A2UIMessage[]
   rendererCode?: string
+  earlyStage?: boolean
 }
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -34,6 +35,7 @@ export function ComponentCard({
   category,
   messages,
   rendererCode,
+  earlyStage,
 }: ComponentCardProps) {
   const [codeModalOpen, setCodeModalOpen] = useState(false)
   const [lastAction, setLastAction] = useState<A2UIAction | null>(null)
@@ -48,13 +50,19 @@ export function ComponentCard({
     <div className="border border-[var(--color-border)] rounded-lg p-4 bg-[var(--color-bg-secondary)] hover:border-[var(--color-accent)] transition-colors">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
             <h3 className="font-semibold text-[var(--color-text-primary)]">{name}</h3>
             <span
               className={`px-2 py-0.5 text-xs font-medium rounded border ${CATEGORY_COLORS[category]}`}
             >
               {CATEGORY_LABELS[category]}
             </span>
+            {earlyStage && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded border bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20">
+                <Beaker className="w-3 h-3" />
+                Early Stage
+              </span>
+            )}
           </div>
           <p className="text-sm text-[var(--color-text-secondary)]">{description}</p>
         </div>

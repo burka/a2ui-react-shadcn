@@ -28,6 +28,21 @@ const CATEGORY_LABELS: Record<Category, string> = {
   container: 'Container',
 }
 
+// Components that are still being developed
+const EARLY_STAGE_COMPONENTS = new Set([
+  'bubble-background',
+  'fireworks-background',
+  'stars-background',
+  'hexagon-background',
+  'hole-background',
+  'gravity-stars-background',
+  'cursor',
+  'AnimatedTooltip',
+  'AnimatedAccordion',
+  'FlipButton',
+  'FlipCard',
+])
+
 export function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All')
   const [copied, setCopied] = useState(false)
@@ -292,6 +307,7 @@ function MyComponent() {
                   category={example.category}
                   messages={example.messages}
                   rendererCode={example.rendererCode}
+                  earlyStage={EARLY_STAGE_COMPONENTS.has(example.type)}
                 />
               ))}
             </div>

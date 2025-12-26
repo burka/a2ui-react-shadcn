@@ -30,9 +30,16 @@ function getChildIds(component: A2UIComponent): string[] {
     return component.children
   }
 
-  // Button has a single child
-  if (component.type === 'Button' && 'child' in component) {
+  // Components with single 'child' property (Button, AnimatedButton, RippleButton, etc.)
+  if ('child' in component && typeof component.child === 'string') {
     return [component.child]
+  }
+
+  // FlipButton has frontChild and backChild
+  if ('frontChild' in component && 'backChild' in component) {
+    const fc = component.frontChild as string
+    const bc = component.backChild as string
+    return [fc, bc]
   }
 
   // Modal has trigger and content
@@ -48,6 +55,17 @@ function getChildIds(component: A2UIComponent): string[] {
   // List has a template
   if (component.type === 'List' && 'template' in component) {
     return [component.template]
+  }
+
+  // AnimatedAccordion has items with trigger and content
+  if ('items' in component && Array.isArray(component.items)) {
+    const items = component.items as Array<{ trigger?: string; content?: string }>
+    const ids: string[] = []
+    for (const item of items) {
+      if (item.trigger) ids.push(item.trigger)
+      if (item.content) ids.push(item.content)
+    }
+    if (ids.length > 0) return ids
   }
 
   return []
