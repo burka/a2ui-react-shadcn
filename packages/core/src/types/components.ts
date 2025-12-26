@@ -89,6 +89,10 @@ export interface VideoComponent extends BaseComponent {
   controls?: boolean
   loop?: boolean
   muted?: boolean
+  /** URL to WebVTT captions file for accessibility */
+  captionUrl?: string
+  /** Label for the captions track (e.g., "English") */
+  captionLabel?: string
 }
 
 export interface AudioPlayerComponent extends BaseComponent {
@@ -97,6 +101,10 @@ export interface AudioPlayerComponent extends BaseComponent {
   autoplay?: boolean
   controls?: boolean
   loop?: boolean
+  /** URL to WebVTT captions file for accessibility */
+  captionUrl?: string
+  /** Label for the captions track (e.g., "English") */
+  captionLabel?: string
 }
 
 /**
@@ -136,6 +144,7 @@ export interface SelectOption {
 
 export interface SelectComponent extends BaseComponent {
   type: 'Select'
+  label?: string
   options: SelectOption[]
   placeholder?: string
   dataPath?: string
@@ -143,6 +152,7 @@ export interface SelectComponent extends BaseComponent {
 
 export interface SliderComponent extends BaseComponent {
   type: 'Slider'
+  label?: string
   min?: number
   max?: number
   step?: number

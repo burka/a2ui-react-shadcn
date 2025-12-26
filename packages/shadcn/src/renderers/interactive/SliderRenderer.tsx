@@ -1,10 +1,11 @@
 import type { SliderComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import { Label } from '../../components/ui/label.js'
 import { Slider } from '../../components/ui/slider.js'
 
 export const SliderRenderer: A2UIRenderer<SliderComponent> = {
   type: 'Slider',
-  render: ({ component, data }: RendererProps<SliderComponent>) => {
+  render: ({ component, data, id }: RendererProps<SliderComponent>) => {
     const value = component.dataPath ? data.get<number>(component.dataPath) : component.min || 0
 
     const handleChange = (values: number[]) => {
@@ -19,17 +20,24 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
 
     return (
       <div className="space-y-2 w-full min-w-[200px]">
+        {component.label && <Label htmlFor={id}>{component.label}</Label>}
         <Slider
+          id={id}
           min={min}
           max={max}
           step={step}
           value={[value ?? min]}
           onValueChange={handleChange}
+          aria-label={component.label || 'Slider'}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={value ?? min}
           className="w-full"
         />
         <div
           className="text-sm text-center font-medium"
           style={{ color: 'hsl(var(--foreground))' }}
+          aria-hidden="true"
         >
           {value ?? min}
         </div>

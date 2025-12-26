@@ -6,7 +6,14 @@ import { cn } from '../../lib/utils.js'
 export const AudioPlayerRenderer: A2UIRenderer<AudioPlayerComponent> = {
   type: 'AudioPlayer',
   render: ({ component }: RendererProps<AudioPlayerComponent>) => {
-    const { url, autoplay = false, controls = true, loop = false } = component
+    const {
+      url,
+      autoplay = false,
+      controls = true,
+      loop = false,
+      captionUrl,
+      captionLabel = 'Captions',
+    } = component
     const [hasError, setHasError] = useState(false)
 
     const handleError = () => {
@@ -27,7 +34,6 @@ export const AudioPlayerRenderer: A2UIRenderer<AudioPlayerComponent> = {
     }
 
     return (
-      // biome-ignore lint/a11y/useMediaCaption: Captions are optional for audio players and would be provided via separate track URL if needed
       <audio
         src={url}
         autoPlay={autoplay}
@@ -36,6 +42,9 @@ export const AudioPlayerRenderer: A2UIRenderer<AudioPlayerComponent> = {
         onError={handleError}
         className="w-full"
       >
+        {captionUrl && (
+          <track kind="captions" src={captionUrl} label={captionLabel} default />
+        )}
         Your browser does not support the audio element.
       </audio>
     )

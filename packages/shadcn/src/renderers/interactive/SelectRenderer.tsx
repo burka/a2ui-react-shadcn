@@ -1,5 +1,6 @@
 import type { SelectComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import { Label } from '../../components/ui/label.js'
 import {
   Select,
   SelectContent,
@@ -10,7 +11,7 @@ import {
 
 export const SelectRenderer: A2UIRenderer<SelectComponent> = {
   type: 'Select',
-  render: ({ component, data }: RendererProps<SelectComponent>) => {
+  render: ({ component, data, id }: RendererProps<SelectComponent>) => {
     const value = component.dataPath ? data.get<string>(component.dataPath) : ''
 
     const handleChange = (newValue: string) => {
@@ -20,18 +21,25 @@ export const SelectRenderer: A2UIRenderer<SelectComponent> = {
     }
 
     return (
-      <Select value={value || undefined} onValueChange={handleChange}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder={component.placeholder || 'Select an option'} />
-        </SelectTrigger>
-        <SelectContent>
-          {component.options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="grid gap-2">
+        {component.label && <Label htmlFor={id}>{component.label}</Label>}
+        <Select value={value || undefined} onValueChange={handleChange}>
+          <SelectTrigger
+            id={id}
+            className="w-full"
+            aria-label={component.label || component.placeholder || 'Select an option'}
+          >
+            <SelectValue placeholder={component.placeholder || 'Select an option'} />
+          </SelectTrigger>
+          <SelectContent>
+            {component.options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
     )
   },
   example: {

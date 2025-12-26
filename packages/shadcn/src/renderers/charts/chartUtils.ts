@@ -97,3 +97,24 @@ export function buildChartConfig(
 
   return config
 }
+
+/**
+ * Generate accessible description for chart data
+ * Used for screen readers via aria-label
+ */
+export function generateChartDescription(
+  chartType: string,
+  data: ChartDataItem[],
+): string {
+  if (data.length === 0) {
+    return `${chartType} with no data`
+  }
+
+  const total = data.reduce((sum, item) => sum + item.value, 0)
+  const maxItem = data.reduce((max, item) => (item.value > max.value ? item : max), data[0]!)
+  const minItem = data.reduce((min, item) => (item.value < min.value ? item : min), data[0]!)
+
+  const dataPoints = data.map((item) => `${item.label}: ${item.value}`).join(', ')
+
+  return `${chartType} with ${data.length} data points. Values: ${dataPoints}. Highest: ${maxItem.label} (${maxItem.value}). Lowest: ${minItem.label} (${minItem.value}). Total: ${total}.`
+}

@@ -6,6 +6,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../../components/ui/chart.js'
 import {
   buildChartConfig,
+  generateChartDescription,
   getChartColor,
   getChartData,
   transformToRechartsData,
@@ -41,33 +42,37 @@ export const AreaChartRenderer: A2UIRenderer<AreaChartComponent> = {
 
     const gradientId = `gradient-${component.id}`
 
+    const chartDescription = generateChartDescription('Area chart', rawData)
+
     return (
-      <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
-        <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
-          {useGradient && (
-            <defs>
-              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={areaColor} stopOpacity={fillOpacity} />
-                <stop offset="100%" stopColor={areaColor} stopOpacity={0.05} />
-              </linearGradient>
-            </defs>
-          )}
-          {showGrid && <CartesianGrid strokeDasharray="3 3" />}
-          {showXAxis && <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />}
-          {showYAxis && <YAxis tickLine={false} axisLine={false} tickMargin={10} />}
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Area
-            type={component.smooth ? 'monotone' : 'linear'}
-            dataKey="value"
-            stroke={areaColor}
-            strokeWidth={2}
-            fill={useGradient ? `url(#${gradientId})` : areaColor}
-            fillOpacity={useGradient ? 1 : fillOpacity}
-            dot={showDots}
-            isAnimationActive={animated}
-          />
-        </AreaChart>
-      </ChartContainer>
+      <div role="img" aria-label={chartDescription}>
+        <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
+          <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
+            {useGradient && (
+              <defs>
+                <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={areaColor} stopOpacity={fillOpacity} />
+                  <stop offset="100%" stopColor={areaColor} stopOpacity={0.05} />
+                </linearGradient>
+              </defs>
+            )}
+            {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+            {showXAxis && <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />}
+            {showYAxis && <YAxis tickLine={false} axisLine={false} tickMargin={10} />}
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Area
+              type={component.smooth ? 'monotone' : 'linear'}
+              dataKey="value"
+              stroke={areaColor}
+              strokeWidth={2}
+              fill={useGradient ? `url(#${gradientId})` : areaColor}
+              fillOpacity={useGradient ? 1 : fillOpacity}
+              dot={showDots}
+              isAnimationActive={animated}
+            />
+          </AreaChart>
+        </ChartContainer>
+      </div>
     )
   },
   example: {
