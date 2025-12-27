@@ -42,7 +42,7 @@ export const LineChartRenderer: A2UIRenderer<LineChartComponent> = {
     const chartDescription = generateChartDescription('Line chart', rawData)
 
     return (
-      <div role="img" aria-label={chartDescription}>
+      <div role="img" aria-label={chartDescription} style={{ height, width: '100%' }}>
         <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
           <LineChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
             {showGrid && <CartesianGrid strokeDasharray="3 3" />}

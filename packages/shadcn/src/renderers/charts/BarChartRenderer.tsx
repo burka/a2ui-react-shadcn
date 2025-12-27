@@ -72,7 +72,7 @@ export const BarChartRenderer: A2UIRenderer<BarChartComponent> = {
     const chartDescription = generateChartDescription('Bar chart', rawData)
 
     return (
-      <div role="img" aria-label={chartDescription}>
+      <div role="img" aria-label={chartDescription} style={{ height, width: '100%' }}>
         <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
           {ChartComponent}
         </ChartContainer>

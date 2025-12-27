@@ -45,7 +45,7 @@ export const AreaChartRenderer: A2UIRenderer<AreaChartComponent> = {
     const chartDescription = generateChartDescription('Area chart', rawData)
 
     return (
-      <div role="img" aria-label={chartDescription}>
+      <div role="img" aria-label={chartDescription} style={{ height, width: '100%' }}>
         <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
           <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
             {useGradient && (

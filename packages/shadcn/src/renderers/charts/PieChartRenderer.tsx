@@ -44,7 +44,7 @@ export const PieChartRenderer: A2UIRenderer<PieChartComponent> = {
     )
 
     return (
-      <div role="img" aria-label={chartDescription}>
+      <div role="img" aria-label={chartDescription} style={{ height, width: '100%' }}>
         <ChartContainer config={chartConfig} className="mx-auto" style={{ height, width: '100%' }}>
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
