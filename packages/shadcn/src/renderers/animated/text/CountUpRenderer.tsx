@@ -54,7 +54,7 @@ export const CountUpRenderer: A2UIRenderer<CountUpComponent> = {
       })
 
       return controls.stop
-    }, [component.to, component.from, duration, count])
+    }, [component.to, duration, count])
 
     const className = styleClasses[component.style || 'body']
     const formattedValue = formatNumber(displayValue, decimals, separator)

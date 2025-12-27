@@ -54,7 +54,9 @@ export const HexagonBackgroundRenderer: A2UIRenderer<HexagonBackgroundComponent>
             className="w-full h-full"
             viewBox={`0 0 ${svgWidth} ${svgHeight}`}
             preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
           >
+            <title>Hexagonal grid pattern background</title>
             {hexagons.map((hex) => {
               const xOffset = hex.row % 2 === 0 ? 0 : (hexSize + gap) / 2
               const x = hex.col * (hexSize + gap) + xOffset + hexSize / 2

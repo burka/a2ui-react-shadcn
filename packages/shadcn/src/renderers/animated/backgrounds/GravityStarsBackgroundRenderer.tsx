@@ -117,6 +117,7 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
     }
 
     return (
+      // biome-ignore lint/a11y/noStaticElementInteractions: Decorative background with mouse tracking for visual effect only, not interactive functionality
       <div
         ref={containerRef}
         className="relative w-full h-full min-h-[300px] overflow-hidden bg-slate-950"

@@ -93,7 +93,7 @@ export const BlurRevealTextRenderer: A2UIRenderer<BlurRevealTextComponent> = {
         animate="visible"
       >
         {words.map((word, index) => (
-          <motion.span key={`${word}-${index}`} variants={wordVariants}>
+          <motion.span key={`word-${index}-${word}`} variants={wordVariants}>
             {word}
           </motion.span>
         ))}

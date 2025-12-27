@@ -34,7 +34,7 @@ export const AuroraBackgroundRenderer: A2UIRenderer<AuroraBackgroundComponent> =
           const offset = (index / colors.length) * 360
           return (
             <motion.div
-              key={`aurora-${index}`}
+              key={`aurora-${color}-${offset}`}
               animate={{
                 x: [
                   `${20 + index * 15}%`,

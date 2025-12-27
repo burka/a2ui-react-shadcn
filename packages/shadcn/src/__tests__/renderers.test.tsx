@@ -14,16 +14,12 @@ describe('Component Renderers', () => {
       const component = { type: 'Button' as const, id: 'btn-1', child: 'text-1' }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [<span key="text-1">Click me</span>]
+      const childElements = [<span key="text-1">Click me</span>]
 
       render(
-        <ButtonRenderer.render
-          id="btn-1"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <ButtonRenderer.render id="btn-1" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </ButtonRenderer.render>,
       )
 
       expect(screen.getByRole('button')).toBeInTheDocument()
@@ -39,7 +35,7 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [<span key="text-1">Primary</span>]
+      const childElements = [<span key="text-1">Primary</span>]
 
       render(
         <ButtonRenderer.render
@@ -47,8 +43,9 @@ describe('Component Renderers', () => {
           component={component}
           data={data}
           onAction={onAction}
-          children={children}
-        />,
+        >
+          {childElements}
+        </ButtonRenderer.render>,
       )
 
       const button = screen.getByRole('button')
@@ -65,7 +62,7 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [<span key="text-1">Outline</span>]
+      const childElements = [<span key="text-1">Outline</span>]
 
       render(
         <ButtonRenderer.render
@@ -73,8 +70,9 @@ describe('Component Renderers', () => {
           component={component}
           data={data}
           onAction={onAction}
-          children={children}
-        />,
+        >
+          {childElements}
+        </ButtonRenderer.render>,
       )
 
       const button = screen.getByRole('button')
@@ -93,16 +91,12 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [<span key="text-1">Submit</span>]
+      const childElements = [<span key="text-1">Submit</span>]
 
       render(
-        <ButtonRenderer.render
-          id="btn-2"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <ButtonRenderer.render id="btn-2" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </ButtonRenderer.render>,
       )
 
       fireEvent.click(screen.getByRole('button'))
@@ -113,16 +107,12 @@ describe('Component Renderers', () => {
       const component = { type: 'Button' as const, id: 'btn-3', child: 'text-1' }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [<span key="text-1">No Action</span>]
+      const childElements = [<span key="text-1">No Action</span>]
 
       render(
-        <ButtonRenderer.render
-          id="btn-3"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <ButtonRenderer.render id="btn-3" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </ButtonRenderer.render>,
       )
 
       fireEvent.click(screen.getByRole('button'))
@@ -529,16 +519,12 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [<div key="child-1">Card Content</div>]
+      const childElements = [<div key="child-1">Card Content</div>]
 
       render(
-        <CardRenderer.render
-          id="card-1"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <CardRenderer.render id="card-1" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </CardRenderer.render>,
       )
 
       expect(screen.getByText('Card Content')).toBeInTheDocument()
@@ -552,20 +538,18 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [
+      const childElements = [
         <h3 key="child-1">Title</h3>,
         <p key="child-2">Description</p>,
-        <button key="child-3">Action</button>,
+        <button type="button" key="child-3">
+          Action
+        </button>,
       ]
 
       render(
-        <CardRenderer.render
-          id="card-2"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <CardRenderer.render id="card-2" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </CardRenderer.render>,
       )
 
       expect(screen.getByText('Title')).toBeInTheDocument()
@@ -584,19 +568,17 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [
-        <button key="trigger-1">Open Modal</button>,
+      const childElements = [
+        <button type="button" key="trigger-1">
+          Open Modal
+        </button>,
         <div key="content-1">Modal Content</div>,
       ]
 
       render(
-        <ModalRenderer.render
-          id="modal-1"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <ModalRenderer.render id="modal-1" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </ModalRenderer.render>,
       )
 
       expect(screen.getByText('Open Modal')).toBeInTheDocument()
@@ -611,19 +593,17 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = [
-        <button key="trigger-1">Open</button>,
+      const childElements = [
+        <button type="button" key="trigger-1">
+          Open
+        </button>,
         <div key="content-1">Modal Body</div>,
       ]
 
       render(
-        <ModalRenderer.render
-          id="modal-2"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <ModalRenderer.render id="modal-2" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </ModalRenderer.render>,
       )
 
       const trigger = screen.getByText('Open')
@@ -641,16 +621,16 @@ describe('Component Renderers', () => {
       }
       const data = { get: vi.fn(), set: vi.fn() }
       const onAction = vi.fn()
-      const children = <button key="trigger-1">Single Child</button>
+      const childElements = (
+        <button type="button" key="trigger-1">
+          Single Child
+        </button>
+      )
 
       render(
-        <ModalRenderer.render
-          id="modal-3"
-          component={component}
-          data={data}
-          onAction={onAction}
-          children={children}
-        />,
+        <ModalRenderer.render id="modal-3" component={component} data={data} onAction={onAction}>
+          {childElements}
+        </ModalRenderer.render>,
       )
 
       expect(screen.getByText('Single Child')).toBeInTheDocument()

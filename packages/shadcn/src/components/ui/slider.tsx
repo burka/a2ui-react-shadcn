@@ -19,6 +19,11 @@ function Slider({
     [value, defaultValue, min, max],
   )
 
+  const thumbIds = React.useMemo(
+    () => Array.from({ length: _values.length }, () => crypto.randomUUID()),
+    [_values.length],
+  )
+
   return (
     <SliderPrimitive.Root
       data-slot="slider"
@@ -45,10 +50,10 @@ function Slider({
           )}
         />
       </SliderPrimitive.Track>
-      {Array.from({ length: _values.length }, (_, index) => (
+      {thumbIds.map((id) => (
         <SliderPrimitive.Thumb
           data-slot="slider-thumb"
-          key={index}
+          key={id}
           className="border-primary ring-ring/50 block size-4 shrink-0 rounded-full border-2 bg-white shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
         />
       ))}

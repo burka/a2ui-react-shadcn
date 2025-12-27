@@ -73,7 +73,9 @@ export const LiquidButtonRenderer: A2UIRenderer<LiquidButtonComponent> = {
             viewBox="0 0 100 10"
             preserveAspectRatio="none"
             style={{ height: '12px' }}
+            aria-hidden="true"
           >
+            <title>Liquid wave animation effect</title>
             <motion.path
               d="M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z"
               fill={colors.liquid}

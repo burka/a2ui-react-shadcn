@@ -107,7 +107,6 @@ export const IconButtonRenderer: A2UIRenderer<IconButtonComponent> = {
             },
             whileTap: { scale: 0.9 },
           }
-        case 'scale':
         default:
           return {
             whileHover: { scale: 1.1 },

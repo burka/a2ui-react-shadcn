@@ -65,7 +65,6 @@ export const ThemeTogglerButtonRenderer: A2UIRenderer<ThemeTogglerButtonComponen
             exit: { y: -20, opacity: 0 },
             transition: { duration: 0.2 },
           }
-        case 'rotate':
         default:
           return {
             initial: { rotate: -90, opacity: 0 },
