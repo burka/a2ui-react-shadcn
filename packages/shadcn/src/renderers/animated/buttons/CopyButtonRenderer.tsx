@@ -5,11 +5,13 @@ import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 export const CopyButtonRenderer: A2UIRenderer<CopyButtonComponent> = {
   type: 'copy-button',
   render: ({ component, onAction }) => {
     const [copied, setCopied] = useState(false)
+    const prefersReducedMotion = useReducedMotion()
 
     const {
       text,
@@ -48,16 +50,16 @@ export const CopyButtonRenderer: A2UIRenderer<CopyButtonComponent> = {
       <motion.button
         className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition-colors ${getVariantStyles()}`}
         onClick={handleCopy}
-        whileTap={{ scale: 0.95 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
       >
         <AnimatePresence mode="wait">
           {showIcon && (
             <motion.span
               key={copied ? 'check' : 'copy'}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              initial={prefersReducedMotion ? {} : { scale: 0, opacity: 0 }}
+              animate={prefersReducedMotion ? {} : { scale: 1, opacity: 1 }}
+              exit={prefersReducedMotion ? {} : { scale: 0, opacity: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.15 }}
             >
               {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
             </motion.span>
@@ -67,10 +69,10 @@ export const CopyButtonRenderer: A2UIRenderer<CopyButtonComponent> = {
         <AnimatePresence mode="wait">
           <motion.span
             key={copied ? 'copied' : 'copy'}
-            initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -10, opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            initial={prefersReducedMotion ? {} : { y: 10, opacity: 0 }}
+            animate={prefersReducedMotion ? {} : { y: 0, opacity: 1 }}
+            exit={prefersReducedMotion ? {} : { y: -10, opacity: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.15 }}
           >
             {copied ? copiedLabel : label}
           </motion.span>

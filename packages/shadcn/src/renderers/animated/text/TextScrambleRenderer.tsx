@@ -1,5 +1,6 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { useEffect, useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface TextScrambleComponent {
   type: 'TextScramble'
@@ -28,13 +29,14 @@ export const TextScrambleRenderer: A2UIRenderer<TextScrambleComponent> = {
   render: ({ component }: RendererProps<TextScrambleComponent>) => {
     const [displayText, setDisplayText] = useState(component.content)
     const [isAnimating, setIsAnimating] = useState(false)
+    const prefersReducedMotion = useReducedMotion()
 
     const speed = component.speed || 30
     const characters = component.characters || defaultCharacters
     const trigger = component.trigger || 'mount'
 
     const scramble = () => {
-      if (isAnimating) return
+      if (prefersReducedMotion || isAnimating) return
       setIsAnimating(true)
 
       const target = component.content

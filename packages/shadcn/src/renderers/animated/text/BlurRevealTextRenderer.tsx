@@ -1,5 +1,6 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface BlurRevealTextComponent {
   type: 'BlurRevealText'
@@ -40,6 +41,7 @@ const getInitialPosition = (direction: string) => {
 export const BlurRevealTextRenderer: A2UIRenderer<BlurRevealTextComponent> = {
   type: 'BlurRevealText',
   render: ({ component }: RendererProps<BlurRevealTextComponent>) => {
+    const prefersReducedMotion = useReducedMotion()
     const words = component.content.split(' ')
     const delay = component.delay || 0
     const duration = component.duration || 0.5
@@ -48,34 +50,38 @@ export const BlurRevealTextRenderer: A2UIRenderer<BlurRevealTextComponent> = {
 
     const initialPosition = getInitialPosition(direction)
 
-    const containerVariants = {
-      hidden: { opacity: 0 },
-      visible: {
-        opacity: 1,
-        transition: {
-          delay,
-          staggerChildren: stagger,
-        },
-      },
-    }
+    const containerVariants = prefersReducedMotion
+      ? { hidden: {}, visible: {} }
+      : {
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              delay,
+              staggerChildren: stagger,
+            },
+          },
+        }
 
-    const wordVariants = {
-      hidden: {
-        opacity: 0,
-        filter: 'blur(10px)',
-        ...initialPosition,
-      },
-      visible: {
-        opacity: 1,
-        filter: 'blur(0px)',
-        x: 0,
-        y: 0,
-        transition: {
-          duration,
-          ease: 'easeOut' as const,
-        },
-      },
-    }
+    const wordVariants = prefersReducedMotion
+      ? { hidden: {}, visible: {} }
+      : {
+          hidden: {
+            opacity: 0,
+            filter: 'blur(10px)',
+            ...initialPosition,
+          },
+          visible: {
+            opacity: 1,
+            filter: 'blur(0px)',
+            x: 0,
+            y: 0,
+            transition: {
+              duration,
+              ease: 'easeOut' as const,
+            },
+          },
+        }
 
     const className = styleClasses[component.style || 'body']
 

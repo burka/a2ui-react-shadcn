@@ -1,6 +1,7 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface TypewriterTextComponent {
   type: 'TypewriterText'
@@ -29,12 +30,18 @@ export const TypewriterTextRenderer: A2UIRenderer<TypewriterTextComponent> = {
   render: ({ component }: RendererProps<TypewriterTextComponent>) => {
     const [displayText, setDisplayText] = useState('')
     const [showCursor, setShowCursor] = useState(true)
+    const prefersReducedMotion = useReducedMotion()
 
     const speed = component.speed || 50
     const cursorChar = component.cursorChar || '|'
     const showCursorProp = component.cursor !== false
 
     useEffect(() => {
+      if (prefersReducedMotion) {
+        setDisplayText(component.content)
+        return
+      }
+
       let currentIndex = 0
       let isDeleting = false
       let timeout: ReturnType<typeof setTimeout>
@@ -66,7 +73,13 @@ export const TypewriterTextRenderer: A2UIRenderer<TypewriterTextComponent> = {
       typeChar()
 
       return () => clearTimeout(timeout)
-    }, [component.content, speed, component.loop, component.delayBetweenLoops])
+    }, [
+      component.content,
+      speed,
+      component.loop,
+      component.delayBetweenLoops,
+      prefersReducedMotion,
+    ])
 
     useEffect(() => {
       if (!showCursorProp) return
@@ -83,7 +96,7 @@ export const TypewriterTextRenderer: A2UIRenderer<TypewriterTextComponent> = {
     return (
       <span className={className} style={{ color: 'hsl(var(--foreground))' }}>
         {displayText}
-        {showCursorProp && (
+        {showCursorProp && !prefersReducedMotion && (
           <motion.span
             animate={{ opacity: showCursor ? 1 : 0 }}
             transition={{ duration: 0.1 }}
