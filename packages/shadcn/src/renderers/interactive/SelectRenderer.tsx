@@ -37,7 +37,11 @@ export const SelectRenderer: A2UIRenderer<SelectComponent> = {
             {component.required && <span className="text-destructive ml-1">*</span>}
           </Label>
         )}
-        <Select value={value || undefined} onValueChange={handleChange} disabled={component.disabled}>
+        <Select
+          value={value || undefined}
+          onValueChange={handleChange}
+          disabled={component.disabled}
+        >
           <SelectTrigger
             id={id}
             className="w-full"

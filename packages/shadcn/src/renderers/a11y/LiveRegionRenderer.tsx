@@ -14,11 +14,7 @@ export const LiveRegionRenderer: A2UIRenderer<LiveRegionComponent> = {
     const politeness = component.politeness || 'polite'
 
     return (
-      <div
-        id={id}
-        aria-live={politeness}
-        aria-atomic={component.atomic}
-      >
+      <div id={id} aria-live={politeness} aria-atomic={component.atomic}>
         {children as ReactNode}
       </div>
     )
@@ -33,8 +29,25 @@ export const LiveRegionRenderer: A2UIRenderer<LiveRegionComponent> = {
         updateComponents: {
           surfaceId: 'live-example',
           components: [
-            { id: 'live-1', component: { type: 'LiveRegion', id: 'live-1', politeness: 'polite', atomic: true, children: ['status'] } },
-            { id: 'status', component: { type: 'Text', id: 'status', content: 'Status updates will be announced here', dataPath: 'status.message' } },
+            {
+              id: 'live-1',
+              component: {
+                type: 'LiveRegion',
+                id: 'live-1',
+                politeness: 'polite',
+                atomic: true,
+                children: ['status'],
+              },
+            },
+            {
+              id: 'status',
+              component: {
+                type: 'Text',
+                id: 'status',
+                content: 'Status updates will be announced here',
+                dataPath: 'status.message',
+              },
+            },
           ],
         },
       },

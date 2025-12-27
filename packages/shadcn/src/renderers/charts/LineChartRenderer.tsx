@@ -46,7 +46,9 @@ export const LineChartRenderer: A2UIRenderer<LineChartComponent> = {
         <ChartContainer config={chartConfig} style={{ height, width: '100%' }}>
           <LineChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
             {showGrid && <CartesianGrid strokeDasharray="3 3" />}
-            {showXAxis && <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />}
+            {showXAxis && (
+              <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />
+            )}
             {showYAxis && <YAxis tickLine={false} axisLine={false} tickMargin={10} />}
             <ChartTooltip content={<ChartTooltipContent />} />
             <Line

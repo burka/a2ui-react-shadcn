@@ -38,7 +38,12 @@ export const MainRenderer: A2UIRenderer<MainComponent> = {
             // Page wrapper
             {
               id: 'page',
-              component: { type: 'Column', id: 'page', distribution: 'packed', children: ['header', 'main', 'footer'] },
+              component: {
+                type: 'Column',
+                id: 'page',
+                distribution: 'packed',
+                children: ['header', 'main', 'footer'],
+              },
             },
             // Header with navigation
             {
@@ -47,16 +52,38 @@ export const MainRenderer: A2UIRenderer<MainComponent> = {
             },
             {
               id: 'nav',
-              component: { type: 'Nav', id: 'nav', label: 'Hauptnavigation', children: ['nav-links'] },
+              component: {
+                type: 'Nav',
+                id: 'nav',
+                label: 'Hauptnavigation',
+                children: ['nav-links'],
+              },
             },
             {
               id: 'nav-links',
-              component: { type: 'Row', id: 'nav-links', distribution: 'packed', children: ['home-btn', 'products-btn'] },
+              component: {
+                type: 'Row',
+                id: 'nav-links',
+                distribution: 'packed',
+                children: ['home-btn', 'products-btn'],
+              },
             },
-            { id: 'home-btn', component: { type: 'Button', id: 'home-btn', child: 'btn-home-text' } },
-            { id: 'btn-home-text', component: { type: 'Text', id: 'btn-home-text', content: 'Home' } },
-            { id: 'products-btn', component: { type: 'Button', id: 'products-btn', child: 'btn-products-text' } },
-            { id: 'btn-products-text', component: { type: 'Text', id: 'btn-products-text', content: 'Produkte' } },
+            {
+              id: 'home-btn',
+              component: { type: 'Button', id: 'home-btn', child: 'btn-home-text' },
+            },
+            {
+              id: 'btn-home-text',
+              component: { type: 'Text', id: 'btn-home-text', content: 'Home' },
+            },
+            {
+              id: 'products-btn',
+              component: { type: 'Button', id: 'products-btn', child: 'btn-products-text' },
+            },
+            {
+              id: 'btn-products-text',
+              component: { type: 'Text', id: 'btn-products-text', content: 'Produkte' },
+            },
             // Main content area
             {
               id: 'main',
@@ -64,26 +91,63 @@ export const MainRenderer: A2UIRenderer<MainComponent> = {
             },
             {
               id: 'content-row',
-              component: { type: 'Row', id: 'content-row', distribution: 'packed', children: ['features-section', 'sidebar'] },
+              component: {
+                type: 'Row',
+                id: 'content-row',
+                distribution: 'packed',
+                children: ['features-section', 'sidebar'],
+              },
             },
             // Section with title
             {
               id: 'features-section',
-              component: { type: 'Section', id: 'features-section', title: 'Unsere Features', children: ['feature-text'] },
+              component: {
+                type: 'Section',
+                id: 'features-section',
+                title: 'Unsere Features',
+                children: ['feature-text'],
+              },
             },
-            { id: 'feature-text', component: { type: 'Text', id: 'feature-text', content: 'Entdecken Sie unsere Funktionen...' } },
+            {
+              id: 'feature-text',
+              component: {
+                type: 'Text',
+                id: 'feature-text',
+                content: 'Entdecken Sie unsere Funktionen...',
+              },
+            },
             // Sidebar
             {
               id: 'sidebar',
-              component: { type: 'Aside', id: 'sidebar', title: 'Weitere Infos', children: ['sidebar-text'] },
+              component: {
+                type: 'Aside',
+                id: 'sidebar',
+                title: 'Weitere Infos',
+                children: ['sidebar-text'],
+              },
             },
-            { id: 'sidebar-text', component: { type: 'Text', id: 'sidebar-text', content: 'Hilfreiche Links und Ressourcen' } },
+            {
+              id: 'sidebar-text',
+              component: {
+                type: 'Text',
+                id: 'sidebar-text',
+                content: 'Hilfreiche Links und Ressourcen',
+              },
+            },
             // Footer
             {
               id: 'footer',
               component: { type: 'Footer', id: 'footer', children: ['copyright'] },
             },
-            { id: 'copyright', component: { type: 'Text', id: 'copyright', content: '© 2024 Firma GmbH', style: 'caption' } },
+            {
+              id: 'copyright',
+              component: {
+                type: 'Text',
+                id: 'copyright',
+                content: '© 2024 Firma GmbH',
+                style: 'caption',
+              },
+            },
           ],
         },
       },
@@ -110,8 +174,19 @@ export const NavRenderer: A2UIRenderer<NavComponent> = {
         updateComponents: {
           surfaceId: 'nav-example',
           components: [
-            { id: 'nav-1', component: { type: 'Nav', id: 'nav-1', label: 'Main navigation', children: ['link-text'] } },
-            { id: 'link-text', component: { type: 'Text', id: 'link-text', content: 'Navigation items here' } },
+            {
+              id: 'nav-1',
+              component: {
+                type: 'Nav',
+                id: 'nav-1',
+                label: 'Main navigation',
+                children: ['link-text'],
+              },
+            },
+            {
+              id: 'link-text',
+              component: { type: 'Text', id: 'link-text', content: 'Navigation items here' },
+            },
           ],
         },
       },
@@ -160,7 +235,10 @@ export const SectionRenderer: A2UIRenderer<SectionComponent> = {
                 children: ['content'],
               },
             },
-            { id: 'content', component: { type: 'Text', id: 'content', content: 'Section content goes here...' } },
+            {
+              id: 'content',
+              component: { type: 'Text', id: 'content', content: 'Section content goes here...' },
+            },
           ],
         },
       },
@@ -209,7 +287,10 @@ export const AsideRenderer: A2UIRenderer<AsideComponent> = {
                 children: ['content'],
               },
             },
-            { id: 'content', component: { type: 'Text', id: 'content', content: 'Sidebar content here...' } },
+            {
+              id: 'content',
+              component: { type: 'Text', id: 'content', content: 'Sidebar content here...' },
+            },
           ],
         },
       },
@@ -220,11 +301,7 @@ export const AsideRenderer: A2UIRenderer<AsideComponent> = {
 export const HeaderRenderer: A2UIRenderer<HeaderComponent> = {
   type: 'Header',
   render: ({ children, id }: RendererProps<HeaderComponent>) => {
-    return (
-      <header id={id}>
-        {children as ReactNode}
-      </header>
-    )
+    return <header id={id}>{children as ReactNode}</header>
   },
   example: {
     name: 'Header',
@@ -237,7 +314,10 @@ export const HeaderRenderer: A2UIRenderer<HeaderComponent> = {
           surfaceId: 'header-example',
           components: [
             { id: 'header-1', component: { type: 'Header', id: 'header-1', children: ['title'] } },
-            { id: 'title', component: { type: 'Text', id: 'title', content: 'Page Title', style: 'h1' } },
+            {
+              id: 'title',
+              component: { type: 'Text', id: 'title', content: 'Page Title', style: 'h1' },
+            },
           ],
         },
       },
@@ -248,11 +328,7 @@ export const HeaderRenderer: A2UIRenderer<HeaderComponent> = {
 export const FooterRenderer: A2UIRenderer<FooterComponent> = {
   type: 'Footer',
   render: ({ children, id }: RendererProps<FooterComponent>) => {
-    return (
-      <footer id={id}>
-        {children as ReactNode}
-      </footer>
-    )
+    return <footer id={id}>{children as ReactNode}</footer>
   },
   example: {
     name: 'Footer',
@@ -264,8 +340,19 @@ export const FooterRenderer: A2UIRenderer<FooterComponent> = {
         updateComponents: {
           surfaceId: 'footer-example',
           components: [
-            { id: 'footer-1', component: { type: 'Footer', id: 'footer-1', children: ['copyright'] } },
-            { id: 'copyright', component: { type: 'Text', id: 'copyright', content: '© 2024 Company', style: 'caption' } },
+            {
+              id: 'footer-1',
+              component: { type: 'Footer', id: 'footer-1', children: ['copyright'] },
+            },
+            {
+              id: 'copyright',
+              component: {
+                type: 'Text',
+                id: 'copyright',
+                content: '© 2024 Company',
+                style: 'caption',
+              },
+            },
           ],
         },
       },
@@ -309,7 +396,10 @@ export const ArticleRenderer: A2UIRenderer<ArticleComponent> = {
                 children: ['body'],
               },
             },
-            { id: 'body', component: { type: 'Text', id: 'body', content: 'Article content goes here...' } },
+            {
+              id: 'body',
+              component: { type: 'Text', id: 'body', content: 'Article content goes here...' },
+            },
           ],
         },
       },

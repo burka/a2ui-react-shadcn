@@ -99,7 +99,6 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
       return (
         <fieldset
           className="flex flex-col gap-3 border-0 p-0 m-0"
-          aria-required={component.required}
           aria-invalid={!!component.errorMessage}
           aria-describedby={[errorId, helpId].filter(Boolean).join(' ') || undefined}
         >
@@ -116,16 +115,14 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
     }
 
     return (
-      <div
-        className="flex flex-col gap-3"
-        role="group"
+      <fieldset
+        className="flex flex-col gap-3 border-0 p-0 m-0"
         aria-label="Options"
-        aria-required={component.required}
         aria-invalid={!!component.errorMessage}
         aria-describedby={[errorId, helpId].filter(Boolean).join(' ') || undefined}
       >
         {content}
-      </div>
+      </fieldset>
     )
   },
   example: {

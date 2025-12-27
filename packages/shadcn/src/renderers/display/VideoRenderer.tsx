@@ -46,9 +46,7 @@ export const VideoRenderer: A2UIRenderer<VideoComponent> = {
         onError={handleError}
         className="max-w-full rounded-md"
       >
-        {captionUrl && (
-          <track kind="captions" src={captionUrl} label={captionLabel} default />
-        )}
+        {captionUrl && <track kind="captions" src={captionUrl} label={captionLabel} default />}
         Your browser does not support the video element.
       </video>
     )

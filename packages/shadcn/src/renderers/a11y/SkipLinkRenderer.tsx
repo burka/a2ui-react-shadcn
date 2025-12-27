@@ -32,11 +32,32 @@ export const SkipLinkRenderer: A2UIRenderer<SkipLinkComponent> = {
         updateComponents: {
           surfaceId: 'skiplink-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['skip', 'nav', 'main'] } },
-            { id: 'skip', component: { type: 'SkipLink', id: 'skip', targetId: 'main', label: 'Skip to main content' } },
-            { id: 'nav', component: { type: 'Text', id: 'nav', content: 'Navigation area (press Tab to reveal skip link)' } },
+            {
+              id: 'col-1',
+              component: { type: 'Column', id: 'col-1', children: ['skip', 'nav', 'main'] },
+            },
+            {
+              id: 'skip',
+              component: {
+                type: 'SkipLink',
+                id: 'skip',
+                targetId: 'main',
+                label: 'Skip to main content',
+              },
+            },
+            {
+              id: 'nav',
+              component: {
+                type: 'Text',
+                id: 'nav',
+                content: 'Navigation area (press Tab to reveal skip link)',
+              },
+            },
             { id: 'main', component: { type: 'Main', id: 'main', children: ['content'] } },
-            { id: 'content', component: { type: 'Text', id: 'content', content: 'Main content area' } },
+            {
+              id: 'content',
+              component: { type: 'Text', id: 'content', content: 'Main content area' },
+            },
           ],
         },
       },

@@ -102,10 +102,7 @@ export function buildChartConfig(
  * Generate accessible description for chart data
  * Used for screen readers via aria-label
  */
-export function generateChartDescription(
-  chartType: string,
-  data: ChartDataItem[],
-): string {
+export function generateChartDescription(chartType: string, data: ChartDataItem[]): string {
   if (data.length === 0) {
     return `${chartType} with no data`
   }
