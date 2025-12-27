@@ -6,6 +6,5 @@
   "linked": [],
   "access": "public",
   "baseBranch": "main",
-  "updateInternalDependencies": "patch",
-  "ignore": ["a2ui-shadcn-ui-core", "a2ui-shadcn-ui-react", "a2ui-shadcn-ui-example"]
+  "updateInternalDependencies": "patch"
 }
