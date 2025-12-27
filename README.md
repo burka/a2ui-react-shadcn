@@ -2,10 +2,11 @@
 
 [![npm version](https://img.shields.io/npm/v/a2ui-react.svg)](https://www.npmjs.com/package/a2ui-react)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Status: Work in Progress](https://img.shields.io/badge/Status-Work%20in%20Progress-orange.svg)](https://github.com/burka/a2ui-react-shadcn)
 
 Render [A2UI protocol](https://a2ui.org/) messages using [shadcn/ui](https://ui.shadcn.com/) components.
 
-> **Early Stage Project**: This library is in early development. We welcome feedback, bug reports, and contributions! Please [open an issue](https://github.com/burka/a2ui-react-shadcn/issues) if you encounter any problems or have suggestions.
+> **Work in Progress**: This library is under active development and APIs may change. We welcome feedback, bug reports, and contributions! Please [open an issue](https://github.com/burka/a2ui-react-shadcn/issues) if you encounter any problems or have suggestions.
 
 A2UI is an open-source protocol that enables AI agents to generate rich, interactive user interfaces safely across platforms. This library provides React components to render A2UI messages with beautiful, accessible shadcn/ui components.
 
@@ -135,20 +136,20 @@ const surface = useSurface('surfaceId')
 
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
 # Build all packages
-pnpm build
+npm run build
 
 # Run tests
-pnpm test
+npm test
 
 # Start example app
-pnpm --filter a2ui-react-example dev
+npm run dev
 
 # Lint and format
-pnpm lint
-pnpm format
+npm run lint
+npm run format
 ```
 
 ## Architecture

@@ -2,10 +2,11 @@
 
 [![npm version](https://img.shields.io/npm/v/a2ui-react.svg)](https://www.npmjs.com/package/a2ui-react)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Status: Work in Progress](https://img.shields.io/badge/Status-Work%20in%20Progress-orange.svg)](https://github.com/burka/a2ui-react-shadcn)
 
 Beautiful [shadcn/ui](https://ui.shadcn.com/) components for rendering [A2UI protocol](https://a2ui.org/) messages in React.
 
-> **Early Stage Project**: This library is in early development. We welcome feedback, bug reports, and contributions! Please [open an issue](https://github.com/burka/a2ui-react-shadcn/issues) if you encounter any problems or have suggestions.
+> **Work in Progress**: This library is under active development and APIs may change. We welcome feedback, bug reports, and contributions! Please [open an issue](https://github.com/burka/a2ui-react-shadcn/issues) if you encounter any problems or have suggestions.
 
 **[Live Demo](https://burka.github.io/a2ui-react-shadcn/)** | **[GitHub](https://github.com/burka/a2ui-react-shadcn)**
 
@@ -13,8 +14,6 @@ Beautiful [shadcn/ui](https://ui.shadcn.com/) components for rendering [A2UI pro
 
 ```bash
 npm install a2ui-react
-# or
-pnpm add a2ui-react
 # or
 yarn add a2ui-react
 ```
