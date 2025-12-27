@@ -12,6 +12,8 @@ const SHOW_STAGING_KEY = 'a2ui-show-staging'
 // Code snippets for Quick Start section
 const INSTALL_COMMAND = 'npm install a2ui-react'
 
+const IMPORT_THEME_CODE = `import 'a2ui-react/theme.css'`
+
 const SETUP_PROVIDER_CODE = `import { A2UIProvider, shadcnRenderers } from 'a2ui-react'
 
 function App() {
@@ -50,21 +52,30 @@ const FULL_QUICKSTART = `# A2UI + shadcn/ui Quick Start
 ${INSTALL_COMMAND}
 \`\`\`
 
-## 1. Setup Provider
+## 1. Import Theme
+Import the default theme CSS in your app entry point:
+
+\`\`\`tsx
+${IMPORT_THEME_CODE}
+\`\`\`
+
+Or if using your own Tailwind setup, ensure your CSS includes the shadcn/ui theme variables.
+
+## 2. Setup Provider
 Wrap your app with A2UIProvider and pass shadcn renderers:
 
 \`\`\`tsx
 ${SETUP_PROVIDER_CODE}
 \`\`\`
 
-## 2. Render Components
+## 3. Render Components
 Use A2UISurface to render protocol messages:
 
 \`\`\`tsx
 ${RENDER_COMPONENTS_CODE}
 \`\`\`
 
-## 3. Use Hooks
+## 4. Use Hooks
 Access A2UI context with useA2UI hook:
 
 \`\`\`tsx
@@ -242,11 +253,26 @@ export function HomePage() {
               variant="outline"
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
-                  1. Setup Provider
+                  1. Import Theme
+                </h3>
+                <AnimatedCopyButton text={IMPORT_THEME_CODE} variant="icon" />
+              </div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                Import the default theme CSS in your app entry point:
+              </p>
+              <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                <code className="text-[var(--color-text-primary)]">{IMPORT_THEME_CODE}</code>
+              </pre>
+            </div>
+
+            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                  2. Setup Provider
                 </h3>
                 <AnimatedCopyButton text={SETUP_PROVIDER_CODE} variant="icon" />
               </div>
@@ -261,7 +287,7 @@ export function HomePage() {
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
-                  2. Render Components
+                  3. Render Components
                 </h3>
                 <AnimatedCopyButton text={RENDER_COMPONENTS_CODE} variant="icon" />
               </div>
@@ -276,7 +302,7 @@ export function HomePage() {
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
-                  3. Use Hooks
+                  4. Use Hooks
                 </h3>
                 <AnimatedCopyButton text={USE_HOOKS_CODE} variant="icon" />
               </div>

@@ -34,7 +34,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    }
+    },
+    "./theme.css": "./dist/theme.css"
   },
   "sideEffects": false,
   "publishConfig": {

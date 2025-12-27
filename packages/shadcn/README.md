@@ -18,6 +18,16 @@ npm install a2ui-react
 yarn add a2ui-react
 ```
 
+## Setup
+
+Import the default theme CSS in your app entry point:
+
+```tsx
+import 'a2ui-react/theme.css'
+```
+
+Or if using your own Tailwind setup, ensure your CSS includes the [shadcn/ui theme variables](https://ui.shadcn.com/docs/theming).
+
 ## Quick Start
 
 ```tsx
