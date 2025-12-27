@@ -1,7 +1,8 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface AnimatedDialogComponent {
   type: 'AnimatedDialog'
@@ -40,16 +41,61 @@ export const AnimatedDialogRenderer: A2UIRenderer<AnimatedDialogComponent> = {
   type: 'AnimatedDialog',
   render: ({ component, children }: RendererProps<AnimatedDialogComponent>) => {
     const [isOpen, setIsOpen] = useState(false)
-    const animation = animations[component.animation || 'scale']
+    const prefersReducedMotion = useReducedMotion()
+    const dialogRef = useRef<HTMLDivElement>(null)
+    const titleId = `dialog-title-${component.id}`
+
+    const animation = prefersReducedMotion
+      ? { initial: {}, animate: {}, exit: {} }
+      : animations[component.animation || 'scale']
+
     const childArray = Array.isArray(children) ? children : [children]
     const triggerChild = childArray[0]
     const contentChild = childArray[1]
 
+    // Focus trap - focus the dialog when it opens
+    useEffect(() => {
+      if (isOpen && dialogRef.current) {
+        const focusableElements = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        )
+        const firstFocusable = focusableElements[0]
+        if (firstFocusable) {
+          firstFocusable.focus()
+        }
+      }
+    }, [isOpen])
+
+    // Keyboard support - Escape to close
+    useEffect(() => {
+      if (!isOpen) return
+
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          setIsOpen(false)
+        }
+      }
+
+      document.addEventListener('keydown', handleKeyDown)
+      return () => document.removeEventListener('keydown', handleKeyDown)
+    }, [isOpen])
+
     return (
       <>
-        <div onClick={() => setIsOpen(true)} style={{ cursor: 'pointer' }}>
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          style={{
+            border: 'none',
+            background: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            font: 'inherit',
+            color: 'inherit',
+          }}
+        >
           {triggerChild as ReactNode}
-        </div>
+        </button>
 
         <AnimatePresence>
           {isOpen && (
@@ -82,8 +128,17 @@ export const AnimatedDialogRenderer: A2UIRenderer<AnimatedDialogComponent> = {
                 }}
               >
                 <motion.div
+                  ref={dialogRef}
                   {...animation}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0 }
+                      : { type: 'spring', stiffness: 300, damping: 25 }
+                  }
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby={component.title ? titleId : undefined}
+                  aria-describedby={component.description ? `${titleId}-desc` : undefined}
                   className="relative w-full max-w-lg rounded-lg border p-6 shadow-lg"
                   style={{
                     backgroundColor: 'hsl(var(--background))',
@@ -92,11 +147,13 @@ export const AnimatedDialogRenderer: A2UIRenderer<AnimatedDialogComponent> = {
                 >
                   {/* Close button */}
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    type="button"
+                    whileHover={prefersReducedMotion ? {} : { scale: 1.1 }}
+                    whileTap={prefersReducedMotion ? {} : { scale: 0.9 }}
                     onClick={() => setIsOpen(false)}
                     className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100"
                     style={{ color: 'hsl(var(--foreground))' }}
+                    aria-label="Close dialog"
                   >
                     <X className="h-4 w-4" />
                   </motion.button>
@@ -104,6 +161,7 @@ export const AnimatedDialogRenderer: A2UIRenderer<AnimatedDialogComponent> = {
                   {/* Title */}
                   {component.title && (
                     <h2
+                      id={titleId}
                       className="text-lg font-semibold leading-none tracking-tight"
                       style={{ color: 'hsl(var(--foreground))' }}
                     >
@@ -113,7 +171,11 @@ export const AnimatedDialogRenderer: A2UIRenderer<AnimatedDialogComponent> = {
 
                   {/* Description */}
                   {component.description && (
-                    <p className="mt-2 text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>
+                    <p
+                      id={`${titleId}-desc`}
+                      className="mt-2 text-sm"
+                      style={{ color: 'hsl(var(--muted-foreground))' }}
+                    >
                       {component.description}
                     </p>
                   )}

@@ -39,6 +39,7 @@ export const SpotlightRenderer: A2UIRenderer<SpotlightComponent> = {
     }
 
     return (
+      // biome-ignore lint/a11y/noStaticElementInteractions: Decorative spotlight effect with mouse tracking, not interactive functionality
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}

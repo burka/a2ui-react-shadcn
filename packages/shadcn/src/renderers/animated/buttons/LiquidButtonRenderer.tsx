@@ -4,11 +4,13 @@ import type { LiquidButtonComponent } from 'a2ui-react-core'
 import type { A2UIRenderer } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 export const LiquidButtonRenderer: A2UIRenderer<LiquidButtonComponent> = {
   type: 'liquid-button',
   render: ({ component, onAction }) => {
     const [isHovered, setIsHovered] = useState(false)
+    const prefersReducedMotion = useReducedMotion()
 
     const { label = 'Click me', variant = 'default', liquidColor, duration = 0.6 } = component
 
@@ -54,46 +56,50 @@ export const LiquidButtonRenderer: A2UIRenderer<LiquidButtonComponent> = {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => onAction?.({ type: 'click' })}
-        whileTap={{ scale: 0.98 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
       >
         {/* Liquid blob effect */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          initial={{ y: '100%' }}
-          animate={{ y: isHovered ? '0%' : '100%' }}
-          transition={{
-            duration,
-            ease: [0.33, 1, 0.68, 1],
-          }}
-          style={{ backgroundColor: colors.liquid }}
-        >
-          {/* Wavy top edge */}
-          <svg
-            className="absolute -top-2 left-0 w-full"
-            viewBox="0 0 100 10"
-            preserveAspectRatio="none"
-            style={{ height: '12px' }}
+        {!prefersReducedMotion && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            initial={{ y: '100%' }}
+            animate={{ y: isHovered ? '0%' : '100%' }}
+            transition={{
+              duration,
+              ease: [0.33, 1, 0.68, 1],
+            }}
+            style={{ backgroundColor: colors.liquid }}
           >
-            <motion.path
-              d="M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z"
-              fill={colors.liquid}
-              animate={{
-                d: isHovered
-                  ? [
-                      'M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z',
-                      'M0,10 Q25,20 50,10 T100,10 L100,20 L0,20 Z',
-                      'M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z',
-                    ]
-                  : 'M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z',
-              }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-          </svg>
-        </motion.div>
+            {/* Wavy top edge */}
+            <svg
+              className="absolute -top-2 left-0 w-full"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+              style={{ height: '12px' }}
+              aria-hidden="true"
+            >
+              <title>Liquid wave animation effect</title>
+              <motion.path
+                d="M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z"
+                fill={colors.liquid}
+                animate={{
+                  d: isHovered
+                    ? [
+                        'M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z',
+                        'M0,10 Q25,20 50,10 T100,10 L100,20 L0,20 Z',
+                        'M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z',
+                      ]
+                    : 'M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z',
+                }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+            </svg>
+          </motion.div>
+        )}
 
         <span className="relative z-10">{label}</span>
       </motion.button>

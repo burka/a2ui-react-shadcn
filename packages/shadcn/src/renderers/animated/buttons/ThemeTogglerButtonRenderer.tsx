@@ -5,11 +5,13 @@ import type { A2UIRenderer } from 'a2ui-react-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Moon, Sun } from 'lucide-react'
 import { useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 export const ThemeTogglerButtonRenderer: A2UIRenderer<ThemeTogglerButtonComponent> = {
   type: 'theme-toggler-button',
   render: ({ component, onAction }) => {
     const [isDark, setIsDark] = useState(component.initialTheme === 'dark')
+    const prefersReducedMotion = useReducedMotion()
 
     const { variant = 'default', size = 'md', animation = 'rotate' } = component
 
@@ -43,6 +45,13 @@ export const ThemeTogglerButtonRenderer: A2UIRenderer<ThemeTogglerButtonComponen
     }
 
     const getIconAnimation = () => {
+      if (prefersReducedMotion) {
+        return {
+          initial: {},
+          animate: {},
+          exit: {},
+        }
+      }
       switch (animation) {
         case 'flip':
           return {
@@ -65,7 +74,6 @@ export const ThemeTogglerButtonRenderer: A2UIRenderer<ThemeTogglerButtonComponen
             exit: { y: -20, opacity: 0 },
             transition: { duration: 0.2 },
           }
-        case 'rotate':
         default:
           return {
             initial: { rotate: -90, opacity: 0 },
@@ -82,7 +90,7 @@ export const ThemeTogglerButtonRenderer: A2UIRenderer<ThemeTogglerButtonComponen
       <motion.button
         className={`relative inline-flex items-center justify-center rounded-lg transition-colors ${sizeStyles[size]} ${getVariantStyles()}`}
         onClick={handleToggle}
-        whileTap={{ scale: 0.9 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.9 }}
       >
         <AnimatePresence mode="wait">
           {isDark ? (

@@ -4,6 +4,7 @@ import type { StarsBackgroundComponent } from 'a2ui-react-core'
 import type { A2UIRenderer } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface Star {
   id: number
@@ -18,6 +19,7 @@ interface Star {
 export const StarsBackgroundRenderer: A2UIRenderer<StarsBackgroundComponent> = {
   type: 'stars-background',
   render: ({ component, children }) => {
+    const prefersReducedMotion = useReducedMotion()
     const {
       starCount = 100,
       minSize = 1,
@@ -55,19 +57,23 @@ export const StarsBackgroundRenderer: A2UIRenderer<StarsBackgroundComponent> = {
               boxShadow: `0 0 ${star.size * 2}px ${color}`,
             }}
             animate={
-              twinkle
-                ? {
+              prefersReducedMotion || !twinkle
+                ? {}
+                : {
                     opacity: [star.opacity, star.opacity * 0.3, star.opacity],
                     scale: [1, 0.8, 1],
                   }
-                : {}
             }
-            transition={{
-              duration: star.duration,
-              delay: star.delay,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : {
+                    duration: star.duration,
+                    delay: star.delay,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }
+            }
           />
         ))}
 

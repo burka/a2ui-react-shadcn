@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import type { A2UIMessage } from 'a2ui-react'
 import { describe, expect, it, vi } from 'vitest'
 import { CodeModal } from '../CodeModal'
 
@@ -14,12 +15,12 @@ HTMLDialogElement.prototype.showModal = vi.fn()
 HTMLDialogElement.prototype.close = vi.fn()
 
 describe('CodeModal', () => {
-  const mockMessages = [
+  const mockMessages: A2UIMessage[] = [
     { beginRendering: { surfaceId: 'test', root: 'root' } },
     {
       surfaceUpdate: {
         surfaceId: 'test',
-        updates: [{ id: 'root', component: { type: 'Text', content: 'Hello' } }],
+        updates: [{ id: 'root', component: { type: 'Text' as const, content: 'Hello' } }],
       },
     },
   ]

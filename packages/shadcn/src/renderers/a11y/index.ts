@@ -7,21 +7,19 @@
  * for WCAG 2.1 AA compliance.
  */
 
+// Alert & Live Region Components
+export { AlertRenderer } from './AlertRenderer.js'
 // Landmark Components
 export {
+  ArticleRenderer,
+  AsideRenderer,
+  FooterRenderer,
+  HeaderRenderer,
   MainRenderer,
   NavRenderer,
   SectionRenderer,
-  AsideRenderer,
-  HeaderRenderer,
-  FooterRenderer,
-  ArticleRenderer,
 } from './LandmarkRenderers.js'
-
-// Alert & Live Region Components
-export { AlertRenderer } from './AlertRenderer.js'
 export { LiveRegionRenderer } from './LiveRegionRenderer.js'
-
+export { ProgressRenderer } from './ProgressRenderer.js'
 // Navigation & Progress Components
 export { SkipLinkRenderer } from './SkipLinkRenderer.js'
-export { ProgressRenderer } from './ProgressRenderer.js'

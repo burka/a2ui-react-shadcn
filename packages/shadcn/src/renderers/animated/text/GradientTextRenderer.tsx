@@ -1,5 +1,6 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface GradientTextComponent {
   type: 'GradientText'
@@ -35,6 +36,7 @@ const getGradientDirection = (direction: string) => {
 export const GradientTextRenderer: A2UIRenderer<GradientTextComponent> = {
   type: 'GradientText',
   render: ({ component }: RendererProps<GradientTextComponent>) => {
+    const prefersReducedMotion = useReducedMotion()
     const colors = component.colors || ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#667eea']
     const duration = component.animationDuration || 3
     const direction = getGradientDirection(component.direction || 'horizontal')
@@ -44,14 +46,22 @@ export const GradientTextRenderer: A2UIRenderer<GradientTextComponent> = {
     return (
       <motion.span
         className={styleClasses[component.style || 'body']}
-        animate={{
-          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-        }}
-        transition={{
-          duration,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: 'linear',
-        }}
+        animate={
+          prefersReducedMotion
+            ? {}
+            : {
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }
+        }
+        transition={
+          prefersReducedMotion
+            ? { duration: 0 }
+            : {
+                duration,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: 'linear',
+              }
+        }
         style={{
           background: `linear-gradient(${direction}, ${gradientColors})`,
           backgroundSize: '200% auto',

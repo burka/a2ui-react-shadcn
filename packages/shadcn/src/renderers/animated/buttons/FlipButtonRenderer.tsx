@@ -2,12 +2,14 @@ import type { FlipButtonComponent } from 'a2ui-react-core'
 import { type A2UIRenderer, buildActionPayload, type RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import { type ReactNode, useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
   type: 'FlipButton',
   render: ({ component, children, data, onAction }: RendererProps<FlipButtonComponent>) => {
     const [isFlipped, setIsFlipped] = useState(false)
+    const prefersReducedMotion = useReducedMotion()
     const childArray = Array.isArray(children) ? children : [children]
     const frontContent = childArray[0]
     const backContent = childArray[1]
@@ -24,8 +26,10 @@ export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
       <div style={{ perspective: 1000 }}>
         <motion.button
           onClick={handleClick}
-          animate={{ rotateX: isFlipped ? 180 : 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          animate={prefersReducedMotion ? {} : { rotateX: isFlipped ? 180 : 0 }}
+          transition={
+            prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 20 }
+          }
           className={getButtonClassName(component.primary)}
           style={{
             ...getButtonStyle(component.primary),
@@ -41,6 +45,7 @@ export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
               justifyContent: 'center',
             }}
             animate={{ opacity: isFlipped ? 0 : 1 }}
+            transition={prefersReducedMotion ? { duration: 0 } : undefined}
           >
             {frontContent as ReactNode}
           </motion.span>
@@ -54,6 +59,7 @@ export const FlipButtonRenderer: A2UIRenderer<FlipButtonComponent> = {
               justifyContent: 'center',
             }}
             animate={{ opacity: isFlipped ? 1 : 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : undefined}
           >
             {backContent as ReactNode}
           </motion.span>

@@ -38,7 +38,10 @@ export const PieChartRenderer: A2UIRenderer<PieChartComponent> = {
       )
     }
 
-    const chartDescription = generateChartDescription(component.donut ? 'Donut chart' : 'Pie chart', rawData)
+    const chartDescription = generateChartDescription(
+      component.donut ? 'Donut chart' : 'Pie chart',
+      rawData,
+    )
 
     return (
       <div role="img" aria-label={chartDescription}>

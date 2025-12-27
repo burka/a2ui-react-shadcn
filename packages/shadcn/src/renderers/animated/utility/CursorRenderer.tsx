@@ -63,6 +63,8 @@ export const CursorRenderer: A2UIRenderer<CursorComponent> = {
     const cursorSize = isHovering ? size * 1.5 : isClicking ? size * 0.8 : size
 
     return (
+      // biome-ignore lint/a11y/noStaticElementInteractions: Decorative cursor tracking area, not interactive content
+      // biome-ignore lint/a11y/useKeyWithMouseEvents: Cursor effects are purely visual and don't require keyboard alternatives
       <div
         ref={containerRef}
         className="relative w-full h-full min-h-[120px] overflow-hidden"
@@ -79,7 +81,7 @@ export const CursorRenderer: A2UIRenderer<CursorComponent> = {
         {showTrail &&
           trailConfigs.map((trail, i) => (
             <motion.div
-              key={i}
+              key={`trail-${i}-${trailLength}`}
               className="absolute top-0 left-0 rounded-full pointer-events-none"
               style={{
                 x: trail.x,

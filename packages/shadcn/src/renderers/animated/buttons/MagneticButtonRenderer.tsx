@@ -2,12 +2,14 @@ import type { MagneticButtonComponent } from 'a2ui-react-core'
 import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-react-react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { type MouseEvent, type ReactNode, useRef } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 export const MagneticButtonRenderer: A2UIRenderer<MagneticButtonComponent> = {
   type: 'MagneticButton',
   render: ({ component, children, data, onAction }: RendererProps<MagneticButtonComponent>) => {
     const ref = useRef<HTMLButtonElement>(null)
+    const prefersReducedMotion = useReducedMotion()
     const strength = component.strength || 0.3
     const handleClick = createActionHandler(component, data, onAction)
 
@@ -22,7 +24,7 @@ export const MagneticButtonRenderer: A2UIRenderer<MagneticButtonComponent> = {
     const rotateY = useTransform(springX, [-20, 20], [-10, 10])
 
     const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
-      if (!ref.current) return
+      if (prefersReducedMotion || !ref.current) return
       const rect = ref.current.getBoundingClientRect()
       const centerX = rect.left + rect.width / 2
       const centerY = rect.top + rect.height / 2
@@ -44,13 +46,13 @@ export const MagneticButtonRenderer: A2UIRenderer<MagneticButtonComponent> = {
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
         style={{
-          x: springX,
-          y: springY,
-          rotateX,
-          rotateY,
+          x: prefersReducedMotion ? 0 : springX,
+          y: prefersReducedMotion ? 0 : springY,
+          rotateX: prefersReducedMotion ? 0 : rotateX,
+          rotateY: prefersReducedMotion ? 0 : rotateY,
           ...getButtonStyle(component.primary),
         }}
-        whileTap={{ scale: 0.95 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
         className={getButtonClassName(component.primary)}
       >
         {children as ReactNode}

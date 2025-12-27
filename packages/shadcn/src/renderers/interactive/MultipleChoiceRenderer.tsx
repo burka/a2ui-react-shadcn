@@ -46,28 +46,32 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
               currentSelection.length >= component.maxSelections &&
               !isChecked)
 
+          const checkboxId = `${id}-${option.value}`
           return (
-            <label
+            <div
               key={option.value}
-              className="flex items-center gap-3 cursor-pointer select-none"
+              className="flex items-center gap-3"
               style={{
                 opacity: isDisabled ? 0.5 : 1,
-                cursor: isDisabled ? 'not-allowed' : 'pointer',
               }}
             >
               <Checkbox
-                id={`${id}-${option.value}`}
+                id={checkboxId}
                 checked={isChecked}
                 disabled={isDisabled}
                 onCheckedChange={(checked) => handleChange(option.value, checked === true)}
               />
-              <span
-                className="text-sm font-medium leading-none"
-                style={{ color: 'hsl(var(--foreground))' }}
+              <label
+                htmlFor={checkboxId}
+                className="text-sm font-medium leading-none cursor-pointer select-none"
+                style={{
+                  color: 'hsl(var(--foreground))',
+                  cursor: isDisabled ? 'not-allowed' : 'pointer',
+                }}
               >
                 {option.label}
-              </span>
-            </label>
+              </label>
+            </div>
           )
         })}
         {component.maxSelections !== undefined && (
@@ -95,7 +99,6 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
       return (
         <fieldset
           className="flex flex-col gap-3 border-0 p-0 m-0"
-          aria-required={component.required}
           aria-invalid={!!component.errorMessage}
           aria-describedby={[errorId, helpId].filter(Boolean).join(' ') || undefined}
         >
@@ -112,16 +115,14 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
     }
 
     return (
-      <div
-        className="flex flex-col gap-3"
-        role="group"
+      <fieldset
+        className="flex flex-col gap-3 border-0 p-0 m-0"
         aria-label="Options"
-        aria-required={component.required}
         aria-invalid={!!component.errorMessage}
         aria-describedby={[errorId, helpId].filter(Boolean).join(' ') || undefined}
       >
         {content}
-      </div>
+      </fieldset>
     )
   },
   example: {

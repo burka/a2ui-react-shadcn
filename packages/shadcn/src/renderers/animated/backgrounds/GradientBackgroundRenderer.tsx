@@ -1,6 +1,7 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface GradientBackgroundComponent {
   type: 'GradientBackground'
@@ -15,6 +16,7 @@ interface GradientBackgroundComponent {
 export const GradientBackgroundRenderer: A2UIRenderer<GradientBackgroundComponent> = {
   type: 'GradientBackground',
   render: ({ component, children }: RendererProps<GradientBackgroundComponent>) => {
+    const prefersReducedMotion = useReducedMotion()
     const colors = component.colors || ['#667eea', '#764ba2', '#f093fb', '#f5576c']
     const speed = component.speed || 10
     const direction = component.direction || 'diagonal'
@@ -50,15 +52,23 @@ export const GradientBackgroundRenderer: A2UIRenderer<GradientBackgroundComponen
         }}
       >
         <motion.div
-          animate={{
-            backgroundPosition: isRadial ? undefined : ['0% 0%', '100% 100%', '0% 0%'],
-            scale: isRadial ? [1, 1.1, 1] : undefined,
-          }}
-          transition={{
-            duration: speed,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: 'linear',
-          }}
+          animate={
+            prefersReducedMotion
+              ? {}
+              : {
+                  backgroundPosition: isRadial ? undefined : ['0% 0%', '100% 100%', '0% 0%'],
+                  scale: isRadial ? [1, 1.1, 1] : undefined,
+                }
+          }
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : {
+                  duration: speed,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: 'linear',
+                }
+          }
           style={{
             position: 'absolute',
             inset: blur ? -blur : 0,

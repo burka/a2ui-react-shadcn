@@ -57,7 +57,9 @@ export const AreaChartRenderer: A2UIRenderer<AreaChartComponent> = {
               </defs>
             )}
             {showGrid && <CartesianGrid strokeDasharray="3 3" />}
-            {showXAxis && <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />}
+            {showXAxis && (
+              <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={10} />
+            )}
             {showYAxis && <YAxis tickLine={false} axisLine={false} tickMargin={10} />}
             <ChartTooltip content={<ChartTooltipContent />} />
             <Area

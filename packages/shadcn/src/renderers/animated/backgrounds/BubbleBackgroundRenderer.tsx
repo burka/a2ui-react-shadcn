@@ -3,7 +3,9 @@
 import type { BubbleBackgroundComponent } from 'a2ui-react-core'
 import type { A2UIRenderer } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef } from 'react'
+import { useContainerDimensions } from '../../../hooks/useContainerDimensions.js'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface Bubble {
   id: number
@@ -17,6 +19,7 @@ interface Bubble {
 export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> = {
   type: 'bubble-background',
   render: ({ component, children }) => {
+    const prefersReducedMotion = useReducedMotion()
     const {
       bubbleCount = 20,
       minSize = 10,
@@ -26,21 +29,7 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
     } = component
 
     const containerRef = useRef<HTMLDivElement>(null)
-    const [containerHeight, setContainerHeight] = useState(300)
-
-    useEffect(() => {
-      const updateHeight = () => {
-        if (containerRef.current) {
-          setContainerHeight(containerRef.current.offsetHeight)
-        }
-      }
-      updateHeight()
-      const observer = new ResizeObserver(updateHeight)
-      if (containerRef.current) {
-        observer.observe(containerRef.current)
-      }
-      return () => observer.disconnect()
-    }, [])
+    const { height: containerHeight } = useContainerDimensions(containerRef)
 
     const bubbles = useMemo<Bubble[]>(() => {
       return Array.from({ length: bubbleCount }, (_, i) => ({
@@ -59,31 +48,32 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
         className="relative w-full h-full min-h-[300px] overflow-hidden bg-[hsl(var(--background))]"
       >
         {/* Bubbles */}
-        {bubbles.map((bubble) => (
-          <motion.div
-            key={bubble.id}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: bubble.size,
-              height: bubble.size,
-              left: `${bubble.x}%`,
-              bottom: -bubble.size,
-              background: `radial-gradient(circle at 30% 30%, ${color}40, ${color}20)`,
-              border: `1px solid ${color}30`,
-              opacity: bubble.opacity,
-            }}
-            animate={{
-              y: [0, -(containerHeight + bubble.size * 2)],
-              x: [0, Math.sin(bubble.id) * 50],
-            }}
-            transition={{
-              duration: bubble.duration,
-              delay: bubble.delay,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          />
-        ))}
+        {!prefersReducedMotion &&
+          bubbles.map((bubble) => (
+            <motion.div
+              key={bubble.id}
+              className="absolute rounded-full pointer-events-none"
+              style={{
+                width: bubble.size,
+                height: bubble.size,
+                left: `${bubble.x}%`,
+                bottom: -bubble.size,
+                background: `radial-gradient(circle at 30% 30%, ${color}40, ${color}20)`,
+                border: `1px solid ${color}30`,
+                opacity: bubble.opacity,
+              }}
+              animate={{
+                y: [0, -(containerHeight + bubble.size * 2)],
+                x: [0, Math.sin(bubble.id) * 50],
+              }}
+              transition={{
+                duration: bubble.duration,
+                delay: bubble.delay,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            />
+          ))}
 
         {/* Content */}
         <div className="relative z-10 w-full h-full">{children}</div>

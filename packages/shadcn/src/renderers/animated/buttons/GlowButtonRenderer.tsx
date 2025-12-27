@@ -2,12 +2,14 @@ import type { GlowButtonComponent } from 'a2ui-react-core'
 import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import { type ReactNode, useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 export const GlowButtonRenderer: A2UIRenderer<GlowButtonComponent> = {
   type: 'GlowButton',
   render: ({ component, children, data, onAction }: RendererProps<GlowButtonComponent>) => {
     const [isHovered, setIsHovered] = useState(false)
+    const prefersReducedMotion = useReducedMotion()
     const handleClick = createActionHandler(component, data, onAction)
 
     const glowColor =
@@ -19,14 +21,18 @@ export const GlowButtonRenderer: A2UIRenderer<GlowButtonComponent> = {
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         onClick={handleClick}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        animate={{
-          boxShadow: isHovered
-            ? `0 0 ${glowIntensity}px ${glowColor}, 0 0 ${glowIntensity * 2}px ${glowColor}, 0 0 ${glowIntensity * 3}px ${glowColor}`
-            : `0 0 0px transparent`,
-        }}
-        transition={{ duration: 0.3 }}
+        whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+        animate={
+          prefersReducedMotion
+            ? {}
+            : {
+                boxShadow: isHovered
+                  ? `0 0 ${glowIntensity}px ${glowColor}, 0 0 ${glowIntensity * 2}px ${glowColor}, 0 0 ${glowIntensity * 3}px ${glowColor}`
+                  : `0 0 0px transparent`,
+              }
+        }
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
         className={getButtonClassName(component.primary)}
         style={getButtonStyle(component.primary)}
       >

@@ -104,7 +104,8 @@ export const MorphingIconRenderer: A2UIRenderer<MorphingIconComponent> = {
         const timer = setInterval(nextIcon, interval)
         return () => clearInterval(timer)
       }
-    }, [trigger, interval])
+      // biome-ignore lint/correctness/useExhaustiveDependencies: nextIcon function is stable and doesn't need to be in deps
+    }, [trigger, interval, nextIcon])
 
     const CurrentIcon = icons[currentIndex] || HelpCircle
 

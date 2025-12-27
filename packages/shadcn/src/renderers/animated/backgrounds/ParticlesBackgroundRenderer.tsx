@@ -1,6 +1,7 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import { type ReactNode, useMemo } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface ParticlesBackgroundComponent {
   type: 'ParticlesBackground'
@@ -25,6 +26,7 @@ interface Particle {
 export const ParticlesBackgroundRenderer: A2UIRenderer<ParticlesBackgroundComponent> = {
   type: 'ParticlesBackground',
   render: ({ component, children }: RendererProps<ParticlesBackgroundComponent>) => {
+    const prefersReducedMotion = useReducedMotion()
     const count = component.particleCount || 30
     const color = component.particleColor || 'hsl(var(--primary))'
     const size = component.particleSize || 4
@@ -53,41 +55,42 @@ export const ParticlesBackgroundRenderer: A2UIRenderer<ParticlesBackgroundCompon
         }}
       >
         {/* Particles */}
-        {particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            initial={{
-              x: `${particle.x}%`,
-              y: `${particle.y}%`,
-              opacity: 0,
-            }}
-            animate={{
-              y: [`${particle.y}%`, `${particle.y - 30}%`, `${particle.y}%`],
-              x: [
-                `${particle.x}%`,
-                `${particle.x + (Math.random() - 0.5) * 20}%`,
-                `${particle.x}%`,
-              ],
-              opacity: [0, 0.8, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: particle.delay,
-              ease: 'easeInOut',
-            }}
-            style={{
-              position: 'absolute',
-              width: particle.size,
-              height: particle.size,
-              borderRadius: '50%',
-              backgroundColor: color,
-              boxShadow: `0 0 ${particle.size * 2}px ${color}`,
-              zIndex: 0,
-            }}
-          />
-        ))}
+        {!prefersReducedMotion &&
+          particles.map((particle) => (
+            <motion.div
+              key={particle.id}
+              initial={{
+                x: `${particle.x}%`,
+                y: `${particle.y}%`,
+                opacity: 0,
+              }}
+              animate={{
+                y: [`${particle.y}%`, `${particle.y - 30}%`, `${particle.y}%`],
+                x: [
+                  `${particle.x}%`,
+                  `${particle.x + (Math.random() - 0.5) * 20}%`,
+                  `${particle.x}%`,
+                ],
+                opacity: [0, 0.8, 0],
+                scale: [0, 1, 0],
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Number.POSITIVE_INFINITY,
+                delay: particle.delay,
+                ease: 'easeInOut',
+              }}
+              style={{
+                position: 'absolute',
+                width: particle.size,
+                height: particle.size,
+                borderRadius: '50%',
+                backgroundColor: color,
+                boxShadow: `0 0 ${particle.size * 2}px ${color}`,
+                zIndex: 0,
+              }}
+            />
+          ))}
 
         {/* Content */}
         <div

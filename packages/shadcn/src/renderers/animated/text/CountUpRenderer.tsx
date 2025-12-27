@@ -1,6 +1,7 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { animate, useMotionValue } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface CountUpComponent {
   type: 'CountUp'
@@ -37,6 +38,7 @@ const formatNumber = (num: number, decimals: number, separator: string): string 
 export const CountUpRenderer: A2UIRenderer<CountUpComponent> = {
   type: 'CountUp',
   render: ({ component }: RendererProps<CountUpComponent>) => {
+    const prefersReducedMotion = useReducedMotion()
     const count = useMotionValue(component.from || 0)
     const [displayValue, setDisplayValue] = useState(component.from || 0)
 
@@ -45,6 +47,11 @@ export const CountUpRenderer: A2UIRenderer<CountUpComponent> = {
     const separator = component.separator || ','
 
     useEffect(() => {
+      if (prefersReducedMotion) {
+        setDisplayValue(component.to)
+        return
+      }
+
       const controls = animate(count, component.to, {
         duration,
         ease: 'easeOut',
@@ -54,7 +61,7 @@ export const CountUpRenderer: A2UIRenderer<CountUpComponent> = {
       })
 
       return controls.stop
-    }, [component.to, component.from, duration, count])
+    }, [component.to, duration, count, prefersReducedMotion])
 
     const className = styleClasses[component.style || 'body']
     const formattedValue = formatNumber(displayValue, decimals, separator)

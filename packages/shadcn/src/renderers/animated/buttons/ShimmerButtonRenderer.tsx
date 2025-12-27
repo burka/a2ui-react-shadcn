@@ -2,11 +2,13 @@ import type { ShimmerButtonComponent } from 'a2ui-react-core'
 import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 export const ShimmerButtonRenderer: A2UIRenderer<ShimmerButtonComponent> = {
   type: 'ShimmerButton',
   render: ({ component, children, data, onAction }: RendererProps<ShimmerButtonComponent>) => {
+    const prefersReducedMotion = useReducedMotion()
     const handleClick = createActionHandler(component, data, onAction)
 
     const shimmerColor = component.shimmerColor || 'rgba(255,255,255,0.4)'
@@ -14,32 +16,34 @@ export const ShimmerButtonRenderer: A2UIRenderer<ShimmerButtonComponent> = {
 
     return (
       <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
         onClick={handleClick}
         className={getButtonClassName(component.primary, 'relative overflow-hidden')}
         style={getButtonStyle(component.primary)}
       >
         <span style={{ position: 'relative', zIndex: 1 }}>{children as ReactNode}</span>
-        <motion.span
-          initial={{ x: '-100%', opacity: 0 }}
-          animate={{ x: '200%', opacity: [0, 1, 1, 0] }}
-          transition={{
-            duration: shimmerDuration,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatDelay: 1,
-            ease: 'linear',
-          }}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `linear-gradient(90deg, transparent, ${shimmerColor}, transparent)`,
-            transform: 'skewX(-20deg)',
-          }}
-        />
+        {!prefersReducedMotion && (
+          <motion.span
+            initial={{ x: '-100%', opacity: 0 }}
+            animate={{ x: '200%', opacity: [0, 1, 1, 0] }}
+            transition={{
+              duration: shimmerDuration,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatDelay: 1,
+              ease: 'linear',
+            }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `linear-gradient(90deg, transparent, ${shimmerColor}, transparent)`,
+              transform: 'skewX(-20deg)',
+            }}
+          />
+        )}
       </motion.button>
     )
   },

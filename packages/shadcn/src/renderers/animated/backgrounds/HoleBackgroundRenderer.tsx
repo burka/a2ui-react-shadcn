@@ -25,7 +25,7 @@ export const HoleBackgroundRenderer: A2UIRenderer<HoleBackgroundComponent> = {
 
             return (
               <motion.div
-                key={i}
+                key={`ring-${i}-${size}`}
                 className="absolute rounded-full pointer-events-none"
                 style={{
                   width: size,

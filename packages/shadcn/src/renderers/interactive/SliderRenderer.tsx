@@ -21,6 +21,15 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
     const min = component.min ?? 0
     const max = component.max ?? 100
     const step = component.step ?? 1
+    const currentValue = value ?? min
+
+    // Generate aria-label from dataPath or use a default
+    const ariaLabel =
+      component.dataPath
+        ?.split('.')
+        .pop()
+        ?.replace(/([A-Z])/g, ' $1')
+        .trim() || `Slider from ${min} to ${max}`
 
     // @extension a2ui-react-shadcn: Extended accessibility props
     const errorId = component.errorMessage ? `${id}-error` : undefined
@@ -40,13 +49,13 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
           min={min}
           max={max}
           step={step}
-          value={[value ?? min]}
+          value={[currentValue]}
           onValueChange={handleChange}
           disabled={component.disabled}
-          aria-label={component.label || 'Slider'}
+          aria-label={component.label || ariaLabel}
           aria-valuemin={min}
           aria-valuemax={max}
-          aria-valuenow={value ?? min}
+          aria-valuenow={currentValue}
           aria-required={component.required}
           aria-invalid={!!component.errorMessage}
           aria-describedby={describedBy}
@@ -55,9 +64,10 @@ export const SliderRenderer: A2UIRenderer<SliderComponent> = {
         <div
           className="text-sm text-center font-medium"
           style={{ color: 'hsl(var(--foreground))' }}
-          aria-hidden="true"
+          aria-live="polite"
+          aria-atomic="true"
         >
-          {value ?? min}
+          {currentValue}
         </div>
         {/* @extension a2ui-react-shadcn: Help text */}
         {component.helpText && (

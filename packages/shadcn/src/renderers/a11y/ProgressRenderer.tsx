@@ -37,7 +37,7 @@ export const ProgressRenderer: A2UIRenderer<ProgressComponent> = {
           <div
             className={cn(
               'h-full bg-primary transition-all duration-300',
-              isIndeterminate && 'animate-progress-indeterminate w-1/3'
+              isIndeterminate && 'animate-progress-indeterminate w-1/3',
             )}
             style={isIndeterminate ? undefined : { width: `${percentage}%` }}
           />
@@ -55,10 +55,31 @@ export const ProgressRenderer: A2UIRenderer<ProgressComponent> = {
         updateComponents: {
           surfaceId: 'progress-example',
           components: [
-            { id: 'col-1', component: { type: 'Column', id: 'col-1', children: ['progress-1', 'progress-2', 'progress-3'] } },
-            { id: 'progress-1', component: { type: 'Progress', id: 'progress-1', label: 'Upload progress', value: 65 } },
-            { id: 'progress-2', component: { type: 'Progress', id: 'progress-2', label: 'Almost done', value: 90 } },
-            { id: 'progress-3', component: { type: 'Progress', id: 'progress-3', label: 'Loading...' } },
+            {
+              id: 'col-1',
+              component: {
+                type: 'Column',
+                id: 'col-1',
+                children: ['progress-1', 'progress-2', 'progress-3'],
+              },
+            },
+            {
+              id: 'progress-1',
+              component: {
+                type: 'Progress',
+                id: 'progress-1',
+                label: 'Upload progress',
+                value: 65,
+              },
+            },
+            {
+              id: 'progress-2',
+              component: { type: 'Progress', id: 'progress-2', label: 'Almost done', value: 90 },
+            },
+            {
+              id: 'progress-3',
+              component: { type: 'Progress', id: 'progress-3', label: 'Loading...' },
+            },
           ],
         },
       },

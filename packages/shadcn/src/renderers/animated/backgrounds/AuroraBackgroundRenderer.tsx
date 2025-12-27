@@ -1,6 +1,7 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface AuroraBackgroundComponent {
   type: 'AuroraBackground'
@@ -14,6 +15,7 @@ interface AuroraBackgroundComponent {
 export const AuroraBackgroundRenderer: A2UIRenderer<AuroraBackgroundComponent> = {
   type: 'AuroraBackground',
   render: ({ component, children }: RendererProps<AuroraBackgroundComponent>) => {
+    const prefersReducedMotion = useReducedMotion()
     const colors = component.colors || ['#00d4ff', '#7c3aed', '#f472b6', '#34d399']
     const speed = component.speed || 15
     const blur = component.blur || 80
@@ -34,27 +36,35 @@ export const AuroraBackgroundRenderer: A2UIRenderer<AuroraBackgroundComponent> =
           const offset = (index / colors.length) * 360
           return (
             <motion.div
-              key={`aurora-${index}`}
-              animate={{
-                x: [
-                  `${20 + index * 15}%`,
-                  `${50 + Math.sin(offset) * 30}%`,
-                  `${80 - index * 10}%`,
-                  `${20 + index * 15}%`,
-                ],
-                y: [
-                  `${20 + index * 10}%`,
-                  `${60 - index * 15}%`,
-                  `${30 + index * 10}%`,
-                  `${20 + index * 10}%`,
-                ],
-                scale: [1, 1.2, 0.8, 1],
-              }}
-              transition={{
-                duration: speed + index * 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: 'easeInOut',
-              }}
+              key={`aurora-${color}-${offset}`}
+              animate={
+                prefersReducedMotion
+                  ? {}
+                  : {
+                      x: [
+                        `${20 + index * 15}%`,
+                        `${50 + Math.sin(offset) * 30}%`,
+                        `${80 - index * 10}%`,
+                        `${20 + index * 15}%`,
+                      ],
+                      y: [
+                        `${20 + index * 10}%`,
+                        `${60 - index * 15}%`,
+                        `${30 + index * 10}%`,
+                        `${20 + index * 10}%`,
+                      ],
+                      scale: [1, 1.2, 0.8, 1],
+                    }
+              }
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : {
+                      duration: speed + index * 2,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: 'easeInOut',
+                    }
+              }
               style={{
                 position: 'absolute',
                 width: '40%',

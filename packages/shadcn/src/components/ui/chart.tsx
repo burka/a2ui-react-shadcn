@@ -72,6 +72,7 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
 
   return (
     <style
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for dynamic CSS injection to apply theme-specific chart colors via CSS variables. This is safe as the content is generated from the config object and doesn't accept user input.
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(

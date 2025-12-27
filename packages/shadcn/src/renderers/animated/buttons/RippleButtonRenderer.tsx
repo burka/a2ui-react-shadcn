@@ -2,6 +2,7 @@ import type { RippleButtonComponent } from 'a2ui-react-core'
 import { type A2UIRenderer, buildActionPayload, type RendererProps } from 'a2ui-react-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { type MouseEvent, type ReactNode, useState } from 'react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'
 
 interface Ripple {
@@ -14,17 +15,20 @@ export const RippleButtonRenderer: A2UIRenderer<RippleButtonComponent> = {
   type: 'RippleButton',
   render: ({ component, children, data, onAction }: RendererProps<RippleButtonComponent>) => {
     const [ripples, setRipples] = useState<Ripple[]>([])
+    const prefersReducedMotion = useReducedMotion()
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      const rippleId = Date.now()
+      if (!prefersReducedMotion) {
+        const rect = e.currentTarget.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        const rippleId = Date.now()
 
-      setRipples((prev) => [...prev, { id: rippleId, x, y }])
-      setTimeout(() => {
-        setRipples((prev) => prev.filter((r) => r.id !== rippleId))
-      }, 600)
+        setRipples((prev) => [...prev, { id: rippleId, x, y }])
+        setTimeout(() => {
+          setRipples((prev) => prev.filter((r) => r.id !== rippleId))
+        }, 600)
+      }
 
       const action = buildActionPayload(component, data)
       if (action) {
@@ -37,9 +41,11 @@ export const RippleButtonRenderer: A2UIRenderer<RippleButtonComponent> = {
 
     return (
       <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+        transition={
+          prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 25 }
+        }
         onClick={handleClick}
         className={getButtonClassName(component.primary, 'relative overflow-hidden')}
         style={getButtonStyle(component.primary)}

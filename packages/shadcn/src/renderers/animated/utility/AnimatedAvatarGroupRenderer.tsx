@@ -45,10 +45,13 @@ export const AnimatedAvatarGroupRenderer: A2UIRenderer<AnimatedAvatarGroupCompon
     const overlap = getOverlap()
 
     return (
+      // biome-ignore lint/a11y/useSemanticElements: Using div with role=group is appropriate for avatar grouping display
       <div
         style={{ display: 'flex', alignItems: 'center' }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        role="group"
+        aria-label="Avatar group"
       >
         {visibleAvatars.map((avatar, index) => (
           <motion.div

@@ -21,6 +21,7 @@ import {
   Trash,
   X,
 } from 'lucide-react'
+import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 const iconMap: Record<string, LucideIcon> = {
   heart: Heart,
@@ -42,6 +43,7 @@ const iconMap: Record<string, LucideIcon> = {
 export const IconButtonRenderer: A2UIRenderer<IconButtonComponent> = {
   type: 'icon-button',
   render: ({ component, onAction }) => {
+    const prefersReducedMotion = useReducedMotion()
     const {
       icon = 'heart',
       variant = 'default',
@@ -78,6 +80,9 @@ export const IconButtonRenderer: A2UIRenderer<IconButtonComponent> = {
     }
 
     const getAnimationProps = () => {
+      if (prefersReducedMotion) {
+        return {}
+      }
       switch (animation) {
         case 'rotate':
           return {
@@ -107,7 +112,6 @@ export const IconButtonRenderer: A2UIRenderer<IconButtonComponent> = {
             },
             whileTap: { scale: 0.9 },
           }
-        case 'scale':
         default:
           return {
             whileHover: { scale: 1.1 },

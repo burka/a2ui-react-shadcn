@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@a2ui/core", "@a2ui/react", "@a2ui/example"]
+  "ignore": ["a2ui-shadcn-ui-core", "a2ui-shadcn-ui-react", "a2ui-shadcn-ui-example"]
 }
