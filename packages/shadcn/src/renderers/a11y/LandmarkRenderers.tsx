@@ -1,5 +1,5 @@
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react-shadcn
  * Semantic HTML Landmark Renderers
  * These components provide proper page structure for screen reader navigation.
  */
@@ -12,8 +12,8 @@ import type {
   MainComponent,
   NavComponent,
   SectionComponent,
-} from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+} from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import type { ReactNode } from 'react'
 
 export const MainRenderer: A2UIRenderer<MainComponent> = {

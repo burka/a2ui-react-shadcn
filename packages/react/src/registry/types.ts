@@ -3,7 +3,7 @@
  * Defines the interface for component renderers and their registration
  */
 
-import type { A2UIMessage } from 'a2ui-shadcn-ui-core'
+import type { A2UIMessage } from 'a2ui-react-core'
 import type { ReactNode } from 'react'
 
 /**
@@ -60,7 +60,7 @@ export interface RendererExample {
   name: string
   /** Description of what this renderer does */
   description: string
-  /** Category for grouping in showcases. 'a11y' is @extension a2ui-shadcn-ui */
+  /** Category for grouping in showcases. 'a11y' is @extension a2ui-react-shadcn */
   category: 'layout' | 'display' | 'interactive' | 'container' | 'animated' | 'charts' | 'a11y'
   /** Example A2UI messages demonstrating this renderer */
   messages: A2UIMessage[]

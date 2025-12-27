@@ -1,11 +1,11 @@
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react-shadcn
  * Progress Component Renderer
  * Renders an accessible progress indicator.
  */
 
-import type { ProgressComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { ProgressComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { cn } from '../../lib/utils.js'
 
 export const ProgressRenderer: A2UIRenderer<ProgressComponent> = {

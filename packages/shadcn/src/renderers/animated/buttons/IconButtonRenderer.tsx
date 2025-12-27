@@ -1,7 +1,7 @@
 'use client'
 
-import type { IconButtonComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
+import type { IconButtonComponent } from 'a2ui-react-core'
+import type { A2UIRenderer } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 import type { LucideIcon } from 'lucide-react'
 import {

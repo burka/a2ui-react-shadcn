@@ -1,7 +1,7 @@
-import { Button } from 'a2ui-shadcn-ui'
+import { Button } from 'a2ui-react'
 import { motion } from 'framer-motion'
 
-const customRendererCode = `import type { A2UIRenderer, RendererProps, ButtonComponent } from 'a2ui-shadcn-ui'
+const customRendererCode = `import type { A2UIRenderer, RendererProps, ButtonComponent } from 'a2ui-react'
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
@@ -28,7 +28,7 @@ export const AnimatedButtonRenderer: A2UIRenderer<ButtonComponent> = {
   },
 }`
 
-const registerCode = `import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
+const registerCode = `import { A2UIProvider, shadcnRenderers } from 'a2ui-react'
 import { AnimatedButtonRenderer } from './AnimatedButtonRenderer'
 
 // Add your custom renderer (last one wins for same type)

@@ -3,7 +3,7 @@
  * Provides access to the A2UI store, registry, and action dispatcher
  */
 
-import type { A2UIStore } from 'a2ui-shadcn-ui-core'
+import type { A2UIStore } from 'a2ui-react-core'
 import { createContext } from 'react'
 import type { A2UIAction, ComponentRegistry } from '../registry/types.js'
 

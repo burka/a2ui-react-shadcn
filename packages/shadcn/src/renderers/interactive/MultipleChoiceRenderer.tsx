@@ -1,9 +1,9 @@
 /**
  * MultipleChoice Component Renderer
- * Supports @extension a2ui-shadcn-ui accessibility props (required, disabled, errorMessage, helpText)
+ * Supports @extension a2ui-react-shadcn accessibility props (required, disabled, errorMessage, helpText)
  */
-import type { MultipleChoiceComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { MultipleChoiceComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { Checkbox } from '../../components/ui/checkbox.js'
 
 export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
@@ -31,7 +31,7 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
       data.set(component.dataPath, newSelection)
     }
 
-    // @extension a2ui-shadcn-ui: Extended accessibility props
+    // @extension a2ui-react-shadcn: Extended accessibility props
     const errorId = component.errorMessage ? `${id}-error` : undefined
     const helpId = component.helpText ? `${id}-help` : undefined
     const isGroupDisabled = component.disabled
@@ -75,13 +75,13 @@ export const MultipleChoiceRenderer: A2UIRenderer<MultipleChoiceComponent> = {
             {currentSelection.length} of {component.maxSelections} selected
           </p>
         )}
-        {/* @extension a2ui-shadcn-ui: Help text */}
+        {/* @extension a2ui-react-shadcn: Help text */}
         {component.helpText && (
           <p id={helpId} className="text-sm text-muted-foreground">
             {component.helpText}
           </p>
         )}
-        {/* @extension a2ui-shadcn-ui: Error message */}
+        {/* @extension a2ui-react-shadcn: Error message */}
         {component.errorMessage && (
           <p id={errorId} className="text-sm text-destructive">
             {component.errorMessage}

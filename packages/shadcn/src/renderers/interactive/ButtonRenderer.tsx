@@ -1,5 +1,5 @@
-import type { ButtonComponent } from 'a2ui-shadcn-ui-core'
-import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-shadcn-ui-react'
+import type { ButtonComponent } from 'a2ui-react-core'
+import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-react-react'
 import type { ReactNode } from 'react'
 import { Button } from '../../components/ui/button.js'
 

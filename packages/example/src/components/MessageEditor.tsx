@@ -1,4 +1,4 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import type { A2UIMessage } from 'a2ui-react'
 import { FileJson, Send, X } from 'lucide-react'
 import { useState } from 'react'
 import { templates } from '../templates/example-messages'

@@ -53,8 +53,8 @@ jobs:
         with:
           publish: pnpm changeset publish
           version: pnpm changeset version
-          title: 'chore: release a2ui-shadcn-ui'
-          commit: 'chore: release a2ui-shadcn-ui'
+          title: 'chore: release a2ui-react'
+          commit: 'chore: release a2ui-react'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

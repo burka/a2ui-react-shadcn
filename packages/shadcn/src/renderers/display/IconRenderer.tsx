@@ -1,5 +1,5 @@
-import type { IconComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { IconComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import type { LucideIcon } from 'lucide-react'
 import { HelpCircle, icons } from 'lucide-react'
 import { cn } from '../../lib/utils.js'

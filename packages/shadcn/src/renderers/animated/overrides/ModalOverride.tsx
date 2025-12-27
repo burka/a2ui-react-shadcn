@@ -1,7 +1,7 @@
 'use client'
 
-import type { ModalComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { ModalComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { useState } from 'react'

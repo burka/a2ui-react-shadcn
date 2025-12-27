@@ -1,7 +1,7 @@
 'use client'
 
-import type { CheckboxComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { CheckboxComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Checkbox } from '../../../components/ui/checkbox.js'
 import { Label } from '../../../components/ui/label.js'

@@ -1,4 +1,4 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import type { A2UIMessage } from 'a2ui-react'
 import { Check, Copy, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -45,7 +45,7 @@ export function CodeModal({
 
   const a2uiJson = JSON.stringify(messages, null, 2)
 
-  const reactCode = `import { A2UIProvider, A2UISurface, shadcnRenderers } from 'a2ui-shadcn-ui'
+  const reactCode = `import { A2UIProvider, A2UISurface, shadcnRenderers } from 'a2ui-react'
 
 const messages = ${a2uiJson}
 

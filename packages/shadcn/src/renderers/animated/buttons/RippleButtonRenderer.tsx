@@ -1,5 +1,5 @@
-import type { RippleButtonComponent } from 'a2ui-shadcn-ui-core'
-import { type A2UIRenderer, buildActionPayload, type RendererProps } from 'a2ui-shadcn-ui-react'
+import type { RippleButtonComponent } from 'a2ui-react-core'
+import { type A2UIRenderer, buildActionPayload, type RendererProps } from 'a2ui-react-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { type MouseEvent, type ReactNode, useState } from 'react'
 import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'

@@ -1,7 +1,7 @@
 'use client'
 
-import type { CopyButtonComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
+import type { CopyButtonComponent } from 'a2ui-react-core'
+import type { A2UIRenderer } from 'a2ui-react-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
@@ -93,7 +93,7 @@ export const CopyButtonRenderer: A2UIRenderer<CopyButtonComponent> = {
               component: {
                 type: 'copy-button',
                 id: 'btn-1',
-                text: 'npm install a2ui-shadcn-ui',
+                text: 'npm install a2ui-react-shadcn',
                 label: 'Copy',
                 copiedLabel: 'Copied!',
                 variant: 'outline',

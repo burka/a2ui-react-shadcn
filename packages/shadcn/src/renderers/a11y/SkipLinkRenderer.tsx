@@ -1,11 +1,11 @@
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react-shadcn
  * SkipLink Component Renderer
  * Renders a skip navigation link for keyboard users.
  */
 
-import type { SkipLinkComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { SkipLinkComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 
 export const SkipLinkRenderer: A2UIRenderer<SkipLinkComponent> = {
   type: 'SkipLink',

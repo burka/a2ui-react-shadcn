@@ -2,8 +2,8 @@
  * Chart utility functions and constants
  */
 
-import type { ChartDataItem } from 'a2ui-shadcn-ui-core'
-import type { DataAccessor } from 'a2ui-shadcn-ui-react'
+import type { ChartDataItem } from 'a2ui-react-core'
+import type { DataAccessor } from 'a2ui-react-react'
 
 /**
  * Default chart colors using CSS variables for theme support

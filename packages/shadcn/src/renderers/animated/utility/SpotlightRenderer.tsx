@@ -1,4 +1,4 @@
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { type MouseEvent, type ReactNode, useRef } from 'react'
 

@@ -3,7 +3,7 @@
  * This demonstrates dogfooding - using A2UI to render our own UI
  */
 
-import { A2UISurface, buildMessages, c } from 'a2ui-shadcn-ui'
+import { A2UISurface, buildMessages, c } from 'a2ui-react'
 import { useMemo } from 'react'
 
 interface Feature {

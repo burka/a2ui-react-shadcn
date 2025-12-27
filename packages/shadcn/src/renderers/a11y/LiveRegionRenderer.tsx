@@ -1,11 +1,11 @@
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react-shadcn
  * LiveRegion Component Renderer
  * Renders ARIA live regions for dynamic content announcements.
  */
 
-import type { LiveRegionComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { LiveRegionComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import type { ReactNode } from 'react'
 
 export const LiveRegionRenderer: A2UIRenderer<LiveRegionComponent> = {

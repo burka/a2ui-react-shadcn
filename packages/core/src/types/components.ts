@@ -4,14 +4,14 @@
  */
 
 // ============================================================================
-// ACCESSIBILITY EXTENSIONS (a2ui-shadcn-ui)
+// ACCESSIBILITY EXTENSIONS (a2ui-react-shadcn)
 // These properties extend the base A2UI protocol for enhanced accessibility.
 // They are NOT part of the official A2UI standard but are recommended for
 // WCAG 2.1 AA compliance.
 // ============================================================================
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Extended accessibility properties for form fields.
  * These can be added to any form component (TextField, Checkbox, Select, etc.)
  */
@@ -27,13 +27,13 @@ export interface FormFieldAccessibility {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Alert/notification variant types
  */
 export type AlertVariant = 'info' | 'warning' | 'error' | 'success'
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Live region politeness levels for screen reader announcements
  */
 export type LiveRegionPoliteness = 'polite' | 'assertive' | 'off'
@@ -724,13 +724,13 @@ export interface ListComponent extends BaseComponent {
 }
 
 // ============================================================================
-// ACCESSIBILITY EXTENSION COMPONENTS (a2ui-shadcn-ui)
+// ACCESSIBILITY EXTENSION COMPONENTS (a2ui-react-shadcn)
 // These components extend the A2UI protocol for enhanced accessibility.
 // They render semantic HTML landmarks and ARIA live regions.
 // ============================================================================
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Main landmark component - renders <main> element
  * Use for the primary content area of your application.
  * There should only be one Main component per page.
@@ -741,7 +741,7 @@ export interface MainComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Navigation landmark component - renders <nav> element
  * Use for navigation links. Multiple Nav components are allowed.
  */
@@ -753,7 +753,7 @@ export interface NavComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Section landmark component - renders <section> element
  * Use for thematic groupings of content with a heading.
  */
@@ -769,7 +769,7 @@ export interface SectionComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Aside landmark component - renders <aside> element
  * Use for content tangentially related to the main content (sidebars, callouts).
  */
@@ -785,7 +785,7 @@ export interface AsideComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Header landmark component - renders <header> element
  * Use for introductory content or navigational aids.
  */
@@ -795,7 +795,7 @@ export interface HeaderComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Footer landmark component - renders <footer> element
  * Use for footer content like copyright, links, etc.
  */
@@ -805,7 +805,7 @@ export interface FooterComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Article component - renders <article> element
  * Use for self-contained, independently distributable content.
  */
@@ -819,7 +819,7 @@ export interface ArticleComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Alert component - renders with role="alert"
  * Use for important messages that require immediate attention.
  * Automatically announced by screen readers.
@@ -834,7 +834,7 @@ export interface AlertComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * LiveRegion component - renders aria-live region
  * Use for dynamic content that should be announced to screen readers.
  */
@@ -848,7 +848,7 @@ export interface LiveRegionComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * SkipLink component - renders a skip navigation link
  * Use at the top of the page to allow keyboard users to skip to main content.
  */
@@ -861,7 +861,7 @@ export interface SkipLinkComponent extends BaseComponent {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Progress indicator component
  * Use to show loading or completion progress.
  */
@@ -939,7 +939,7 @@ export type A2UIComponent =
   | BarChartComponent
   | LineChartComponent
   | AreaChartComponent
-  // Accessibility extension components (a2ui-shadcn-ui)
+  // Accessibility extension components (a2ui-react-shadcn)
   | MainComponent
   | NavComponent
   | SectionComponent

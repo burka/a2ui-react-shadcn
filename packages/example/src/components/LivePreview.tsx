@@ -1,5 +1,5 @@
-import type { A2UIAction, A2UIMessage } from 'a2ui-shadcn-ui'
-import { A2UISurface } from 'a2ui-shadcn-ui'
+import type { A2UIAction, A2UIMessage } from 'a2ui-react'
+import { A2UISurface } from 'a2ui-react'
 import { AlertCircle, Eye } from 'lucide-react'
 import { Component, type ErrorInfo } from 'react'
 

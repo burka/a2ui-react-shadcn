@@ -1,5 +1,5 @@
 /**
- * a2ui-shadcn-ui-react - React components and hooks for A2UI protocol
+ * a2ui-react-react - React components and hooks for A2UI protocol
  *
  * This package provides:
  * - React context and provider for A2UI

@@ -1,17 +1,17 @@
 {
-  "name": "a2ui-shadcn-ui",
+  "name": "a2ui-react",
   "version": "0.1.0",
   "description": "Beautiful shadcn/ui components for rendering A2UI protocol messages in React",
   "author": "burka",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/burka/a2ui-shadcn-ui.git",
+    "url": "git+https://github.com/burka/a2ui-react-shadcn.git",
     "directory": "packages/shadcn"
   },
-  "homepage": "https://burka.github.io/a2ui-shadcn-ui/",
+  "homepage": "https://burka.github.io/a2ui-react-shadcn/",
   "bugs": {
-    "url": "https://github.com/burka/a2ui-shadcn-ui/issues"
+    "url": "https://github.com/burka/a2ui-react-shadcn/issues"
   },
   "keywords": [
     "a2ui",
@@ -47,7 +47,7 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "dev": "tsup --watch",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "framer-motion": ">=10.0.0",
@@ -76,8 +76,8 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "a2ui-shadcn-ui-core": "workspace:*",
-    "a2ui-shadcn-ui-react": "workspace:*",
+    "a2ui-react-core": "*",
+    "a2ui-react-react": "*",
     "framer-motion": "^12.23.26",
     "@testing-library/react": "^16.1.0",
     "@types/react": "^19.0.6",

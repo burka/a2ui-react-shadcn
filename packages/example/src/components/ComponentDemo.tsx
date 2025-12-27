@@ -1,4 +1,4 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import type { A2UIMessage } from 'a2ui-react'
 import { Code, Eye } from 'lucide-react'
 import { useState } from 'react'
 

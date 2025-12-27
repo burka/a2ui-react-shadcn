@@ -144,7 +144,7 @@ export function buildMessages(
  *
  * @example
  * ```ts
- * import { c, buildMessages } from 'a2ui-shadcn-ui-core'
+ * import { c, buildMessages } from 'a2ui-react-core'
  *
  * const messages = buildMessages('ui', c.column({ alignment: 'center' }, [
  *   c.text('Hello', { style: 'h1' }),

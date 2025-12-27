@@ -1,4 +1,4 @@
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { useEffect, useState } from 'react'
 
 interface TextScrambleComponent {

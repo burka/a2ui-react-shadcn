@@ -1,4 +1,4 @@
-import type { A2UIAction, A2UIMessage } from 'a2ui-shadcn-ui'
+import type { A2UIAction, A2UIMessage } from 'a2ui-react'
 import { Beaker, Code2, Zap } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { CodeModal } from './CodeModal'

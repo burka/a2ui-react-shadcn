@@ -1,4 +1,4 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
+import type { A2UIMessage } from 'a2ui-react'
 import { useState } from 'react'
 import { ComponentShowcase } from './ComponentShowcase'
 import { ComponentTree } from './ComponentTree'
@@ -76,7 +76,7 @@ export function Simulator() {
           <p>A2UI Simulator - Built with React 19, Vite, and TailwindCSS</p>
           <p className="mt-1">
             <a
-              href="https://github.com/burka/a2ui-shadcn-ui"
+              href="https://github.com/burka/a2ui-react-shadcn"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--color-accent)] hover:underline"

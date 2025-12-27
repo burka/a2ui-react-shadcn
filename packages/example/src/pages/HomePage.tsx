@@ -1,5 +1,5 @@
-import type { A2UIMessage } from 'a2ui-shadcn-ui'
-import { useA2UI } from 'a2ui-shadcn-ui'
+import type { A2UIMessage } from 'a2ui-react'
+import { useA2UI } from 'a2ui-react'
 import { Beaker, Github, MessageSquare, Terminal } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -10,9 +10,9 @@ import { ThemeToggle } from '../components/ThemeToggle'
 const SHOW_STAGING_KEY = 'a2ui-show-staging'
 
 // Code snippets for Quick Start section
-const INSTALL_COMMAND = 'npm install a2ui-shadcn-ui'
+const INSTALL_COMMAND = 'npm install a2ui-react'
 
-const SETUP_PROVIDER_CODE = `import { A2UIProvider, shadcnRenderers } from 'a2ui-shadcn-ui'
+const SETUP_PROVIDER_CODE = `import { A2UIProvider, shadcnRenderers } from 'a2ui-react'
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
   )
 }`
 
-const RENDER_COMPONENTS_CODE = `import { A2UISurface } from 'a2ui-shadcn-ui'
+const RENDER_COMPONENTS_CODE = `import { A2UISurface } from 'a2ui-react'
 
 function MyComponent({ messages }) {
   return (
@@ -33,7 +33,7 @@ function MyComponent({ messages }) {
   )
 }`
 
-const USE_HOOKS_CODE = `import { useA2UI } from 'a2ui-shadcn-ui'
+const USE_HOOKS_CODE = `import { useA2UI } from 'a2ui-react'
 
 function MyComponent() {
   const { registry } = useA2UI()
@@ -434,7 +434,7 @@ export function HomePage() {
               Built with A2UI Protocol • shadcn/ui • React • TypeScript
             </p>
             <a
-              href="https://github.com/burka/a2ui-shadcn-ui"
+              href="https://github.com/burka/a2ui-react-shadcn"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"

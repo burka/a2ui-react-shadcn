@@ -1,7 +1,7 @@
 'use client'
 
-import type { PieChartComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { PieChartComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { Cell, Pie, PieChart } from 'recharts'
 import {
   ChartContainer,

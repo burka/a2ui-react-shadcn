@@ -1,6 +1,6 @@
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
-import { createRegistry } from 'a2ui-shadcn-ui-react'
-// Accessibility Extension Components (@extension a2ui-shadcn-ui)
+import type { A2UIRenderer } from 'a2ui-react-react'
+import { createRegistry } from 'a2ui-react-react'
+// Accessibility Extension Components (@extension a2ui-react)
 import {
   AlertRenderer,
   ArticleRenderer,
@@ -139,7 +139,7 @@ export const chartRenderers = [
 ] as A2UIRenderer[]
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Accessibility extension renderers for WCAG 2.1 AA compliance.
  * These are NOT part of the official A2UI standard but are recommended for accessibility.
  * Includes: Landmarks (Main, Nav, Section, Aside, Header, Footer, Article),
@@ -240,7 +240,7 @@ export const allAnimatedRenderers = [
  * Creates a shadcn renderer registry with all renderers registered
  * @param options.includeAnimated - Include animated components (RippleButton, etc.)
  * @param options.useAnimatedOverrides - Replace standard components with animated versions
- * @param options.includeA11y - Include accessibility extension components (@extension a2ui-shadcn-ui)
+ * @param options.includeA11y - Include accessibility extension components (@extension a2ui-react)
  * @returns A component registry with all shadcn renderers
  */
 export function createShadcnRegistry(options?: {
@@ -255,7 +255,7 @@ export function createShadcnRegistry(options?: {
     registry.register(renderer)
   }
 
-  // Add accessibility extension components if requested (@extension a2ui-shadcn-ui)
+  // Add accessibility extension components if requested (@extension a2ui-react)
   if (options?.includeA11y) {
     for (const renderer of a11yRenderers) {
       registry.register(renderer)
@@ -303,7 +303,7 @@ export function createFullyAnimatedRegistry() {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Creates a registry with accessibility extension components for WCAG 2.1 AA compliance.
  * @returns A component registry with standard shadcn + a11y extension renderers
  */
@@ -314,7 +314,7 @@ export function createAccessibleRegistry() {
 }
 
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react
  * Creates a complete registry with all features: standard, animated, and accessibility.
  * @returns A component registry with all renderers
  */
@@ -381,7 +381,7 @@ export {
   AreaChartRenderer,
 }
 
-// Re-export accessibility extension components (@extension a2ui-shadcn-ui)
+// Re-export accessibility extension components (@extension a2ui-react)
 export {
   // Landmark Components
   MainRenderer,

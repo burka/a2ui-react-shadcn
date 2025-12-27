@@ -1,7 +1,7 @@
 'use client'
 
-import type { CursorComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
+import type { CursorComponent } from 'a2ui-react-core'
+import type { A2UIRenderer } from 'a2ui-react-react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useRef, useState } from 'react'
 

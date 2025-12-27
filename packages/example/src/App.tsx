@@ -1,4 +1,4 @@
-import { A2UIProvider, allAnimatedRenderers } from 'a2ui-shadcn-ui'
+import { A2UIProvider, allAnimatedRenderers } from 'a2ui-react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Simulator } from './components/Simulator'
 import { ThemeProvider } from './context/ThemeContext'
@@ -8,7 +8,7 @@ export function App() {
   return (
     <ThemeProvider>
       <A2UIProvider renderers={allAnimatedRenderers}>
-        <BrowserRouter basename="/a2ui-shadcn-ui">
+        <BrowserRouter basename="/a2ui-react-shadcn">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/simulator" element={<Simulator />} />

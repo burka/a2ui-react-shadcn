@@ -1,5 +1,5 @@
 /**
- * @extension a2ui-shadcn-ui
+ * @extension a2ui-react-shadcn
  * Accessibility Extension Renderers
  *
  * These components extend the A2UI protocol for enhanced accessibility.

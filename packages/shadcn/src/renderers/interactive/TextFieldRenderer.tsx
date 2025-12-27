@@ -1,5 +1,5 @@
-import type { TextFieldComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { TextFieldComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { Input } from '../../components/ui/input.js'
 import { Label } from '../../components/ui/label.js'
 import { Textarea } from '../../components/ui/textarea.js'
@@ -17,7 +17,7 @@ export const TextFieldRenderer: A2UIRenderer<TextFieldComponent> = {
 
     const inputType = component.inputType || 'shortText'
 
-    // @extension a2ui-shadcn-ui: Extended accessibility props
+    // @extension a2ui-react-shadcn: Extended accessibility props
     const errorId = component.errorMessage ? `${id}-error` : undefined
     const helpId = component.helpText ? `${id}-help` : undefined
     const describedBy = [errorId, helpId].filter(Boolean).join(' ') || undefined

@@ -1,5 +1,5 @@
-import type { MagneticButtonComponent } from 'a2ui-shadcn-ui-core'
-import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-shadcn-ui-react'
+import type { MagneticButtonComponent } from 'a2ui-react-core'
+import { type A2UIRenderer, createActionHandler, type RendererProps } from 'a2ui-react-react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { type MouseEvent, type ReactNode, useRef } from 'react'
 import { getButtonClassName, getButtonStyle } from '../../../utils/index.js'

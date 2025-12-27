@@ -1,5 +1,5 @@
-import type { DividerComponent } from 'a2ui-shadcn-ui-core'
-import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
+import type { DividerComponent } from 'a2ui-react-core'
+import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { Separator } from '../../components/ui/separator.js'
 
 export const DividerRenderer: A2UIRenderer<DividerComponent> = {
