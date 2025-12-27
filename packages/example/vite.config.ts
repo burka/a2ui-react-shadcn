@@ -8,6 +8,9 @@ const monorepoRoot = path.resolve(__dirname, '../..')
 export default defineConfig({
   base: '/a2ui-shadcn-ui/',
   plugins: [react(), tailwindcss()],
+  server: {
+    host: '0.0.0.0',
+  },
   resolve: {
     alias: {
       // Map package names to local source for development

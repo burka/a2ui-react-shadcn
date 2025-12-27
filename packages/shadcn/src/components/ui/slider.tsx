@@ -14,14 +14,15 @@ function Slider({
   max = 100,
   ...props
 }: React.ComponentProps<typeof SliderPrimitive.Root>) {
+  const baseId = React.useId()
   const _values = React.useMemo(
     () => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
     [value, defaultValue, min, max],
   )
 
   const thumbIds = React.useMemo(
-    () => Array.from({ length: _values.length }, () => crypto.randomUUID()),
-    [_values.length],
+    () => Array.from({ length: _values.length }, (_, i) => `${baseId}-thumb-${i}`),
+    [_values.length, baseId],
   )
 
   return (
