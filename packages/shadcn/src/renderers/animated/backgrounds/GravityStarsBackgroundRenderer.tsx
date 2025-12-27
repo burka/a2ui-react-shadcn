@@ -4,6 +4,7 @@ import type { GravityStarsBackgroundComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContainerDimensions } from '../../../hooks/useContainerDimensions.js'
 
 interface Star {
   id: number
@@ -27,8 +28,8 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
     } = component
 
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-    const [dimensions, setDimensions] = useState({ width: 400, height: 300 })
     const containerRef = useRef<HTMLDivElement>(null)
+    const dimensions = useContainerDimensions(containerRef)
 
     const initialStars = useMemo<Star[]>(() => {
       return Array.from({ length: starCount }, (_, i) => ({
@@ -42,23 +43,6 @@ export const GravityStarsBackgroundRenderer: A2UIRenderer<GravityStarsBackground
     }, [starCount, minSize, maxSize])
 
     const [stars, setStars] = useState(initialStars)
-
-    useEffect(() => {
-      const updateDimensions = () => {
-        if (containerRef.current) {
-          setDimensions({
-            width: containerRef.current.offsetWidth,
-            height: containerRef.current.offsetHeight,
-          })
-        }
-      }
-      updateDimensions()
-      const observer = new ResizeObserver(updateDimensions)
-      if (containerRef.current) {
-        observer.observe(containerRef.current)
-      }
-      return () => observer.disconnect()
-    }, [])
 
     useEffect(() => {
       if (!interactive) return

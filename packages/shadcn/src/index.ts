@@ -132,6 +132,7 @@ export * from './components/ui/textarea.js'
 // ============================================================================
 // Hooks
 // ============================================================================
+export { type Dimensions, useContainerDimensions } from './hooks/useContainerDimensions.js'
 export { useReducedMotion } from './hooks/useReducedMotion.js'
 // ============================================================================
 // Utilities

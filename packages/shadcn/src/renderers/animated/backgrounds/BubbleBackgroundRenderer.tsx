@@ -3,7 +3,8 @@
 import type { BubbleBackgroundComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer } from 'a2ui-shadcn-ui-react'
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef } from 'react'
+import { useContainerDimensions } from '../../../hooks/useContainerDimensions.js'
 
 interface Bubble {
   id: number
@@ -26,21 +27,7 @@ export const BubbleBackgroundRenderer: A2UIRenderer<BubbleBackgroundComponent> =
     } = component
 
     const containerRef = useRef<HTMLDivElement>(null)
-    const [containerHeight, setContainerHeight] = useState(300)
-
-    useEffect(() => {
-      const updateHeight = () => {
-        if (containerRef.current) {
-          setContainerHeight(containerRef.current.offsetHeight)
-        }
-      }
-      updateHeight()
-      const observer = new ResizeObserver(updateHeight)
-      if (containerRef.current) {
-        observer.observe(containerRef.current)
-      }
-      return () => observer.disconnect()
-    }, [])
+    const { height: containerHeight } = useContainerDimensions(containerRef)
 
     const bubbles = useMemo<Bubble[]>(() => {
       return Array.from({ length: bubbleCount }, (_, i) => ({
