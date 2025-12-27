@@ -1,19 +1,30 @@
 import type { ModalComponent } from 'a2ui-shadcn-ui-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-shadcn-ui-react'
-import type { ReactNode } from 'react'
-import { Dialog, DialogContent, DialogTrigger } from '../../components/ui/dialog.js'
+import type { ReactElement, ReactNode } from 'react'
+import { isValidElement, useId } from 'react'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '../../components/ui/dialog.js'
 
 export const ModalRenderer: A2UIRenderer<ModalComponent> = {
   type: 'Modal',
-  render: ({ children }: RendererProps<ModalComponent>) => {
+  render: ({ component, children, id }: RendererProps<ModalComponent>) => {
+    const titleId = useId()
     const childArray = Array.isArray(children) ? children : [children]
-    const trigger = childArray[0]
-    const content = childArray[1]
+    const triggerChild = childArray.find(
+      (c): c is ReactElement => isValidElement(c) && c.key === component.trigger,
+    )
+    const contentChild = childArray.find(
+      (c): c is ReactElement => isValidElement(c) && c.key === component.content,
+    )
 
     return (
       <Dialog>
-        <DialogTrigger asChild>{trigger as ReactNode}</DialogTrigger>
-        <DialogContent>{content as ReactNode}</DialogContent>
+        <DialogTrigger asChild>{triggerChild as ReactNode}</DialogTrigger>
+        <DialogContent aria-labelledby={titleId}>
+          <DialogTitle id={titleId} className="sr-only">
+            {`Dialog ${id}`}
+          </DialogTitle>
+          {contentChild as ReactNode}
+        </DialogContent>
       </Dialog>
     )
   },
