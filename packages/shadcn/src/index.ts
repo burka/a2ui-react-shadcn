@@ -129,7 +129,10 @@ export * from './components/ui/input.js'
 export * from './components/ui/label.js'
 export * from './components/ui/tabs.js'
 export * from './components/ui/textarea.js'
-
+// ============================================================================
+// Hooks
+// ============================================================================
+export { useReducedMotion } from './hooks/useReducedMotion.js'
 // ============================================================================
 // Utilities
 // ============================================================================

@@ -62,6 +62,7 @@ export const AnimatedTooltipRenderer: A2UIRenderer<AnimatedTooltipComponent> = {
     const childArray = Array.isArray(children) ? children : [children]
     const triggerChild = childArray[0]
     const tooltipContent = childArray[1]
+    const tooltipId = `tooltip-${component.id}`
 
     const getAnimation = () => {
       if (animationType === 'slide') {
@@ -72,11 +73,18 @@ export const AnimatedTooltipRenderer: A2UIRenderer<AnimatedTooltipComponent> = {
 
     const animation = getAnimation()
 
+    const showTooltip = () => setIsVisible(true)
+    const hideTooltip = () => setIsVisible(false)
+
     return (
+      // biome-ignore lint/a11y/noStaticElementInteractions: Tooltip wrapper needs mouse and focus events for showing/hiding tooltip
       <div
         style={{ position: 'relative', display: 'inline-block' }}
-        onMouseEnter={() => setIsVisible(true)}
-        onMouseLeave={() => setIsVisible(false)}
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+        onFocusCapture={showTooltip}
+        onBlurCapture={hideTooltip}
+        aria-describedby={isVisible ? tooltipId : undefined}
       >
         {triggerChild as ReactNode}
         <AnimatePresence>
@@ -92,6 +100,8 @@ export const AnimatedTooltipRenderer: A2UIRenderer<AnimatedTooltipComponent> = {
               }}
             >
               <div
+                id={tooltipId}
+                role="tooltip"
                 className="rounded-md px-3 py-1.5 text-sm shadow-md"
                 style={{
                   backgroundColor: 'hsl(var(--popover))',
