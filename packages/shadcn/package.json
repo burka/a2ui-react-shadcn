@@ -35,9 +35,15 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./theme.css": "./dist/theme.css"
+    "./theme.css": {
+      "import": "./dist/theme.css",
+      "default": "./dist/theme.css"
+    },
+    "./dist/*": "./dist/*"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
