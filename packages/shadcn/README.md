@@ -243,14 +243,7 @@ The `id` must be present both in the update wrapper AND inside the component obj
 
 ### a2ui-go Compatibility
 
-If using [a2ui-go](https://github.com/burka/a2ui-go) as your backend, you'll need to transform messages:
-
-| a2ui-go format | a2ui-react format |
-|----------------|-------------------|
-| `surfaceUpdate.components` | `surfaceUpdate.updates` |
-| `{"id":"x", "Text":{...}}` | `{"id":"x", "component":{"type":"Text",...}}` |
-| `text` field | `content` field |
-| `usageHint` field | `style` field |
+Works out of the box with [a2ui-go](https://github.com/burka/a2ui-go) - both use the A2UI v0.9 message format.
 
 ## License
 
