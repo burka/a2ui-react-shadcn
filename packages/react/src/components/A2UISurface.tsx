@@ -16,7 +16,7 @@ import {
   isUpdateDataModelMessage,
   normalizeComponentUpdate,
 } from 'a2ui-react-core'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useA2UI } from '../hooks/useA2UI.js'
 import { useSurface } from '../hooks/useSurface.js'
 import type { A2UIAction } from '../registry/types.js'
@@ -147,11 +147,19 @@ export function A2UISurface({
   const surface = useSurface(surfaceId)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
+  // Track processed messages to prevent reprocessing on re-renders
+  const processedMessagesRef = useRef<A2UIMessage[] | null>(null)
 
   // Process messages or stream
   useEffect(() => {
     // Process pre-parsed messages
     if (messages) {
+      // Skip if we've already processed these exact messages
+      if (messages === processedMessagesRef.current) {
+        return
+      }
+      processedMessagesRef.current = messages
+
       try {
         for (const message of messages) {
           processMessage(message, store)
