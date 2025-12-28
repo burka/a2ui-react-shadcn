@@ -1,7 +1,8 @@
 import { Monitor, Moon, Sun } from 'lucide-react'
+import { memo } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
-export function ThemeToggle() {
+export const ThemeToggle = memo(function ThemeToggle() {
   const { theme, setTheme } = useTheme()
 
   const cycleTheme = () => {
@@ -22,4 +23,4 @@ export function ThemeToggle() {
       <Icon className="w-5 h-5 text-[var(--color-text-primary)]" />
     </button>
   )
-}
+})

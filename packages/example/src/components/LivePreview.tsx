@@ -1,7 +1,7 @@
 import type { A2UIAction, A2UIMessage } from 'a2ui-react'
 import { A2UISurface } from 'a2ui-react'
 import { AlertCircle, Eye } from 'lucide-react'
-import { Component, type ErrorInfo } from 'react'
+import { Component, type ErrorInfo, memo } from 'react'
 
 interface LivePreviewProps {
   messages: A2UIMessage[]
@@ -47,7 +47,7 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, LivePreview
   }
 }
 
-export function LivePreview({ messages, surfaceId, onAction }: LivePreviewProps) {
+export const LivePreview = memo(function LivePreview({ messages, surfaceId, onAction }: LivePreviewProps) {
   // Extract surface ID from messages if not provided (support both v0.8 and v0.9)
   const beginMsg = messages.find((m) => 'beginRendering' in m || 'createSurface' in m)
   let activeSurfaceId = surfaceId || 'preview'
@@ -83,4 +83,4 @@ export function LivePreview({ messages, surfaceId, onAction }: LivePreviewProps)
       </div>
     </ErrorBoundary>
   )
-}
+})

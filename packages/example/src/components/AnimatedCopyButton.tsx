@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Copy } from 'lucide-react'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 interface AnimatedCopyButtonProps {
   text: string
@@ -11,7 +11,7 @@ interface AnimatedCopyButtonProps {
   className?: string
 }
 
-export function AnimatedCopyButton({
+export const AnimatedCopyButton = memo(function AnimatedCopyButton({
   text,
   label = 'Copy',
   copiedLabel = 'Copied!',
@@ -87,4 +87,4 @@ export function AnimatedCopyButton({
       )}
     </motion.button>
   )
-}
+})

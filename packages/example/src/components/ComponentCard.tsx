@@ -1,6 +1,6 @@
 import type { A2UIAction, A2UIMessage } from 'a2ui-react'
 import { Beaker, Code2, Zap } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { CodeModal } from './CodeModal'
 import { LivePreview } from './LivePreview'
 
@@ -29,7 +29,7 @@ const CATEGORY_LABELS: Record<Category, string> = {
   container: 'Container',
 }
 
-export function ComponentCard({
+export const ComponentCard = memo(function ComponentCard({
   name,
   description,
   category,
@@ -103,4 +103,4 @@ export function ComponentCard({
       />
     </div>
   )
-}
+})
