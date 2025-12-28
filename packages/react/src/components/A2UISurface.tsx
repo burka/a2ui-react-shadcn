@@ -3,9 +3,10 @@
  * Main component for rendering an A2UI surface from messages or streams
  */
 
-import type { A2UIComponent, A2UIMessage } from 'a2ui-react-core'
+import type { A2UIMessage, ComponentUpdate } from 'a2ui-react-core'
 import {
   createStreamParser,
+  getComponentsArray,
   isBeginRenderingMessage,
   isCreateSurfaceMessage,
   isDataModelUpdateMessage,
@@ -13,6 +14,7 @@ import {
   isSurfaceUpdateMessage,
   isUpdateComponentsMessage,
   isUpdateDataModelMessage,
+  normalizeComponentUpdate,
 } from 'a2ui-react-core'
 import { useEffect, useState } from 'react'
 import { useA2UI } from '../hooks/useA2UI.js'
@@ -55,16 +57,12 @@ function processMessage(message: A2UIMessage, store: ReturnType<typeof useA2UI>[
   }
   // Handle update components (v0.9) or surface update (v0.8)
   else if (isUpdateComponentsMessage(message) || isSurfaceUpdateMessage(message)) {
-    let surfaceId: string
-    let componentUpdates: Array<{ id: string; component: unknown }>
-
-    if (isUpdateComponentsMessage(message)) {
-      surfaceId = message.updateComponents.surfaceId
-      componentUpdates = message.updateComponents.components
-    } else {
-      surfaceId = message.surfaceUpdate.surfaceId
-      componentUpdates = message.surfaceUpdate.updates
-    }
+    const payload = isUpdateComponentsMessage(message)
+      ? message.updateComponents
+      : message.surfaceUpdate
+    const surfaceId = payload.surfaceId
+    // Support both 'components' (v0.9) and 'updates' (legacy) keys
+    const componentUpdates = getComponentsArray(payload as { updates?: ComponentUpdate[]; components?: ComponentUpdate[] })
 
     const surface = store.getSurface(surfaceId)
     if (!surface) {
@@ -72,11 +70,12 @@ function processMessage(message: A2UIMessage, store: ReturnType<typeof useA2UI>[
       return
     }
 
-    // Apply component updates
+    // Apply component updates, normalizing to internal format
     const updatedComponents = { ...surface.components }
     for (const update of componentUpdates) {
-      // Store the component directly - types are validated at parse time
-      updatedComponents[update.id] = update.component as unknown as A2UIComponent
+      // Normalize both v0.9 flat format and legacy nested format
+      const component = normalizeComponentUpdate(update)
+      updatedComponents[update.id] = component
     }
     surface.components = updatedComponents
 

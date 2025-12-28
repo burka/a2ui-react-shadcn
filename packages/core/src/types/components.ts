@@ -99,7 +99,10 @@ export interface ColumnComponent extends BaseComponent {
 
 export interface TextComponent extends BaseComponent {
   type: 'Text'
-  content: string
+  /** Text content (v0.9 spec uses 'text', we also support 'content' for backwards compat) */
+  text?: string
+  /** @deprecated Use 'text' instead. Kept for backwards compatibility. */
+  content?: string
   style?: TextStyle
   dataPath?: string
 }
@@ -953,14 +956,36 @@ export type A2UIComponent =
   | ProgressComponent
 
 /**
- * Component update for surfaceUpdate messages
+ * Component type names
  */
-export interface ComponentUpdate {
+export type ComponentType = A2UIComponent['type']
+
+/**
+ * V0.9 flat component update structure
+ * All properties are at the top level with 'component' being just the type name
+ */
+export type ComponentUpdateV09 = {
+  /** Component ID */
+  id: string
+  /** Component type name */
+  component: ComponentType
+} & Omit<Partial<A2UIComponent>, 'type' | 'id'>
+
+/**
+ * Legacy nested component update structure (pre-v0.9)
+ */
+export interface ComponentUpdateLegacy {
   /** Component ID to update */
   id: string
   /** Updated component data (partial or full) */
   component: Partial<A2UIComponent>
 }
+
+/**
+ * Component update for updateComponents/surfaceUpdate messages
+ * Supports both v0.9 flat structure and legacy nested structure
+ */
+export type ComponentUpdate = ComponentUpdateV09 | ComponentUpdateLegacy
 
 /**
  * Component catalog - maps component IDs to components

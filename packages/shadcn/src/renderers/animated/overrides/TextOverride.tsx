@@ -1,6 +1,6 @@
 'use client'
 
-import type { TextComponent } from 'a2ui-react-core'
+import { getTextContent, type TextComponent } from 'a2ui-react-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import { motion } from 'framer-motion'
 
@@ -22,8 +22,8 @@ export const AnimatedTextOverride: A2UIRenderer<TextComponent> = {
   render: ({ component, data }: RendererProps<TextComponent>) => {
     const className = styleClasses[component.style || 'body'] || styleClasses.body
 
-    // Support data binding
-    let content = component.content
+    // Support both 'text' (v0.9) and 'content' (legacy), plus data binding
+    let content = getTextContent(component)
     if (component.dataPath) {
       const value = data.get(component.dataPath)
       if (value !== undefined) {

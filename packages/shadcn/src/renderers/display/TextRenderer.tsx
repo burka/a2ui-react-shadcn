@@ -1,4 +1,4 @@
-import type { TextComponent } from 'a2ui-react-core'
+import { getTextContent, type TextComponent } from 'a2ui-react-core'
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
 import type { ElementType } from 'react'
 import { cn } from '../../lib/utils.js'
@@ -6,10 +6,12 @@ import { cn } from '../../lib/utils.js'
 export const TextRenderer: A2UIRenderer<TextComponent> = {
   type: 'Text',
   render: ({ component, data }: RendererProps<TextComponent>) => {
-    const { content, style = 'body', dataPath } = component
+    const { style = 'body', dataPath } = component
+    // Support both 'text' (v0.9) and 'content' (legacy) fields
+    const textContent = getTextContent(component)
 
-    // If dataPath is specified, read from data model; otherwise use content
-    const displayContent = dataPath ? (data.get<string>(dataPath) ?? content) : content
+    // If dataPath is specified, read from data model; otherwise use text content
+    const displayContent = dataPath ? (data.get<string>(dataPath) ?? textContent) : textContent
 
     const styleMap: Record<string, { tag: ElementType; className: string }> = {
       h1: { tag: 'h1', className: 'text-4xl font-bold' },
@@ -56,7 +58,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               component: {
                 type: 'Text',
                 id: 'h1',
-                content: 'Heading 1 - Large Title',
+                text: 'Heading 1 - Large Title',
                 style: 'h1',
               },
             },
@@ -65,7 +67,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               component: {
                 type: 'Text',
                 id: 'h2',
-                content: 'Heading 2 - Section Title',
+                text: 'Heading 2 - Section Title',
                 style: 'h2',
               },
             },
@@ -74,7 +76,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               component: {
                 type: 'Text',
                 id: 'h3',
-                content: 'Heading 3 - Subsection',
+                text: 'Heading 3 - Subsection',
                 style: 'h3',
               },
             },
@@ -83,7 +85,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               component: {
                 type: 'Text',
                 id: 'h4',
-                content: 'Heading 4 - Component Title',
+                text: 'Heading 4 - Component Title',
                 style: 'h4',
               },
             },
@@ -92,7 +94,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               component: {
                 type: 'Text',
                 id: 'h5',
-                content: 'Heading 5 - Small Title',
+                text: 'Heading 5 - Small Title',
                 style: 'h5',
               },
             },
@@ -101,7 +103,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               component: {
                 type: 'Text',
                 id: 'body',
-                content: 'Body text paragraph with regular content and default styling.',
+                text: 'Body text paragraph with regular content and default styling.',
                 style: 'body',
               },
             },
@@ -110,7 +112,7 @@ export const TextRenderer: A2UIRenderer<TextComponent> = {
               component: {
                 type: 'Text',
                 id: 'caption',
-                content: 'Caption text - muted and small',
+                text: 'Caption text - muted and small',
                 style: 'caption',
               },
             },

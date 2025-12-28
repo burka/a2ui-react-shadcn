@@ -62,7 +62,24 @@ function validateBeginRendering(msg: unknown): void {
 }
 
 /**
- * Validates a surfaceUpdate message
+ * Validates a component update entry (supports both v0.9 flat and legacy nested formats)
+ */
+function validateComponentUpdate(update: unknown, context: string): void {
+  if (!isObject(update)) {
+    throw new MessageParseError(`${context}[] must be objects`)
+  }
+  if (!isNonEmptyString(update.id)) {
+    throw new MessageParseError(`${context}[].id must be a non-empty string`)
+  }
+  // v0.9: component is a string (type name)
+  // legacy: component is an object with type property
+  if (typeof update.component !== 'string' && !isObject(update.component)) {
+    throw new MessageParseError(`${context}[].component must be a string (v0.9) or object (legacy)`)
+  }
+}
+
+/**
+ * Validates a surfaceUpdate message (legacy format, also accepts v0.9 components)
  */
 function validateSurfaceUpdate(msg: unknown): void {
   if (!isObject(msg)) {
@@ -73,20 +90,14 @@ function validateSurfaceUpdate(msg: unknown): void {
     throw new MessageParseError('surfaceUpdate.surfaceId must be a non-empty string')
   }
 
-  if (!isArray(msg.updates)) {
-    throw new MessageParseError('surfaceUpdate.updates must be an array')
+  // Accept both 'updates' (legacy) and 'components' (v0.9) keys
+  const components = msg.updates ?? msg.components
+  if (!isArray(components)) {
+    throw new MessageParseError('surfaceUpdate.updates (or .components) must be an array')
   }
 
-  for (const update of msg.updates) {
-    if (!isObject(update)) {
-      throw new MessageParseError('surfaceUpdate.updates[] must be objects')
-    }
-    if (!isNonEmptyString(update.id)) {
-      throw new MessageParseError('surfaceUpdate.updates[].id must be a non-empty string')
-    }
-    if (!isObject(update.component)) {
-      throw new MessageParseError('surfaceUpdate.updates[].component must be an object')
-    }
+  for (const update of components) {
+    validateComponentUpdate(update, 'surfaceUpdate.updates')
   }
 }
 
@@ -178,15 +189,7 @@ function validateUpdateComponents(msg: unknown): void {
   }
 
   for (const component of msg.components) {
-    if (!isObject(component)) {
-      throw new MessageParseError('updateComponents.components[] must be objects')
-    }
-    if (!isNonEmptyString(component.id)) {
-      throw new MessageParseError('updateComponents.components[].id must be a non-empty string')
-    }
-    if (!isObject(component.component)) {
-      throw new MessageParseError('updateComponents.components[].component must be an object')
-    }
+    validateComponentUpdate(component, 'updateComponents.components')
   }
 }
 

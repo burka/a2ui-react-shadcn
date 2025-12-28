@@ -98,7 +98,7 @@ describe('parseMessage', () => {
       })
 
       expect(() => parseMessage(json)).toThrow(MessageParseError)
-      expect(() => parseMessage(json)).toThrow('updates must be an array')
+      expect(() => parseMessage(json)).toThrow('updates (or .components) must be an array')
     })
 
     it('should throw on missing component ID', () => {
