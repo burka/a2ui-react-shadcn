@@ -7,10 +7,10 @@ import { cn } from '../../lib/utils.js'
 
 const variantStyles = {
   default: 'bg-background border-border',
-  success: 'bg-background border-green-500/50 text-green-600 dark:text-green-400',
-  error: 'bg-background border-red-500/50 text-red-600 dark:text-red-400',
-  warning: 'bg-background border-yellow-500/50 text-yellow-600 dark:text-yellow-400',
-  info: 'bg-background border-blue-500/50 text-blue-600 dark:text-blue-400',
+  success: 'bg-success border-success-border text-success-foreground',
+  error: 'bg-error border-error-border text-error-foreground',
+  warning: 'bg-warning border-warning-border text-warning-foreground',
+  info: 'bg-info border-info-border text-info-foreground',
 }
 
 const variantIcons = {
