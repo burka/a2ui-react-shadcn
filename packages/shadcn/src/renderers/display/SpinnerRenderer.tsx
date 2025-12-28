@@ -17,6 +17,7 @@ export const SpinnerRenderer: A2UIRenderer<SpinnerComponent> = {
     return (
       <div
         id={id}
+        data-a2ui-component="Spinner"
         role="status"
         aria-label={component.label || 'Loading'}
         className="inline-flex items-center justify-center"

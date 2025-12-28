@@ -13,6 +13,7 @@ export const MarkdownRenderer: A2UIRenderer<MarkdownComponent> = {
 
     return (
       <div
+        data-a2ui-component="Markdown"
         className={cn(
           'prose prose-sm dark:prose-invert max-w-none',
           // Headings

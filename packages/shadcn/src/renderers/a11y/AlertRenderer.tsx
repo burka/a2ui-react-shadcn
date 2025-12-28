@@ -31,6 +31,7 @@ export const AlertRenderer: A2UIRenderer<AlertComponent> = {
     return (
       <div
         id={id}
+        data-a2ui-component="Alert"
         role="alert"
         className={cn('relative rounded-lg border p-4', variantStyles[variant])}
       >

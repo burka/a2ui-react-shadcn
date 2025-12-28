@@ -17,7 +17,7 @@ export const ProgressRenderer: A2UIRenderer<ProgressComponent> = {
     const percentage = isIndeterminate ? 0 : Math.min(100, Math.max(0, (value / max) * 100))
 
     return (
-      <div className="w-full space-y-1">
+      <div data-a2ui-component="Progress" className="w-full space-y-1">
         {component.label && (
           <div className="flex justify-between text-sm">
             <span>{component.label}</span>

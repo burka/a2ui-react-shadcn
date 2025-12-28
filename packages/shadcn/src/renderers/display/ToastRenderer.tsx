@@ -30,6 +30,7 @@ export const ToastRenderer: A2UIRenderer<ToastComponent> = {
     return (
       <div
         id={id}
+        data-a2ui-component="Toast"
         role="alert"
         aria-live="polite"
         className={cn(

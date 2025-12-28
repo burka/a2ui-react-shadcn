@@ -37,6 +37,7 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
     return (
       <div
         id={id}
+        data-a2ui-component="Stepper"
         className={cn(
           'flex',
           orientation === 'horizontal' ? 'flex-row items-start' : 'flex-col',

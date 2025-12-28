@@ -16,6 +16,7 @@ export const SkeletonRenderer: A2UIRenderer<SkeletonComponent> = {
     return (
       <div
         id={id}
+        data-a2ui-component="Skeleton"
         role="status"
         aria-label="Loading content"
         className={cn(
