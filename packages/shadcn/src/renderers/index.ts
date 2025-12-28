@@ -78,6 +78,7 @@ import {
   DividerRenderer,
   IconRenderer,
   ImageRenderer,
+  MarkdownRenderer,
   TextRenderer,
   VideoRenderer,
 } from './display/index.js'
@@ -102,6 +103,7 @@ export const shadcnRenderers = [
   ColumnRenderer,
   // Display
   TextRenderer,
+  MarkdownRenderer,
   ImageRenderer,
   IconRenderer,
   DividerRenderer,
@@ -407,5 +409,16 @@ export {
   getChartData,
   transformToRechartsData,
 } from './charts/index.js'
+
+// Re-export display renderers
+export {
+  AudioPlayerRenderer,
+  DividerRenderer,
+  IconRenderer,
+  ImageRenderer,
+  MarkdownRenderer,
+  TextRenderer,
+  VideoRenderer,
+}
 
 export type { RendererRegistry } from './types.js'

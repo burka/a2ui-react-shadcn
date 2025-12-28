@@ -107,6 +107,14 @@ export interface TextComponent extends BaseComponent {
   dataPath?: string
 }
 
+export interface MarkdownComponent extends BaseComponent {
+  type: 'Markdown'
+  /** Markdown content to render */
+  text: string
+  /** Optional data path for dynamic content */
+  dataPath?: string
+}
+
 export interface ImageComponent extends BaseComponent {
   type: 'Image'
   url: string
@@ -885,6 +893,7 @@ export type A2UIComponent =
   | RowComponent
   | ColumnComponent
   | TextComponent
+  | MarkdownComponent
   | ImageComponent
   | IconComponent
   | DividerComponent
