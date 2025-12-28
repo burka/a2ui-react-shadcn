@@ -52,7 +52,7 @@ export const AlertRenderer: A2UIRenderer<AlertComponent> = {
   example: {
     name: 'Alert',
     description: 'Accessible alert component with screen reader announcement',
-    category: 'a11y',
+    category: 'display',
     messages: [
       { createSurface: { surfaceId: 'alert-example', root: 'col-1' } },
       {

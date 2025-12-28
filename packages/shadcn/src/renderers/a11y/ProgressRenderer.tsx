@@ -48,7 +48,7 @@ export const ProgressRenderer: A2UIRenderer<ProgressComponent> = {
   example: {
     name: 'Progress',
     description: 'Accessible progress indicator with determinate and indeterminate states',
-    category: 'a11y',
+    category: 'display',
     messages: [
       { createSurface: { surfaceId: 'progress-example', root: 'col-1' } },
       {
