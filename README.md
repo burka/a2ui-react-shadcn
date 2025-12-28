@@ -30,11 +30,30 @@ npm install a2ui-react
 
 ## Setup
 
-Import the default theme CSS in your app entry point:
+### 1. Configure Tailwind v4 (Critical)
+
+Add the `@source` directive to your CSS so Tailwind scans the component classes:
+
+```css
+@import 'tailwindcss';
+@source "../node_modules/a2ui-react/dist";
+```
+
+Without this, Tailwind v4 won't scan node_modules and components render unstyled.
+
+### 2. Import Theme CSS
+
+Import the theme CSS in your app entry point:
 
 ```tsx
 import 'a2ui-react/theme.css'
 ```
+
+> **Vite users**: If the import doesn't resolve, copy the CSS locally:
+> ```bash
+> cp node_modules/a2ui-react/dist/theme.css src/a2ui-theme.css
+> ```
+> Then import `'./a2ui-theme.css'` instead.
 
 Or if using your own Tailwind setup, ensure your CSS includes the [shadcn/ui theme variables](https://ui.shadcn.com/docs/theming).
 
@@ -183,6 +202,44 @@ packages/
 - **Vitest** for testing
 - **Biome** for linting/formatting
 - **Turborepo** for monorepo management
+
+## Important Notes
+
+### Component ID Format
+
+The `id` must be present both in the update wrapper AND inside the component object:
+
+```tsx
+// ✅ Correct
+{
+  id: 'greeting',
+  component: {
+    type: 'Text',
+    id: 'greeting',  // Required inside component
+    content: 'Hello!'
+  }
+}
+
+// ❌ Won't work - missing id inside component
+{
+  id: 'greeting',
+  component: {
+    type: 'Text',
+    content: 'Hello!'
+  }
+}
+```
+
+### a2ui-go Compatibility
+
+If using [a2ui-go](https://github.com/burka/a2ui-go) as your backend, you'll need to transform messages:
+
+| a2ui-go format | a2ui-react format |
+|----------------|-------------------|
+| `surfaceUpdate.components` | `surfaceUpdate.updates` |
+| `{"id":"x", "Text":{...}}` | `{"id":"x", "component":{"type":"Text",...}}` |
+| `text` field | `content` field |
+| `usageHint` field | `style` field |
 
 ## License
 

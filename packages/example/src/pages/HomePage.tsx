@@ -12,6 +12,9 @@ const SHOW_STAGING_KEY = 'a2ui-show-staging'
 // Code snippets for Quick Start section
 const INSTALL_COMMAND = 'npm install a2ui-react'
 
+const TAILWIND_CONFIG_CODE = `@import 'tailwindcss';
+@source "../node_modules/a2ui-react/dist";`
+
 const IMPORT_THEME_CODE = `import 'a2ui-react/theme.css'`
 
 const SETUP_PROVIDER_CODE = `import { A2UIProvider, shadcnRenderers } from 'a2ui-react'
@@ -52,30 +55,37 @@ const FULL_QUICKSTART = `# A2UI + shadcn/ui Quick Start
 ${INSTALL_COMMAND}
 \`\`\`
 
-## 1. Import Theme
-Import the default theme CSS in your app entry point:
+## 1. Configure Tailwind v4 (Critical)
+Add the @source directive so Tailwind scans the component classes:
+
+\`\`\`css
+${TAILWIND_CONFIG_CODE}
+\`\`\`
+
+Without this, components render unstyled.
+
+## 2. Import Theme
+Import the theme CSS in your app entry point:
 
 \`\`\`tsx
 ${IMPORT_THEME_CODE}
 \`\`\`
 
-Or if using your own Tailwind setup, ensure your CSS includes the shadcn/ui theme variables.
-
-## 2. Setup Provider
+## 3. Setup Provider
 Wrap your app with A2UIProvider and pass shadcn renderers:
 
 \`\`\`tsx
 ${SETUP_PROVIDER_CODE}
 \`\`\`
 
-## 3. Render Components
+## 4. Render Components
 Use A2UISurface to render protocol messages:
 
 \`\`\`tsx
 ${RENDER_COMPONENTS_CODE}
 \`\`\`
 
-## 4. Use Hooks
+## 5. Use Hooks
 Access A2UI context with useA2UI hook:
 
 \`\`\`tsx
@@ -253,16 +263,31 @@ export function HomePage() {
               variant="outline"
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)] md:col-span-2 lg:col-span-1">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                  1. Tailwind v4
+                </h3>
+                <AnimatedCopyButton text={TAILWIND_CONFIG_CODE} variant="icon" />
+              </div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                Add @source so Tailwind scans component classes (critical!):
+              </p>
+              <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                <code className="text-[var(--color-text-primary)]">{TAILWIND_CONFIG_CODE}</code>
+              </pre>
+            </div>
+
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
-                  1. Import Theme
+                  2. Import Theme
                 </h3>
                 <AnimatedCopyButton text={IMPORT_THEME_CODE} variant="icon" />
               </div>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Import the default theme CSS in your app entry point:
+                Import the theme CSS in your app entry point:
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
                 <code className="text-[var(--color-text-primary)]">{IMPORT_THEME_CODE}</code>
@@ -272,12 +297,12 @@ export function HomePage() {
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
-                  2. Setup Provider
+                  3. Setup Provider
                 </h3>
                 <AnimatedCopyButton text={SETUP_PROVIDER_CODE} variant="icon" />
               </div>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Wrap your app with A2UIProvider and pass shadcn renderers:
+                Wrap your app with A2UIProvider:
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
                 <code className="text-[var(--color-text-primary)]">{SETUP_PROVIDER_CODE}</code>
@@ -287,22 +312,22 @@ export function HomePage() {
             <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
-                  3. Render Components
+                  4. Render Components
                 </h3>
                 <AnimatedCopyButton text={RENDER_COMPONENTS_CODE} variant="icon" />
               </div>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Use A2UISurface to render protocol messages:
+                Use A2UISurface to render messages:
               </p>
               <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
                 <code className="text-[var(--color-text-primary)]">{RENDER_COMPONENTS_CODE}</code>
               </pre>
             </div>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)] md:col-span-2 lg:col-span-2">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
-                  4. Use Hooks
+                  5. Use Hooks
                 </h3>
                 <AnimatedCopyButton text={USE_HOOKS_CODE} variant="icon" />
               </div>
