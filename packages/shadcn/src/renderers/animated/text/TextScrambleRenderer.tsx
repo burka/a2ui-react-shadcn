@@ -1,5 +1,5 @@
 import type { A2UIRenderer, RendererProps } from 'a2ui-react-react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from '../../../hooks/useReducedMotion.js'
 
 interface TextScrambleComponent {
@@ -28,16 +28,16 @@ export const TextScrambleRenderer: A2UIRenderer<TextScrambleComponent> = {
   type: 'TextScramble',
   render: ({ component }: RendererProps<TextScrambleComponent>) => {
     const [displayText, setDisplayText] = useState(component.content)
-    const [isAnimating, setIsAnimating] = useState(false)
+    const isAnimatingRef = useRef(false)
     const prefersReducedMotion = useReducedMotion()
 
     const speed = component.speed || 30
     const characters = component.characters || defaultCharacters
     const trigger = component.trigger || 'mount'
 
-    const scramble = () => {
-      if (prefersReducedMotion || isAnimating) return
-      setIsAnimating(true)
+    const scramble = useCallback(() => {
+      if (prefersReducedMotion || isAnimatingRef.current) return
+      isAnimatingRef.current = true
 
       const target = component.content
       const length = target.length
@@ -63,16 +63,15 @@ export const TextScrambleRenderer: A2UIRenderer<TextScrambleComponent> = {
         if (iteration >= maxIterations) {
           clearInterval(interval)
           setDisplayText(target)
-          setIsAnimating(false)
+          isAnimatingRef.current = false
         }
       }, speed)
-    }
+    }, [component.content, characters, speed, prefersReducedMotion])
 
     useEffect(() => {
       if (trigger === 'mount') {
         scramble()
       }
-      // biome-ignore lint/correctness/useExhaustiveDependencies: scramble function is stable and doesn't need to be in deps
     }, [trigger, scramble])
 
     const handleMouseEnter = () => {
