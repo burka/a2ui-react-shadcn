@@ -20,32 +20,19 @@ yarn add a2ui-react
 
 ## Setup
 
-### 1. Configure Tailwind v4 (Critical)
-
-Add the `@source` directive to your CSS so Tailwind scans the component classes:
+Add the theme import and `@source` directive to your main CSS file:
 
 ```css
-@import 'tailwindcss';
+/* Import the a2ui-react theme (includes Tailwind and all theme variables) */
+@import 'a2ui-react/theme.css';
+
+/* Tell Tailwind to scan the package for class usage */
 @source "../node_modules/a2ui-react/dist";
 ```
 
-Without this, Tailwind v4 won't scan node_modules and components render unstyled.
-
-### 2. Import Theme CSS
-
-Import the theme CSS in your app entry point:
-
-```tsx
-import 'a2ui-react/theme.css'
-```
-
-> **Vite users**: If the import doesn't resolve, copy the CSS locally:
-> ```bash
-> cp node_modules/a2ui-react/dist/theme.css src/a2ui-theme.css
-> ```
-> Then import `'./a2ui-theme.css'` instead.
-
-Or if using your own Tailwind setup, ensure your CSS includes the [shadcn/ui theme variables](https://ui.shadcn.com/docs/theming).
+Both lines are required:
+- `theme.css` provides Tailwind, shadcn/ui theme variables, and alert color tokens
+- `@source` ensures Tailwind includes the component classes (v4 doesn't scan node_modules by default)
 
 ## Quick Start
 
