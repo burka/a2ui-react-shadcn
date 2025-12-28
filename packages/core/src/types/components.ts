@@ -115,6 +115,29 @@ export interface MarkdownComponent extends BaseComponent {
   dataPath?: string
 }
 
+/**
+ * Spinner size options
+ */
+export type SpinnerSize = 'sm' | 'md' | 'lg'
+
+export interface SpinnerComponent extends BaseComponent {
+  type: 'Spinner'
+  /** Size of the spinner (default: 'md') */
+  size?: SpinnerSize
+  /** Accessible label for screen readers */
+  label?: string
+}
+
+export interface SkeletonComponent extends BaseComponent {
+  type: 'Skeleton'
+  /** Width of skeleton (CSS value, e.g., '100%', '200px') */
+  width?: string
+  /** Height of skeleton (CSS value, e.g., '20px', '1rem') */
+  height?: string
+  /** Shape variant */
+  variant?: 'text' | 'circular' | 'rectangular'
+}
+
 export interface ImageComponent extends BaseComponent {
   type: 'Image'
   url: string
@@ -728,6 +751,56 @@ export interface TabsComponent extends BaseComponent {
   tabs: TabItem[]
 }
 
+/**
+ * Step status for Stepper component
+ */
+export type StepStatus = 'pending' | 'current' | 'completed' | 'error'
+
+/**
+ * Individual step in a Stepper
+ */
+export interface StepItem {
+  /** Step identifier */
+  id: string
+  /** Step label/title */
+  label: string
+  /** Optional description */
+  description?: string
+  /** Step status */
+  status?: StepStatus
+}
+
+export interface StepperComponent extends BaseComponent {
+  type: 'Stepper'
+  /** Array of steps */
+  steps: StepItem[]
+  /** Current active step index (0-based) */
+  activeStep?: number
+  /** Orientation of the stepper */
+  orientation?: 'horizontal' | 'vertical'
+}
+
+/**
+ * Toast variant types
+ */
+export type ToastVariant = 'default' | 'success' | 'error' | 'warning' | 'info'
+
+export interface ToastComponent extends BaseComponent {
+  type: 'Toast'
+  /** Toast title */
+  title?: string
+  /** Toast message/description */
+  message: string
+  /** Toast variant for styling */
+  variant?: ToastVariant
+  /** Duration in ms before auto-dismiss (0 = no auto-dismiss) */
+  duration?: number
+  /** Action button label */
+  actionLabel?: string
+  /** Action to trigger when action button clicked */
+  action?: string
+}
+
 export interface ListComponent extends BaseComponent {
   type: 'List'
   template: string
@@ -894,6 +967,8 @@ export type A2UIComponent =
   | ColumnComponent
   | TextComponent
   | MarkdownComponent
+  | SpinnerComponent
+  | SkeletonComponent
   | ImageComponent
   | IconComponent
   | DividerComponent
@@ -910,6 +985,8 @@ export type A2UIComponent =
   | CardComponent
   | ModalComponent
   | TabsComponent
+  | StepperComponent
+  | ToastComponent
   | ListComponent
   // Animated UI Components
   | RippleButtonComponent

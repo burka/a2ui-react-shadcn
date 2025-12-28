@@ -72,14 +72,17 @@ import {
   LineChartRenderer,
   PieChartRenderer,
 } from './charts/index.js'
-import { CardRenderer, ListRenderer, ModalRenderer, TabsRenderer } from './container/index.js'
+import { CardRenderer, ListRenderer, ModalRenderer, StepperRenderer, TabsRenderer } from './container/index.js'
 import {
   AudioPlayerRenderer,
   DividerRenderer,
   IconRenderer,
   ImageRenderer,
   MarkdownRenderer,
+  SkeletonRenderer,
+  SpinnerRenderer,
   TextRenderer,
+  ToastRenderer,
   VideoRenderer,
 } from './display/index.js'
 import {
@@ -104,6 +107,11 @@ export const shadcnRenderers = [
   // Display
   TextRenderer,
   MarkdownRenderer,
+  SpinnerRenderer,
+  SkeletonRenderer,
+  ToastRenderer,
+  AlertRenderer,
+  ProgressRenderer,
   ImageRenderer,
   IconRenderer,
   DividerRenderer,
@@ -122,6 +130,7 @@ export const shadcnRenderers = [
   CardRenderer,
   ModalRenderer,
   TabsRenderer,
+  StepperRenderer,
   ListRenderer,
   // Charts
   PieChartRenderer,
@@ -417,8 +426,20 @@ export {
   IconRenderer,
   ImageRenderer,
   MarkdownRenderer,
+  SkeletonRenderer,
+  SpinnerRenderer,
   TextRenderer,
+  ToastRenderer,
   VideoRenderer,
+}
+
+// Re-export container renderers
+export {
+  CardRenderer,
+  ListRenderer,
+  ModalRenderer,
+  StepperRenderer,
+  TabsRenderer,
 }
 
 export type { RendererRegistry } from './types.js'
