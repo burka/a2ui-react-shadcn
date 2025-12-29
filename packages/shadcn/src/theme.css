@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Tell Tailwind to scan this package's bundled code for class usage */
+/* This is required because Tailwind v4 ignores node_modules by default */
+@source ".";
+
 /* Dark mode variant for Tailwind v4 */
 @custom-variant dark (&:is(.dark *));
 

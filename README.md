@@ -30,19 +30,17 @@ npm install a2ui-react
 
 ## Setup
 
-Add the theme import and `@source` directive to your main CSS file:
+Add the theme import to your main CSS file:
 
 ```css
-/* Import the a2ui-react theme (includes Tailwind and all theme variables) */
+/* Import the a2ui-react theme (includes Tailwind, theme variables, and source scanning) */
 @import 'a2ui-react/theme.css';
-
-/* Tell Tailwind to scan the package for class usage */
-@source "../node_modules/a2ui-react/dist";
 ```
 
-Both lines are required:
-- `theme.css` provides Tailwind, shadcn/ui theme variables, and alert color tokens
-- `@source` ensures Tailwind includes the component classes (v4 doesn't scan node_modules by default)
+This single import provides:
+- Tailwind CSS base styles
+- shadcn/ui theme variables and alert color tokens
+- Automatic scanning of the package for Tailwind class usage (required for v4)
 
 ## Quick Start
 

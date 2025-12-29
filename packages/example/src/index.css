@@ -1,8 +1,5 @@
-/* Import the a2ui-react theme - use what we advertise */
+/* Import the a2ui-react theme (includes Tailwind, theme variables, and source scanning) */
 @import 'a2ui-react/theme.css';
-
-/* Tell Tailwind to scan the a2ui-react package for class usage */
-@source "../../shadcn/src/**/*.tsx";
 
 body {
   margin: 0;
