@@ -1,6 +1,6 @@
 {
   "name": "a2ui-react",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Beautiful shadcn/ui components for rendering A2UI protocol messages in React",
   "author": "burka",
   "license": "MIT",
