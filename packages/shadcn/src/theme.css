@@ -182,7 +182,14 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --radius: var(--radius);
+
+  /* Radius scale - all sizes relative to base --radius for easy customization */
+  --radius-sm: calc(var(--radius) * 0.25);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 3);
 
   /* Chart colors for Tailwind utilities */
   --color-chart-1: hsl(var(--chart-1));

@@ -189,19 +189,16 @@ function ThemeCustomizerComponent() {
   const [activePreset, setActivePreset] = useState<string | null>('Default (Blue)')
 
   // Apply theme to document
+  // Note: Only base shadcn variables need to be set - the --a2ui-* aliases
+  // in theme.css automatically reference these via var(--primary), var(--radius)
   useEffect(() => {
     const root = document.documentElement
     root.style.setProperty('--primary', theme.primary)
-    root.style.setProperty('--a2ui-accent', theme.primary)
     root.style.setProperty('--radius', theme.radius)
-    root.style.setProperty('--a2ui-radius', theme.radius)
 
     return () => {
-      // Reset on unmount
       root.style.removeProperty('--primary')
-      root.style.removeProperty('--a2ui-accent')
       root.style.removeProperty('--radius')
-      root.style.removeProperty('--a2ui-radius')
     }
   }, [theme])
 
@@ -233,12 +230,11 @@ function ThemeCustomizerComponent() {
   }, [])
 
   const generateCSS = useCallback(() => {
+    // Only output base shadcn variables - the --a2ui-* aliases in theme.css
+    // automatically reference these via var(--primary), var(--radius)
     return `:root {
-  /* Custom A2UI Theme */
   --primary: ${theme.primary};
-  --a2ui-accent: ${theme.primary};
   --radius: ${theme.radius};
-  --a2ui-radius: ${theme.radius};
 }`
   }, [theme])
 
