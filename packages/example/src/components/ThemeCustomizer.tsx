@@ -1,6 +1,6 @@
 import type { A2UIMessage } from 'a2ui-react'
 import { A2UISurface } from 'a2ui-react'
-import { Check, Copy, Palette, RotateCcw } from 'lucide-react'
+import { Check, ChevronDown, Copy, ExternalLink, Palette, RotateCcw } from 'lucide-react'
 import { memo, useCallback, useEffect, useState } from 'react'
 
 // HSL color utilities
@@ -376,6 +376,83 @@ function ThemeCustomizerComponent() {
           </div>
         </div>
       </div>
+
+      {/* Variable Reference */}
+      <details className="mt-6 group">
+        <summary className="flex items-center gap-2 cursor-pointer text-sm font-medium text-[var(--color-a2ui-text-secondary)] hover:text-[var(--color-a2ui-text-primary)] transition-colors list-none">
+          <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
+          Variable Reference
+        </summary>
+        <div className="mt-4 space-y-4 text-sm">
+          <p className="text-[var(--color-a2ui-text-secondary)]">
+            The theme uses a layered variable system. Set the essential variables and everything
+            else adapts automatically.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Essential */}
+            <div className="p-3 rounded border border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-primary)]">
+              <h4 className="font-medium text-[var(--color-a2ui-text-primary)] mb-2">
+                Essential (Quick Theme)
+              </h4>
+              <ul className="space-y-1 text-[var(--color-a2ui-text-secondary)] font-mono text-xs">
+                <li>
+                  <code>--primary</code>{' '}
+                  <span className="text-[var(--color-a2ui-text-tertiary)]">
+                    — brand color (HSL)
+                  </span>
+                </li>
+                <li>
+                  <code>--radius</code>{' '}
+                  <span className="text-[var(--color-a2ui-text-tertiary)]">
+                    — base border radius
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Color Palette */}
+            <div className="p-3 rounded border border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-primary)]">
+              <h4 className="font-medium text-[var(--color-a2ui-text-primary)] mb-2">
+                Color Palette (Full Control)
+              </h4>
+              <ul className="space-y-1 text-[var(--color-a2ui-text-secondary)] font-mono text-xs">
+                <li>
+                  <code>--background</code> / <code>--foreground</code>
+                </li>
+                <li>
+                  <code>--card</code> / <code>--card-foreground</code>
+                </li>
+                <li>
+                  <code>--muted</code> / <code>--muted-foreground</code>
+                </li>
+                <li>
+                  <code>--secondary</code> / <code>--destructive</code>
+                </li>
+                <li>
+                  <code>--border</code> / <code>--input</code> / <code>--ring</code>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-xs text-[var(--color-a2ui-text-tertiary)]">
+            <strong>Auto-derived:</strong> <code>--a2ui-*</code> aliases,{' '}
+            <code>--radius-sm/md/lg/xl</code>, and <code>--color-*</code> utilities are calculated
+            automatically.
+          </p>
+
+          <a
+            href="https://github.com/burka/a2ui-react-shadcn/blob/main/packages/shadcn/src/theme.css"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[var(--color-a2ui-accent)] hover:underline"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            View full theme.css on GitHub
+          </a>
+        </div>
+      </details>
     </div>
   )
 }
