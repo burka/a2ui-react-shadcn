@@ -30,6 +30,8 @@ npm install a2ui-react
 
 ## Setup
 
+> **Requires Tailwind CSS v4+**. This library uses Tailwind v4 CSS syntax and features.
+
 Add the theme import to your main CSS file:
 
 ```css
