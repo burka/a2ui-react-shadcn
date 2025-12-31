@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatedCopyButton } from '../components/AnimatedCopyButton'
 import { ComponentCard } from '../components/ComponentCard'
+import { ThemeCustomizer } from '../components/ThemeCustomizer'
 import { ThemeToggle } from '../components/ThemeToggle'
 
 const SHOW_STAGING_KEY = 'a2ui-show-staging'
@@ -183,32 +184,32 @@ export function HomePage() {
   const stagingCount = examples.filter((ex) => EARLY_STAGE_COMPONENTS.has(ex.type)).length
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)]">
+    <div className="min-h-screen bg-[var(--color-a2ui-bg-primary)]">
       {/* Hero Section */}
-      <header className="border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)]">
+      <header className="border-b border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-secondary)]">
         <div className="absolute top-4 right-4">
           <ThemeToggle />
         </div>
         <div className="container mx-auto px-4 py-12 md:py-20">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-a2ui-text-primary)] mb-4">
               A2UI + shadcn/ui
             </h1>
-            <p className="text-xl text-[var(--color-text-secondary)] mb-2">
+            <p className="text-xl text-[var(--color-a2ui-text-secondary)] mb-2">
               Server-driven UI for React
             </p>
-            <p className="text-base text-[var(--color-text-secondary)] mb-8 max-w-2xl mx-auto">
+            <p className="text-base text-[var(--color-a2ui-text-secondary)] mb-8 max-w-2xl mx-auto">
               Build dynamic interfaces controlled by your backend. A2UI is a protocol for
               server-driven UI, and this library provides beautiful shadcn/ui component renderers.
             </p>
-            <div className="flex items-center justify-center gap-3 bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-lg p-4 max-w-md mx-auto mb-3">
-              <Terminal className="w-5 h-5 text-[var(--color-text-tertiary)]" />
-              <code className="flex-1 text-sm text-[var(--color-text-primary)] font-mono">
+            <div className="flex items-center justify-center gap-3 bg-[var(--color-a2ui-bg-primary)] border border-[var(--color-a2ui-border)] rounded-lg p-4 max-w-md mx-auto mb-3">
+              <Terminal className="w-5 h-5 text-[var(--color-a2ui-text-tertiary)]" />
+              <code className="flex-1 text-sm text-[var(--color-a2ui-text-primary)] font-mono">
                 {INSTALL_COMMAND}
               </code>
               <AnimatedCopyButton text={INSTALL_COMMAND} variant="icon" />
             </div>
-            <p className="text-sm text-[var(--color-text-tertiary)] italic">
+            <p className="text-sm text-[var(--color-a2ui-text-tertiary)] italic">
               (Coming soon to npm. For now, install from GitHub)
             </p>
           </div>
@@ -218,34 +219,36 @@ export function HomePage() {
       <main className="container mx-auto px-4 py-12">
         {/* Features Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">Features</h2>
+          <h2 className="text-3xl font-bold text-[var(--color-a2ui-text-primary)] mb-6">
+            Features
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
               <div className="text-2xl mb-3">🔄</div>
-              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+              <h3 className="text-lg font-semibold text-[var(--color-a2ui-text-primary)] mb-2">
                 Server-Driven
               </h3>
-              <p className="text-sm text-[var(--color-text-secondary)]">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)]">
                 Your backend sends JSON, the UI renders automatically
               </p>
             </div>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
               <div className="text-2xl mb-3">🎨</div>
-              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+              <h3 className="text-lg font-semibold text-[var(--color-a2ui-text-primary)] mb-2">
                 Beautiful
               </h3>
-              <p className="text-sm text-[var(--color-text-secondary)]">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)]">
                 Built on shadcn/ui with full Tailwind CSS theming
               </p>
             </div>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
               <div className="text-2xl mb-3">⚡</div>
-              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+              <h3 className="text-lg font-semibold text-[var(--color-a2ui-text-primary)] mb-2">
                 Composable
               </h3>
-              <p className="text-sm text-[var(--color-text-secondary)]">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)]">
                 Replace any component with your own implementation
               </p>
             </div>
@@ -255,7 +258,9 @@ export function HomePage() {
         {/* Quick Start Section */}
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Quick Start</h2>
+            <h2 className="text-3xl font-bold text-[var(--color-a2ui-text-primary)]">
+              Quick Start
+            </h2>
             <AnimatedCopyButton
               text={FULL_QUICKSTART}
               label="Copy All"
@@ -264,78 +269,82 @@ export function HomePage() {
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)] md:col-span-2 lg:col-span-1">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)] md:col-span-2 lg:col-span-1">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                <h3 className="text-xl font-semibold text-[var(--color-a2ui-text-primary)]">
                   1. Tailwind v4
                 </h3>
                 <AnimatedCopyButton text={TAILWIND_CONFIG_CODE} variant="icon" />
               </div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)] mb-4">
                 Add @source so Tailwind scans component classes (critical!):
               </p>
-              <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">{TAILWIND_CONFIG_CODE}</code>
+              <pre className="text-xs bg-[var(--color-a2ui-bg-primary)] p-4 rounded border border-[var(--color-a2ui-border)] overflow-x-auto">
+                <code className="text-[var(--color-a2ui-text-primary)]">
+                  {TAILWIND_CONFIG_CODE}
+                </code>
               </pre>
             </div>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                <h3 className="text-xl font-semibold text-[var(--color-a2ui-text-primary)]">
                   2. Import Theme
                 </h3>
                 <AnimatedCopyButton text={IMPORT_THEME_CODE} variant="icon" />
               </div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)] mb-4">
                 Import the theme CSS in your app entry point:
               </p>
-              <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">{IMPORT_THEME_CODE}</code>
+              <pre className="text-xs bg-[var(--color-a2ui-bg-primary)] p-4 rounded border border-[var(--color-a2ui-border)] overflow-x-auto">
+                <code className="text-[var(--color-a2ui-text-primary)]">{IMPORT_THEME_CODE}</code>
               </pre>
             </div>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                <h3 className="text-xl font-semibold text-[var(--color-a2ui-text-primary)]">
                   3. Setup Provider
                 </h3>
                 <AnimatedCopyButton text={SETUP_PROVIDER_CODE} variant="icon" />
               </div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)] mb-4">
                 Wrap your app with A2UIProvider:
               </p>
-              <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">{SETUP_PROVIDER_CODE}</code>
+              <pre className="text-xs bg-[var(--color-a2ui-bg-primary)] p-4 rounded border border-[var(--color-a2ui-border)] overflow-x-auto">
+                <code className="text-[var(--color-a2ui-text-primary)]">{SETUP_PROVIDER_CODE}</code>
               </pre>
             </div>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                <h3 className="text-xl font-semibold text-[var(--color-a2ui-text-primary)]">
                   4. Render Components
                 </h3>
                 <AnimatedCopyButton text={RENDER_COMPONENTS_CODE} variant="icon" />
               </div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)] mb-4">
                 Use A2UISurface to render messages:
               </p>
-              <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">{RENDER_COMPONENTS_CODE}</code>
+              <pre className="text-xs bg-[var(--color-a2ui-bg-primary)] p-4 rounded border border-[var(--color-a2ui-border)] overflow-x-auto">
+                <code className="text-[var(--color-a2ui-text-primary)]">
+                  {RENDER_COMPONENTS_CODE}
+                </code>
               </pre>
             </div>
 
-            <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)] md:col-span-2 lg:col-span-2">
+            <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)] md:col-span-2 lg:col-span-2">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                <h3 className="text-xl font-semibold text-[var(--color-a2ui-text-primary)]">
                   5. Use Hooks
                 </h3>
                 <AnimatedCopyButton text={USE_HOOKS_CODE} variant="icon" />
               </div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              <p className="text-sm text-[var(--color-a2ui-text-secondary)] mb-4">
                 Access A2UI context with useA2UI hook:
               </p>
-              <pre className="text-xs bg-[var(--color-bg-primary)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <code className="text-[var(--color-text-primary)]">{USE_HOOKS_CODE}</code>
+              <pre className="text-xs bg-[var(--color-a2ui-bg-primary)] p-4 rounded border border-[var(--color-a2ui-border)] overflow-x-auto">
+                <code className="text-[var(--color-a2ui-text-primary)]">{USE_HOOKS_CODE}</code>
               </pre>
             </div>
           </div>
@@ -343,17 +352,17 @@ export function HomePage() {
 
         {/* Interactive Simulator Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-6">
+          <h2 className="text-3xl font-bold text-[var(--color-a2ui-text-primary)] mb-6">
             Interactive Simulator
           </h2>
-          <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-            <p className="text-[var(--color-text-secondary)] mb-4">
+          <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
+            <p className="text-[var(--color-a2ui-text-secondary)] mb-4">
               Experiment with the A2UI protocol in real-time. Send messages, see components render
               live, and understand how the protocol works.
             </p>
             <Link
               to="/simulator"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-a2ui-accent)] text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
             >
               Open Simulator
             </Link>
@@ -362,11 +371,11 @@ export function HomePage() {
 
         {/* Customization Section */}
         <section className="mb-12">
-          <div className="border border-[var(--color-border)] rounded-lg p-6 bg-[var(--color-bg-secondary)]">
-            <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">
+          <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
+            <h2 className="text-2xl font-bold text-[var(--color-a2ui-text-primary)] mb-2">
               Customize Any Component
             </h2>
-            <p className="text-[var(--color-text-secondary)]">
+            <p className="text-[var(--color-a2ui-text-secondary)]">
               A2UI's registry pattern lets you replace any built-in renderer with your own
               implementation. Check out the <strong>Animated Button</strong> in the gallery below
               for a working example with full source code.
@@ -374,16 +383,28 @@ export function HomePage() {
           </div>
         </section>
 
+        {/* Theme Customizer Section */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold text-[var(--color-a2ui-text-primary)] mb-6">
+            Theme Playground
+          </h2>
+          <p className="text-[var(--color-a2ui-text-secondary)] mb-6">
+            Customize the look and feel of A2UI components. Adjust colors and border radius, then
+            copy the CSS to use in your project.
+          </p>
+          <ThemeCustomizer />
+        </section>
+
         {/* Feedback CTA */}
         <section className="mb-12">
-          <div className="border border-[var(--color-border)] rounded-lg p-6 bg-gradient-to-r from-[var(--color-bg-secondary)] to-[var(--color-bg-tertiary)]">
+          <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-gradient-to-r from-[var(--color-a2ui-bg-secondary)] to-[var(--color-a2ui-bg-tertiary)]">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-[var(--color-accent)]" />
+                <h3 className="text-lg font-semibold text-[var(--color-a2ui-text-primary)] mb-1 flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-[var(--color-a2ui-accent)]" />
                   Help Us Improve
                 </h3>
-                <p className="text-[var(--color-text-secondary)]">
+                <p className="text-[var(--color-a2ui-text-secondary)]">
                   Try out these components and let us know what you think! Found a bug or have ideas
                   for making them better? We'd love to hear from you.
                 </p>
@@ -392,7 +413,7 @@ export function HomePage() {
                 href="https://github.com/anthropics/claude-code/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium whitespace-nowrap"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-a2ui-accent)] text-white rounded-lg hover:opacity-90 transition-opacity text-sm font-medium whitespace-nowrap"
               >
                 <Github className="w-4 h-4" />
                 Open an Issue
@@ -405,13 +426,13 @@ export function HomePage() {
         <section className="mb-12">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-[var(--color-text-primary)] mb-2">
+              <h2 className="text-3xl font-bold text-[var(--color-a2ui-text-primary)] mb-2">
                 Component Gallery
               </h2>
-              <p className="text-[var(--color-text-secondary)]">
+              <p className="text-[var(--color-a2ui-text-secondary)]">
                 Explore {filteredExamples.length} interactive components powered by A2UI protocol
                 {!showStaging && stagingCount > 0 && (
-                  <span className="text-[var(--color-text-tertiary)]">
+                  <span className="text-[var(--color-a2ui-text-tertiary)]">
                     {' '}
                     ({stagingCount} staging hidden)
                   </span>
@@ -427,8 +448,8 @@ export function HomePage() {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       selectedCategory === category
-                        ? 'bg-[var(--color-accent)] text-white'
-                        : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]'
+                        ? 'bg-[var(--color-a2ui-accent)] text-white'
+                        : 'bg-[var(--color-a2ui-bg-secondary)] text-[var(--color-a2ui-text-secondary)] hover:bg-[var(--color-a2ui-bg-tertiary)] border border-[var(--color-a2ui-border)]'
                     }`}
                   >
                     {CATEGORY_LABELS[category]}
@@ -441,7 +462,7 @@ export function HomePage() {
                 className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                   showStaging
                     ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30'
-                    : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]'
+                    : 'bg-[var(--color-a2ui-bg-secondary)] text-[var(--color-a2ui-text-tertiary)] hover:bg-[var(--color-a2ui-bg-tertiary)] border border-[var(--color-a2ui-border)]'
                 }`}
               >
                 <Beaker className="w-4 h-4" />
@@ -451,11 +472,11 @@ export function HomePage() {
           </div>
 
           {filteredExamples.length === 0 ? (
-            <div className="text-center py-16 bg-[var(--color-bg-secondary)] rounded-lg border border-[var(--color-border)]">
-              <p className="text-[var(--color-text-secondary)] mb-2">
+            <div className="text-center py-16 bg-[var(--color-a2ui-bg-secondary)] rounded-lg border border-[var(--color-a2ui-border)]">
+              <p className="text-[var(--color-a2ui-text-secondary)] mb-2">
                 No components in this category
               </p>
-              <p className="text-sm text-[var(--color-text-tertiary)]">
+              <p className="text-sm text-[var(--color-a2ui-text-tertiary)]">
                 Try selecting a different category
               </p>
             </div>
@@ -478,17 +499,17 @@ export function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)] py-8">
+      <footer className="border-t border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-secondary)] py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-[var(--color-text-secondary)]">
+            <p className="text-sm text-[var(--color-a2ui-text-secondary)]">
               Built with A2UI Protocol • shadcn/ui • React • TypeScript
             </p>
             <a
               href="https://github.com/burka/a2ui-react-shadcn"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-[var(--color-a2ui-text-secondary)] hover:text-[var(--color-a2ui-text-primary)] transition-colors"
             >
               <Github className="w-4 h-4" />
               View on GitHub

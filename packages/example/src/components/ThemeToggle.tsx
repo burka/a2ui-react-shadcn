@@ -16,11 +16,11 @@ export const ThemeToggle = memo(function ThemeToggle() {
     <button
       type="button"
       onClick={cycleTheme}
-      className="p-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-tertiary)] transition-colors"
+      className="p-2 rounded-lg border border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-secondary)] hover:bg-[var(--color-a2ui-bg-tertiary)] transition-colors"
       aria-label={`Current theme: ${theme}. Click to cycle to next theme.`}
       title={`Current: ${theme}`}
     >
-      <Icon className="w-5 h-5 text-[var(--color-text-primary)]" />
+      <Icon className="w-5 h-5 text-[var(--color-a2ui-text-primary)]" />
     </button>
   )
 })

@@ -15,11 +15,11 @@ export const SpinnerRenderer: A2UIRenderer<SpinnerComponent> = {
     const size = component.size || 'md'
 
     return (
-      <div
+      <output
         id={id}
         data-a2ui-component="Spinner"
-        role="status"
         aria-label={component.label || 'Loading'}
+        aria-busy="true"
         className="inline-flex items-center justify-center"
       >
         <Loader2
@@ -27,7 +27,7 @@ export const SpinnerRenderer: A2UIRenderer<SpinnerComponent> = {
           aria-hidden="true"
         />
         {component.label && <span className="sr-only">{component.label}</span>}
-      </div>
+      </output>
     )
   },
   example: {

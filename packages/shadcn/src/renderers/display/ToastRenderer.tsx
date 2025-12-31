@@ -38,18 +38,12 @@ export const ToastRenderer: A2UIRenderer<ToastComponent> = {
           variantStyles[variant],
         )}
       >
-        {Icon && (
-          <Icon className="h-5 w-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
-        )}
+        {Icon && <Icon className="h-5 w-5 flex-shrink-0 mt-0.5" aria-hidden="true" />}
         <div className="flex-1 space-y-1">
           {component.title && (
-            <div className="text-sm font-semibold text-foreground">
-              {component.title}
-            </div>
+            <div className="text-sm font-semibold text-foreground">{component.title}</div>
           )}
-          <div className="text-sm text-muted-foreground">
-            {component.message}
-          </div>
+          <div className="text-sm text-muted-foreground">{component.message}</div>
           {component.actionLabel && component.action && (
             <button
               type="button"

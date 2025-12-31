@@ -39,15 +39,15 @@ export function MessageEditor({ onSend, onClear }: MessageEditorProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between mb-3 pb-3 border-b border-[var(--color-border)]">
-        <h3 className="font-semibold text-[var(--color-text-primary)] flex items-center gap-2">
+      <div className="flex items-center justify-between mb-3 pb-3 border-b border-[var(--color-a2ui-border)]">
+        <h3 className="font-semibold text-[var(--color-a2ui-text-primary)] flex items-center gap-2">
           <FileJson className="w-5 h-5" />
           Message Editor
         </h3>
         <div className="flex gap-2">
           <select
             onChange={(e) => handleLoadTemplate(Number(e.target.value))}
-            className="px-3 py-1.5 text-sm bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded text-[var(--color-text-primary)] hover:bg-[var(--color-bg-tertiary)] transition-colors"
+            className="px-3 py-1.5 text-sm bg-[var(--color-a2ui-bg-secondary)] border border-[var(--color-a2ui-border)] rounded text-[var(--color-a2ui-text-primary)] hover:bg-[var(--color-a2ui-bg-tertiary)] transition-colors"
           >
             <option value="">Load Template...</option>
             {templates.map((template) => (
@@ -63,7 +63,7 @@ export function MessageEditor({ onSend, onClear }: MessageEditorProps) {
         value={jsonInput}
         onChange={(e) => setJsonInput(e.target.value)}
         placeholder='Enter A2UI messages as JSON array, e.g.:\n[\n  {\n    "type": "surface.create",\n    "surfaceId": "demo-1"\n  },\n  {\n    "type": "component.add",\n    "surfaceId": "demo-1",\n    "componentId": "root",\n    "component": {\n      "type": "text",\n      "content": "Hello!"\n    }\n  }\n]'
-        className="flex-1 p-3 font-mono text-sm bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded resize-none text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)]"
+        className="flex-1 p-3 font-mono text-sm bg-[var(--color-a2ui-bg-primary)] border border-[var(--color-a2ui-border)] rounded resize-none text-[var(--color-a2ui-text-primary)] placeholder:text-[var(--color-a2ui-text-tertiary)]"
         spellCheck={false}
       />
 
@@ -78,7 +78,7 @@ export function MessageEditor({ onSend, onClear }: MessageEditorProps) {
           type="button"
           onClick={handleSend}
           disabled={!jsonInput.trim()}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded hover:bg-[var(--color-accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-a2ui-accent)] text-white rounded hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
         >
           <Send className="w-4 h-4" />
           Send Messages
@@ -86,7 +86,7 @@ export function MessageEditor({ onSend, onClear }: MessageEditorProps) {
         <button
           type="button"
           onClick={handleClear}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] rounded hover:bg-[var(--color-bg-tertiary)] transition-colors"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-a2ui-bg-secondary)] text-[var(--color-a2ui-text-secondary)] rounded hover:bg-[var(--color-a2ui-bg-tertiary)] transition-colors"
         >
           <X className="w-4 h-4" />
           Clear

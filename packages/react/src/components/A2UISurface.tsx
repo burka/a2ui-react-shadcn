@@ -62,7 +62,9 @@ function processMessage(message: A2UIMessage, store: ReturnType<typeof useA2UI>[
       : message.surfaceUpdate
     const surfaceId = payload.surfaceId
     // Support both 'components' (v0.9) and 'updates' (legacy) keys
-    const componentUpdates = getComponentsArray(payload as { updates?: ComponentUpdate[]; components?: ComponentUpdate[] })
+    const componentUpdates = getComponentsArray(
+      payload as { updates?: ComponentUpdate[]; components?: ComponentUpdate[] },
+    )
 
     const surface = store.getSurface(surfaceId)
     if (!surface) {

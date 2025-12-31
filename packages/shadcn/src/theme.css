@@ -51,6 +51,36 @@
   --error: 0 86% 97%;
   --error-foreground: 0 74% 35%;
   --error-border: 0 93% 85%;
+
+  /* A2UI Semantic Theme Aliases - Override these for easy customization */
+  --a2ui-bg-primary: var(--background);
+  --a2ui-bg-secondary: var(--card);
+  --a2ui-bg-tertiary: var(--muted);
+  --a2ui-text-primary: var(--foreground);
+  --a2ui-text-secondary: var(--muted-foreground);
+  --a2ui-text-tertiary: var(--muted-foreground);
+  --a2ui-accent: var(--primary);
+  --a2ui-accent-foreground: var(--primary-foreground);
+  --a2ui-border: var(--border);
+  --a2ui-radius: var(--radius);
+
+  /* Typography scale - customize font sizes */
+  --a2ui-font-xs: 0.75rem;
+  --a2ui-font-sm: 0.875rem;
+  --a2ui-font-base: 1rem;
+  --a2ui-font-lg: 1.125rem;
+  --a2ui-font-xl: 1.25rem;
+  --a2ui-font-2xl: 1.5rem;
+  --a2ui-font-3xl: 1.875rem;
+  --a2ui-font-4xl: 2.25rem;
+
+  /* Spacing scale */
+  --a2ui-space-1: 0.25rem;
+  --a2ui-space-2: 0.5rem;
+  --a2ui-space-3: 0.75rem;
+  --a2ui-space-4: 1rem;
+  --a2ui-space-6: 1.5rem;
+  --a2ui-space-8: 2rem;
 }
 
 /* Dark theme variables */
@@ -97,6 +127,36 @@
   --error-foreground: 0 90% 75%;
   --error-border: 0 60% 30%;
 
+  /* A2UI Semantic Theme Aliases - Override these for easy customization */
+  --a2ui-bg-primary: var(--background);
+  --a2ui-bg-secondary: var(--card);
+  --a2ui-bg-tertiary: var(--muted);
+  --a2ui-text-primary: var(--foreground);
+  --a2ui-text-secondary: var(--muted-foreground);
+  --a2ui-text-tertiary: var(--muted-foreground);
+  --a2ui-accent: var(--primary);
+  --a2ui-accent-foreground: var(--primary-foreground);
+  --a2ui-border: var(--border);
+  --a2ui-radius: var(--radius);
+
+  /* Typography scale - customize font sizes */
+  --a2ui-font-xs: 0.75rem;
+  --a2ui-font-sm: 0.875rem;
+  --a2ui-font-base: 1rem;
+  --a2ui-font-lg: 1.125rem;
+  --a2ui-font-xl: 1.25rem;
+  --a2ui-font-2xl: 1.5rem;
+  --a2ui-font-3xl: 1.875rem;
+  --a2ui-font-4xl: 2.25rem;
+
+  /* Spacing scale */
+  --a2ui-space-1: 0.25rem;
+  --a2ui-space-2: 0.5rem;
+  --a2ui-space-3: 0.75rem;
+  --a2ui-space-4: 1rem;
+  --a2ui-space-6: 1.5rem;
+  --a2ui-space-8: 2rem;
+
   /* Native input dark mode support */
   color-scheme: dark;
 }
@@ -122,7 +182,14 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --radius: var(--radius);
+
+  /* Radius scale - all sizes relative to base --radius for easy customization */
+  --radius-sm: calc(var(--radius) * 0.25);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 3);
 
   /* Chart colors for Tailwind utilities */
   --color-chart-1: hsl(var(--chart-1));
@@ -144,4 +211,15 @@
   --color-error: hsl(var(--error));
   --color-error-foreground: hsl(var(--error-foreground));
   --color-error-border: hsl(var(--error-border));
+
+  /* A2UI semantic color utilities */
+  --color-a2ui-bg-primary: hsl(var(--a2ui-bg-primary));
+  --color-a2ui-bg-secondary: hsl(var(--a2ui-bg-secondary));
+  --color-a2ui-bg-tertiary: hsl(var(--a2ui-bg-tertiary));
+  --color-a2ui-text-primary: hsl(var(--a2ui-text-primary));
+  --color-a2ui-text-secondary: hsl(var(--a2ui-text-secondary));
+  --color-a2ui-text-tertiary: hsl(var(--a2ui-text-tertiary));
+  --color-a2ui-accent: hsl(var(--a2ui-accent));
+  --color-a2ui-accent-foreground: hsl(var(--a2ui-accent-foreground));
+  --color-a2ui-border: hsl(var(--a2ui-border));
 }
