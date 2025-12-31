@@ -47,7 +47,11 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, LivePreview
   }
 }
 
-export const LivePreview = memo(function LivePreview({ messages, surfaceId, onAction }: LivePreviewProps) {
+export const LivePreview = memo(function LivePreview({
+  messages,
+  surfaceId,
+  onAction,
+}: LivePreviewProps) {
   // Extract surface ID from messages if not provided (support both v0.8 and v0.9)
   const beginMsg = messages.find((m) => 'beginRendering' in m || 'createSurface' in m)
   let activeSurfaceId = surfaceId || 'preview'

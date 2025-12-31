@@ -72,7 +72,13 @@ import {
   LineChartRenderer,
   PieChartRenderer,
 } from './charts/index.js'
-import { CardRenderer, ListRenderer, ModalRenderer, StepperRenderer, TabsRenderer } from './container/index.js'
+import {
+  CardRenderer,
+  ListRenderer,
+  ModalRenderer,
+  StepperRenderer,
+  TabsRenderer,
+} from './container/index.js'
 import {
   AudioPlayerRenderer,
   DividerRenderer,
@@ -434,12 +440,6 @@ export {
 }
 
 // Re-export container renderers
-export {
-  CardRenderer,
-  ListRenderer,
-  ModalRenderer,
-  StepperRenderer,
-  TabsRenderer,
-}
+export { CardRenderer, ListRenderer, ModalRenderer, StepperRenderer, TabsRenderer }
 
 export type { RendererRegistry } from './types.js'

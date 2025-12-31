@@ -19,10 +19,7 @@ export const SkeletonRenderer: A2UIRenderer<SkeletonComponent> = {
         data-a2ui-component="Skeleton"
         role="status"
         aria-label="Loading content"
-        className={cn(
-          'animate-pulse bg-muted',
-          variantClasses[variant],
-        )}
+        className={cn('animate-pulse bg-muted', variantClasses[variant])}
         style={{
           width: component.width || '100%',
           height: component.height || (variant === 'text' ? '1rem' : '100px'),

@@ -9,7 +9,7 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
     const orientation = component.orientation || 'horizontal'
     const activeStep = component.activeStep ?? 0
 
-    const getStepStatus = (index: number, step: typeof component.steps[0]) => {
+    const getStepStatus = (index: number, step: (typeof component.steps)[0]) => {
       if (step.status) return step.status
       if (index < activeStep) return 'completed'
       if (index === activeStep) return 'current'
@@ -38,10 +38,7 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
       <div
         id={id}
         data-a2ui-component="Stepper"
-        className={cn(
-          'flex',
-          orientation === 'horizontal' ? 'flex-row items-start' : 'flex-col',
-        )}
+        className={cn('flex', orientation === 'horizontal' ? 'flex-row items-start' : 'flex-col')}
         role="list"
         aria-label="Progress steps"
       >
@@ -92,12 +89,7 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
               </div>
 
               {/* Step content */}
-              <div
-                className={cn(
-                  'text-center',
-                  orientation === 'horizontal' ? 'mt-2' : 'ml-4',
-                )}
-              >
+              <div className={cn('text-center', orientation === 'horizontal' ? 'mt-2' : 'ml-4')}>
                 <div
                   className={cn(
                     'text-sm font-medium',
@@ -107,9 +99,7 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
                   {step.label}
                 </div>
                 {step.description && (
-                  <div className="text-xs text-muted-foreground mt-0.5">
-                    {step.description}
-                  </div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{step.description}</div>
                 )}
               </div>
             </div>
