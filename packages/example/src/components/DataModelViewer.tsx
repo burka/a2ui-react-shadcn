@@ -64,10 +64,10 @@ export function DataModelViewer({ messages }: DataModelViewerProps) {
 
   const renderValue = (value: DataValue): React.ReactElement => {
     if (value === null) {
-      return <span className="text-[var(--color-text-tertiary)]">null</span>
+      return <span className="text-[var(--color-a2ui-text-tertiary)]">null</span>
     }
     if (value === undefined) {
-      return <span className="text-[var(--color-text-tertiary)]">undefined</span>
+      return <span className="text-[var(--color-a2ui-text-tertiary)]">undefined</span>
     }
     if (typeof value === 'boolean') {
       return <span className="text-purple-600 dark:text-purple-400">{String(value)}</span>
@@ -79,11 +79,11 @@ export function DataModelViewer({ messages }: DataModelViewerProps) {
       return <span className="text-green-600 dark:text-green-400">"{value}"</span>
     }
     if (Array.isArray(value)) {
-      return <span className="text-[var(--color-text-secondary)]">Array[{value.length}]</span>
+      return <span className="text-[var(--color-a2ui-text-secondary)]">Array[{value.length}]</span>
     }
     if (typeof value === 'object') {
       const keys = Object.keys(value)
-      return <span className="text-[var(--color-text-secondary)]">Object({keys.length})</span>
+      return <span className="text-[var(--color-a2ui-text-secondary)]">Object({keys.length})</span>
     }
     return <span>{String(value)}</span>
   }
@@ -95,7 +95,7 @@ export function DataModelViewer({ messages }: DataModelViewerProps) {
   ): React.ReactElement => {
     const entries = Object.entries(obj)
     if (entries.length === 0) {
-      return <div className="text-[var(--color-text-tertiary)]">{'{}'}</div>
+      return <div className="text-[var(--color-a2ui-text-tertiary)]">{'{}'}</div>
     }
 
     return (
@@ -109,21 +109,23 @@ export function DataModelViewer({ messages }: DataModelViewerProps) {
             <div key={key}>
               <button
                 type="button"
-                className="flex items-center gap-2 py-0.5 px-2 hover:bg-[var(--color-bg-tertiary)] rounded cursor-pointer w-full text-left"
+                className="flex items-center gap-2 py-0.5 px-2 hover:bg-[var(--color-a2ui-bg-tertiary)] rounded cursor-pointer w-full text-left"
                 style={{ paddingLeft: `${depth * 16 + 8}px` }}
                 onClick={() => isExpandable && toggleSection(fullKey)}
               >
                 {isExpandable ? (
                   isExpanded ? (
-                    <ChevronDown className="w-3 h-3 text-[var(--color-text-tertiary)]" />
+                    <ChevronDown className="w-3 h-3 text-[var(--color-a2ui-text-tertiary)]" />
                   ) : (
-                    <ChevronRight className="w-3 h-3 text-[var(--color-text-tertiary)]" />
+                    <ChevronRight className="w-3 h-3 text-[var(--color-a2ui-text-tertiary)]" />
                   )
                 ) : (
                   <div className="w-3" />
                 )}
 
-                <span className="font-mono text-sm text-[var(--color-text-primary)]">{key}:</span>
+                <span className="font-mono text-sm text-[var(--color-a2ui-text-primary)]">
+                  {key}:
+                </span>
 
                 {(!isExpandable || !isExpanded) && (
                   <span className="font-mono text-sm">{renderValue(value)}</span>
@@ -143,9 +145,9 @@ export function DataModelViewer({ messages }: DataModelViewerProps) {
   if (surfaceStates.size === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-8 text-center">
-        <Database className="w-12 h-12 text-[var(--color-text-tertiary)] mb-3" />
-        <p className="text-[var(--color-text-secondary)]">No data model state</p>
-        <p className="text-sm text-[var(--color-text-tertiary)] mt-1">
+        <Database className="w-12 h-12 text-[var(--color-a2ui-text-tertiary)] mb-3" />
+        <p className="text-[var(--color-a2ui-text-secondary)]">No data model state</p>
+        <p className="text-sm text-[var(--color-a2ui-text-tertiary)] mt-1">
           Surface state will appear here once surfaces are created
         </p>
       </div>
@@ -154,10 +156,10 @@ export function DataModelViewer({ messages }: DataModelViewerProps) {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-2 pb-2 mb-2 border-b border-[var(--color-border)]">
-        <Database className="w-4 h-4 text-[var(--color-text-secondary)]" />
-        <h3 className="font-semibold text-[var(--color-text-primary)]">Data Model</h3>
-        <span className="text-xs text-[var(--color-text-tertiary)] ml-auto">
+      <div className="flex items-center gap-2 pb-2 mb-2 border-b border-[var(--color-a2ui-border)]">
+        <Database className="w-4 h-4 text-[var(--color-a2ui-text-secondary)]" />
+        <h3 className="font-semibold text-[var(--color-a2ui-text-primary)]">Data Model</h3>
+        <span className="text-xs text-[var(--color-a2ui-text-tertiary)] ml-auto">
           {surfaceStates.size} surface{surfaceStates.size !== 1 ? 's' : ''}
         </span>
       </div>
@@ -165,7 +167,7 @@ export function DataModelViewer({ messages }: DataModelViewerProps) {
       <div className="space-y-3">
         {Array.from(surfaceStates.entries()).map(([surfaceId, state]) => (
           <div key={surfaceId} className="space-y-1">
-            <div className="font-mono text-sm font-semibold text-[var(--color-accent)] px-2">
+            <div className="font-mono text-sm font-semibold text-[var(--color-a2ui-accent)] px-2">
               {surfaceId}
             </div>
             {renderObject(state, 1)}

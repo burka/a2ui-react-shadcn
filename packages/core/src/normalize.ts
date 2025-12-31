@@ -6,8 +6,8 @@
 import type {
   A2UIComponent,
   ComponentUpdate,
-  ComponentUpdateV09,
   ComponentUpdateLegacy,
+  ComponentUpdateV09,
   TextComponent,
 } from './types/components.js'
 
@@ -68,8 +68,9 @@ export function getTextContent(component: TextComponent): string {
  * Get components array from surfaceUpdate or updateComponents message
  * Handles both 'updates' (legacy) and 'components' (v0.9) keys
  */
-export function getComponentsArray(
-  msg: { updates?: ComponentUpdate[]; components?: ComponentUpdate[] }
-): ComponentUpdate[] {
+export function getComponentsArray(msg: {
+  updates?: ComponentUpdate[]
+  components?: ComponentUpdate[]
+}): ComponentUpdate[] {
   return msg.components ?? msg.updates ?? []
 }

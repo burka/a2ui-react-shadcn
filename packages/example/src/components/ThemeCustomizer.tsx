@@ -1,0 +1,460 @@
+import type { A2UIMessage } from 'a2ui-react'
+import { A2UISurface } from 'a2ui-react'
+import { Check, ChevronDown, Copy, ExternalLink, Palette, RotateCcw } from 'lucide-react'
+import { memo, useCallback, useEffect, useState } from 'react'
+
+// HSL color utilities
+function hslToHex(h: number, s: number, l: number): string {
+  s /= 100
+  l /= 100
+  const a = s * Math.min(l, 1 - l)
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, '0')
+  }
+  return `#${f(0)}${f(8)}${f(4)}`
+}
+
+function hexToHsl(hex: string): { h: number; s: number; l: number } {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  if (!result || !result[1] || !result[2] || !result[3]) return { h: 0, s: 0, l: 0 }
+  const r = Number.parseInt(result[1], 16) / 255
+  const g = Number.parseInt(result[2], 16) / 255
+  const b = Number.parseInt(result[3], 16) / 255
+  const max = Math.max(r, g, b)
+  const min = Math.min(r, g, b)
+  let h = 0
+  let s = 0
+  const l = (max + min) / 2
+  if (max !== min) {
+    const d = max - min
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+    switch (max) {
+      case r:
+        h = ((g - b) / d + (g < b ? 6 : 0)) * 60
+        break
+      case g:
+        h = ((b - r) / d + 2) * 60
+        break
+      case b:
+        h = ((r - g) / d + 4) * 60
+        break
+    }
+  }
+  return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) }
+}
+
+interface ThemePreset {
+  name: string
+  primary: string // HSL string "h s% l%"
+  radius: string
+  background?: string
+}
+
+const DEFAULT_THEME: ThemeValues = {
+  primary: '221 83% 53%',
+  radius: '0.5rem',
+}
+
+const THEME_PRESETS: ThemePreset[] = [
+  { name: 'Default (Blue)', primary: '221 83% 53%', radius: '0.5rem' },
+  { name: 'Purple', primary: '270 76% 58%', radius: '0.75rem' },
+  { name: 'Green', primary: '142 71% 45%', radius: '0.5rem' },
+  { name: 'Orange', primary: '25 95% 53%', radius: '0.625rem' },
+  { name: 'Minimal', primary: '0 0% 15%', radius: '0' },
+]
+
+// Sample A2UI messages for live preview
+const PREVIEW_MESSAGES: A2UIMessage[] = [
+  {
+    createSurface: {
+      surfaceId: 'theme-preview',
+      root: 'preview-root',
+    },
+  },
+  {
+    updateComponents: {
+      surfaceId: 'theme-preview',
+      components: [
+        {
+          id: 'preview-root',
+          component: {
+            type: 'Column',
+            id: 'preview-root',
+            children: ['preview-card'],
+          },
+        },
+        {
+          id: 'preview-card',
+          component: {
+            type: 'Card',
+            id: 'preview-card',
+            children: ['card-content'],
+          },
+        },
+        {
+          id: 'card-content',
+          component: {
+            type: 'Column',
+            id: 'card-content',
+            children: ['preview-title', 'preview-text', 'preview-buttons'],
+          },
+        },
+        {
+          id: 'preview-title',
+          component: {
+            type: 'Text',
+            id: 'preview-title',
+            text: 'Live Preview',
+            style: 'h3',
+          },
+        },
+        {
+          id: 'preview-text',
+          component: {
+            type: 'Text',
+            id: 'preview-text',
+            text: 'See your theme changes in real-time.',
+            style: 'body',
+          },
+        },
+        {
+          id: 'preview-buttons',
+          component: {
+            type: 'Row',
+            id: 'preview-buttons',
+            distribution: 'packed',
+            children: ['btn-primary', 'btn-secondary'],
+          },
+        },
+        {
+          id: 'btn-primary',
+          component: {
+            type: 'Button',
+            id: 'btn-primary',
+            child: 'btn-primary-text',
+            primary: true,
+          },
+        },
+        {
+          id: 'btn-primary-text',
+          component: {
+            type: 'Text',
+            id: 'btn-primary-text',
+            text: 'Primary',
+          },
+        },
+        {
+          id: 'btn-secondary',
+          component: {
+            type: 'Button',
+            id: 'btn-secondary',
+            child: 'btn-secondary-text',
+            primary: false,
+          },
+        },
+        {
+          id: 'btn-secondary-text',
+          component: {
+            type: 'Text',
+            id: 'btn-secondary-text',
+            text: 'Secondary',
+          },
+        },
+      ],
+    },
+  },
+]
+
+interface ThemeValues {
+  primary: string
+  radius: string
+}
+
+function parseHslString(hsl: string): { h: number; s: number; l: number } {
+  const parts = hsl.split(' ')
+  return {
+    h: parseFloat(parts[0] || '0'),
+    s: parseFloat((parts[1] || '0%').replace('%', '')),
+    l: parseFloat((parts[2] || '0%').replace('%', '')),
+  }
+}
+
+function ThemeCustomizerComponent() {
+  const [theme, setTheme] = useState<ThemeValues>(DEFAULT_THEME)
+  const [copied, setCopied] = useState(false)
+  const [activePreset, setActivePreset] = useState<string | null>('Default (Blue)')
+
+  // Apply theme to document
+  // Note: Only base shadcn variables need to be set - the --a2ui-* aliases
+  // in theme.css automatically reference these via var(--primary), var(--radius)
+  useEffect(() => {
+    const root = document.documentElement
+    root.style.setProperty('--primary', theme.primary)
+    root.style.setProperty('--radius', theme.radius)
+
+    return () => {
+      root.style.removeProperty('--primary')
+      root.style.removeProperty('--radius')
+    }
+  }, [theme])
+
+  const applyPreset = useCallback((preset: ThemePreset) => {
+    setTheme({
+      primary: preset.primary,
+      radius: preset.radius,
+    })
+    setActivePreset(preset.name)
+  }, [])
+
+  const resetToDefault = useCallback(() => {
+    setTheme(DEFAULT_THEME)
+    setActivePreset('Default (Blue)')
+  }, [])
+
+  const handleColorChange = useCallback((hex: string) => {
+    const hsl = hexToHsl(hex)
+    setTheme((prev) => ({
+      ...prev,
+      primary: `${hsl.h} ${hsl.s}% ${hsl.l}%`,
+    }))
+    setActivePreset(null) // Clear preset when custom color is selected
+  }, [])
+
+  const handleRadiusChange = useCallback((value: string) => {
+    setTheme((prev) => ({ ...prev, radius: value }))
+    setActivePreset(null) // Clear preset when custom radius is selected
+  }, [])
+
+  const generateCSS = useCallback(() => {
+    // Only output base shadcn variables - the --a2ui-* aliases in theme.css
+    // automatically reference these via var(--primary), var(--radius)
+    return `:root {
+  --primary: ${theme.primary};
+  --radius: ${theme.radius};
+}`
+  }, [theme])
+
+  const copyCSS = useCallback(async () => {
+    await navigator.clipboard.writeText(generateCSS())
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }, [generateCSS])
+
+  const primaryHsl = parseHslString(theme.primary)
+  const primaryHex = hslToHex(primaryHsl.h, primaryHsl.s, primaryHsl.l)
+
+  return (
+    <div className="border border-[var(--color-a2ui-border)] rounded-lg p-6 bg-[var(--color-a2ui-bg-secondary)]">
+      <div className="flex items-center gap-2 mb-6">
+        <Palette className="w-5 h-5 text-[var(--color-a2ui-accent)]" />
+        <h3 className="text-xl font-semibold text-[var(--color-a2ui-text-primary)]">
+          Theme Customizer
+        </h3>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Controls */}
+        <div className="space-y-6">
+          {/* Presets */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-[var(--color-a2ui-text-secondary)]">
+                Presets
+              </span>
+              <button
+                type="button"
+                onClick={resetToDefault}
+                className="flex items-center gap-1 px-2 py-1 text-xs rounded border border-[var(--color-a2ui-border)] text-[var(--color-a2ui-text-secondary)] hover:bg-[var(--color-a2ui-bg-tertiary)] transition-colors"
+                aria-label="Reset to default theme"
+              >
+                <RotateCcw className="w-3 h-3" />
+                Reset
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {THEME_PRESETS.map((preset) => {
+                const isActive = activePreset === preset.name
+                return (
+                  <button
+                    key={preset.name}
+                    type="button"
+                    onClick={() => applyPreset(preset)}
+                    className={`px-3 py-1.5 text-sm rounded-md border transition-colors ${
+                      isActive
+                        ? 'border-[var(--color-a2ui-accent)] bg-[var(--color-a2ui-accent)] text-white'
+                        : 'border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-primary)] text-[var(--color-a2ui-text-primary)] hover:bg-[var(--color-a2ui-bg-tertiary)]'
+                    }`}
+                    aria-pressed={isActive}
+                  >
+                    {preset.name}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Primary Color */}
+          <div>
+            <label
+              htmlFor="theme-primary-color"
+              className="block text-sm font-medium text-[var(--color-a2ui-text-secondary)] mb-2"
+            >
+              Primary Color
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                id="theme-primary-color"
+                type="color"
+                value={primaryHex}
+                onChange={(e) => handleColorChange(e.target.value)}
+                className="w-12 h-10 rounded cursor-pointer border border-[var(--color-a2ui-border)]"
+              />
+              <code className="text-sm text-[var(--color-a2ui-text-secondary)] font-mono bg-[var(--color-a2ui-bg-primary)] px-2 py-1 rounded">
+                {theme.primary}
+              </code>
+            </div>
+          </div>
+
+          {/* Border Radius */}
+          <div>
+            <label
+              htmlFor="theme-border-radius"
+              className="block text-sm font-medium text-[var(--color-a2ui-text-secondary)] mb-2"
+            >
+              Border Radius: {theme.radius}
+            </label>
+            <input
+              id="theme-border-radius"
+              type="range"
+              min="0"
+              max="1.5"
+              step="0.125"
+              value={parseFloat(theme.radius)}
+              onChange={(e) => handleRadiusChange(`${e.target.value}rem`)}
+              className="w-full"
+            />
+          </div>
+
+          {/* Generated CSS */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-[var(--color-a2ui-text-secondary)]">
+                Generated CSS
+              </span>
+              <div className="flex items-center gap-2">
+                <span aria-live="polite" aria-atomic="true" className="sr-only">
+                  {copied ? 'CSS copied to clipboard' : ''}
+                </span>
+                <button
+                  type="button"
+                  onClick={copyCSS}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md bg-[var(--color-a2ui-accent)] text-white hover:opacity-90 transition-opacity"
+                  aria-label={copied ? 'CSS copied to clipboard' : 'Copy CSS to clipboard'}
+                >
+                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  {copied ? 'Copied!' : 'Copy CSS'}
+                </button>
+              </div>
+            </div>
+            <pre className="text-xs bg-[var(--color-a2ui-bg-primary)] p-3 rounded border border-[var(--color-a2ui-border)] overflow-x-auto text-[var(--color-a2ui-text-primary)]">
+              <code>{generateCSS()}</code>
+            </pre>
+          </div>
+        </div>
+
+        {/* Live Preview */}
+        <div>
+          <span className="block text-sm font-medium text-[var(--color-a2ui-text-secondary)] mb-2">
+            Live Preview
+          </span>
+          <div className="border border-[var(--color-a2ui-border)] rounded-lg p-4 bg-[var(--color-a2ui-bg-primary)] min-h-[200px]">
+            <A2UISurface surfaceId="theme-preview" messages={PREVIEW_MESSAGES} />
+          </div>
+        </div>
+      </div>
+
+      {/* Variable Reference */}
+      <details className="mt-6 group">
+        <summary className="flex items-center gap-2 cursor-pointer text-sm font-medium text-[var(--color-a2ui-text-secondary)] hover:text-[var(--color-a2ui-text-primary)] transition-colors list-none">
+          <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
+          Variable Reference
+        </summary>
+        <div className="mt-4 space-y-4 text-sm">
+          <p className="text-[var(--color-a2ui-text-secondary)]">
+            The theme uses a layered variable system. Set the essential variables and everything
+            else adapts automatically.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Essential */}
+            <div className="p-3 rounded border border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-primary)]">
+              <h4 className="font-medium text-[var(--color-a2ui-text-primary)] mb-2">
+                Essential (Quick Theme)
+              </h4>
+              <ul className="space-y-1 text-[var(--color-a2ui-text-secondary)] font-mono text-xs">
+                <li>
+                  <code>--primary</code>{' '}
+                  <span className="text-[var(--color-a2ui-text-tertiary)]">
+                    — brand color (HSL)
+                  </span>
+                </li>
+                <li>
+                  <code>--radius</code>{' '}
+                  <span className="text-[var(--color-a2ui-text-tertiary)]">
+                    — base border radius
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Color Palette */}
+            <div className="p-3 rounded border border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-primary)]">
+              <h4 className="font-medium text-[var(--color-a2ui-text-primary)] mb-2">
+                Color Palette (Full Control)
+              </h4>
+              <ul className="space-y-1 text-[var(--color-a2ui-text-secondary)] font-mono text-xs">
+                <li>
+                  <code>--background</code> / <code>--foreground</code>
+                </li>
+                <li>
+                  <code>--card</code> / <code>--card-foreground</code>
+                </li>
+                <li>
+                  <code>--muted</code> / <code>--muted-foreground</code>
+                </li>
+                <li>
+                  <code>--secondary</code> / <code>--destructive</code>
+                </li>
+                <li>
+                  <code>--border</code> / <code>--input</code> / <code>--ring</code>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-xs text-[var(--color-a2ui-text-tertiary)]">
+            <strong>Auto-derived:</strong> <code>--a2ui-*</code> aliases,{' '}
+            <code>--radius-sm/md/lg/xl</code>, and <code>--color-*</code> utilities are calculated
+            automatically.
+          </p>
+
+          <a
+            href="https://github.com/burka/a2ui-react-shadcn/blob/main/packages/shadcn/src/theme.css"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[var(--color-a2ui-accent)] hover:underline"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            View full theme.css on GitHub
+          </a>
+        </div>
+      </details>
+    </div>
+  )
+}
+
+export const ThemeCustomizer = memo(ThemeCustomizerComponent)

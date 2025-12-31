@@ -74,25 +74,27 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
       <div key={nodeId}>
         <button
           type="button"
-          className="flex items-center gap-2 py-1 px-2 hover:bg-[var(--color-bg-tertiary)] rounded cursor-pointer group w-full text-left"
+          className="flex items-center gap-2 py-1 px-2 hover:bg-[var(--color-a2ui-bg-tertiary)] rounded cursor-pointer group w-full text-left"
           style={{ paddingLeft: `${depth * 20 + 8}px` }}
           onClick={() => hasChildren && toggleNode(nodeId)}
         >
           {hasChildren ? (
             isExpanded ? (
-              <ChevronDown className="w-4 h-4 text-[var(--color-text-tertiary)]" />
+              <ChevronDown className="w-4 h-4 text-[var(--color-a2ui-text-tertiary)]" />
             ) : (
-              <ChevronRight className="w-4 h-4 text-[var(--color-text-tertiary)]" />
+              <ChevronRight className="w-4 h-4 text-[var(--color-a2ui-text-tertiary)]" />
             )
           ) : (
             <div className="w-4" />
           )}
 
-          <GitBranch className="w-4 h-4 text-[var(--color-accent)]" />
+          <GitBranch className="w-4 h-4 text-[var(--color-a2ui-accent)]" />
 
-          <span className="font-mono text-sm text-[var(--color-text-primary)]">{nodeId}</span>
+          <span className="font-mono text-sm text-[var(--color-a2ui-text-primary)]">{nodeId}</span>
 
-          <span className="text-xs text-[var(--color-text-tertiary)] ml-auto">{node.type}</span>
+          <span className="text-xs text-[var(--color-a2ui-text-tertiary)] ml-auto">
+            {node.type}
+          </span>
         </button>
 
         {hasChildren && isExpanded && (
@@ -105,9 +107,9 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
   if (components.size === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-8 text-center">
-        <GitBranch className="w-12 h-12 text-[var(--color-text-tertiary)] mb-3" />
-        <p className="text-[var(--color-text-secondary)]">No components in tree</p>
-        <p className="text-sm text-[var(--color-text-tertiary)] mt-1">
+        <GitBranch className="w-12 h-12 text-[var(--color-a2ui-text-tertiary)] mb-3" />
+        <p className="text-[var(--color-a2ui-text-secondary)]">No components in tree</p>
+        <p className="text-sm text-[var(--color-a2ui-text-tertiary)] mt-1">
           Add component.add messages to see the hierarchy
         </p>
       </div>
@@ -116,10 +118,10 @@ export function ComponentTree({ messages }: ComponentTreeProps) {
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center gap-2 pb-2 mb-2 border-b border-[var(--color-border)]">
-        <GitBranch className="w-4 h-4 text-[var(--color-text-secondary)]" />
-        <h3 className="font-semibold text-[var(--color-text-primary)]">Component Tree</h3>
-        <span className="text-xs text-[var(--color-text-tertiary)] ml-auto">
+      <div className="flex items-center gap-2 pb-2 mb-2 border-b border-[var(--color-a2ui-border)]">
+        <GitBranch className="w-4 h-4 text-[var(--color-a2ui-text-secondary)]" />
+        <h3 className="font-semibold text-[var(--color-a2ui-text-primary)]">Component Tree</h3>
+        <span className="text-xs text-[var(--color-a2ui-text-tertiary)] ml-auto">
           {components.size} component{components.size !== 1 ? 's' : ''}
         </span>
       </div>

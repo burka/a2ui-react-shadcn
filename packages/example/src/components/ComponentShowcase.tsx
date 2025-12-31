@@ -51,7 +51,9 @@ export function ComponentShowcase() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Component Showcase</h2>
+        <h2 className="text-2xl font-bold text-[var(--color-a2ui-text-primary)]">
+          Component Showcase
+        </h2>
         <div className="flex gap-2">
           {CATEGORIES.map((category) => (
             <button
@@ -60,8 +62,8 @@ export function ComponentShowcase() {
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 selectedCategory === category
-                  ? 'bg-[var(--color-accent)] text-white'
-                  : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'
+                  ? 'bg-[var(--color-a2ui-accent)] text-white'
+                  : 'bg-[var(--color-a2ui-bg-secondary)] text-[var(--color-a2ui-text-secondary)] hover:bg-[var(--color-a2ui-bg-tertiary)]'
               }`}
             >
               {CATEGORY_LABELS[category]}
@@ -71,9 +73,11 @@ export function ComponentShowcase() {
       </div>
 
       {filteredExamples.length === 0 ? (
-        <div className="text-center py-16 bg-[var(--color-bg-secondary)] rounded-lg border border-[var(--color-border)]">
-          <p className="text-[var(--color-text-secondary)] mb-2">No components registered yet</p>
-          <p className="text-sm text-[var(--color-text-tertiary)]">
+        <div className="text-center py-16 bg-[var(--color-a2ui-bg-secondary)] rounded-lg border border-[var(--color-a2ui-border)]">
+          <p className="text-[var(--color-a2ui-text-secondary)] mb-2">
+            No components registered yet
+          </p>
+          <p className="text-sm text-[var(--color-a2ui-text-tertiary)]">
             Component examples will appear here once shadcn renderers are added
           </p>
         </div>
