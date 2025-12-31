@@ -35,11 +35,13 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
     }
 
     return (
-      <div
+      <ol
         id={id}
         data-a2ui-component="Stepper"
-        className={cn('flex', orientation === 'horizontal' ? 'flex-row items-start' : 'flex-col')}
-        role="list"
+        className={cn(
+          'flex list-none p-0 m-0',
+          orientation === 'horizontal' ? 'flex-row items-start' : 'flex-col',
+        )}
         aria-label="Progress steps"
       >
         {component.steps.map((step, index) => {
@@ -47,7 +49,7 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
           const isLast = index === component.steps.length - 1
 
           return (
-            <div
+            <li
               key={step.id}
               className={cn(
                 'flex',
@@ -55,7 +57,6 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
                   ? 'flex-1 flex-col items-center'
                   : 'flex-row items-start',
               )}
-              role="listitem"
               aria-current={status === 'current' ? 'step' : undefined}
             >
               <div
@@ -102,10 +103,10 @@ export const StepperRenderer: A2UIRenderer<StepperComponent> = {
                   <div className="text-xs text-muted-foreground mt-0.5">{step.description}</div>
                 )}
               </div>
-            </div>
+            </li>
           )
         })}
-      </div>
+      </ol>
     )
   },
   example: {

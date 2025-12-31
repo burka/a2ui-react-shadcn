@@ -1,6 +1,6 @@
 import type { A2UIMessage } from 'a2ui-react'
 import { A2UISurface } from 'a2ui-react'
-import { Check, Copy, Palette } from 'lucide-react'
+import { Check, Copy, Palette, RotateCcw } from 'lucide-react'
 import { memo, useCallback, useEffect, useState } from 'react'
 
 // HSL color utilities
@@ -52,6 +52,11 @@ interface ThemePreset {
   primary: string // HSL string "h s% l%"
   radius: string
   background?: string
+}
+
+const DEFAULT_THEME: ThemeValues = {
+  primary: '221 83% 53%',
+  radius: '0.5rem',
 }
 
 const THEME_PRESETS: ThemePreset[] = [
@@ -167,7 +172,6 @@ const PREVIEW_MESSAGES: A2UIMessage[] = [
 interface ThemeValues {
   primary: string
   radius: string
-  background: string
 }
 
 function parseHslString(hsl: string): { h: number; s: number; l: number } {
@@ -180,12 +184,9 @@ function parseHslString(hsl: string): { h: number; s: number; l: number } {
 }
 
 function ThemeCustomizerComponent() {
-  const [theme, setTheme] = useState<ThemeValues>({
-    primary: '221 83% 53%',
-    radius: '0.5rem',
-    background: '0 0% 100%',
-  })
+  const [theme, setTheme] = useState<ThemeValues>(DEFAULT_THEME)
   const [copied, setCopied] = useState(false)
+  const [activePreset, setActivePreset] = useState<string | null>('Default (Blue)')
 
   // Apply theme to document
   useEffect(() => {
@@ -208,8 +209,13 @@ function ThemeCustomizerComponent() {
     setTheme({
       primary: preset.primary,
       radius: preset.radius,
-      background: preset.background || '0 0% 100%',
     })
+    setActivePreset(preset.name)
+  }, [])
+
+  const resetToDefault = useCallback(() => {
+    setTheme(DEFAULT_THEME)
+    setActivePreset('Default (Blue)')
   }, [])
 
   const handleColorChange = useCallback((hex: string) => {
@@ -218,10 +224,12 @@ function ThemeCustomizerComponent() {
       ...prev,
       primary: `${hsl.h} ${hsl.s}% ${hsl.l}%`,
     }))
+    setActivePreset(null) // Clear preset when custom color is selected
   }, [])
 
   const handleRadiusChange = useCallback((value: string) => {
     setTheme((prev) => ({ ...prev, radius: value }))
+    setActivePreset(null) // Clear preset when custom radius is selected
   }, [])
 
   const generateCSS = useCallback(() => {
@@ -257,20 +265,39 @@ function ThemeCustomizerComponent() {
         <div className="space-y-6">
           {/* Presets */}
           <div>
-            <span className="block text-sm font-medium text-[var(--color-a2ui-text-secondary)] mb-2">
-              Presets
-            </span>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-[var(--color-a2ui-text-secondary)]">
+                Presets
+              </span>
+              <button
+                type="button"
+                onClick={resetToDefault}
+                className="flex items-center gap-1 px-2 py-1 text-xs rounded border border-[var(--color-a2ui-border)] text-[var(--color-a2ui-text-secondary)] hover:bg-[var(--color-a2ui-bg-tertiary)] transition-colors"
+                aria-label="Reset to default theme"
+              >
+                <RotateCcw className="w-3 h-3" />
+                Reset
+              </button>
+            </div>
             <div className="flex flex-wrap gap-2">
-              {THEME_PRESETS.map((preset) => (
-                <button
-                  key={preset.name}
-                  type="button"
-                  onClick={() => applyPreset(preset)}
-                  className="px-3 py-1.5 text-sm rounded-md border border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-primary)] text-[var(--color-a2ui-text-primary)] hover:bg-[var(--color-a2ui-bg-tertiary)] transition-colors"
-                >
-                  {preset.name}
-                </button>
-              ))}
+              {THEME_PRESETS.map((preset) => {
+                const isActive = activePreset === preset.name
+                return (
+                  <button
+                    key={preset.name}
+                    type="button"
+                    onClick={() => applyPreset(preset)}
+                    className={`px-3 py-1.5 text-sm rounded-md border transition-colors ${
+                      isActive
+                        ? 'border-[var(--color-a2ui-accent)] bg-[var(--color-a2ui-accent)] text-white'
+                        : 'border-[var(--color-a2ui-border)] bg-[var(--color-a2ui-bg-primary)] text-[var(--color-a2ui-text-primary)] hover:bg-[var(--color-a2ui-bg-tertiary)]'
+                    }`}
+                    aria-pressed={isActive}
+                  >
+                    {preset.name}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
@@ -322,14 +349,20 @@ function ThemeCustomizerComponent() {
               <span className="text-sm font-medium text-[var(--color-a2ui-text-secondary)]">
                 Generated CSS
               </span>
-              <button
-                type="button"
-                onClick={copyCSS}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md bg-[var(--color-a2ui-accent)] text-white hover:opacity-90 transition-opacity"
-              >
-                {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                {copied ? 'Copied!' : 'Copy CSS'}
-              </button>
+              <div className="flex items-center gap-2">
+                <span aria-live="polite" aria-atomic="true" className="sr-only">
+                  {copied ? 'CSS copied to clipboard' : ''}
+                </span>
+                <button
+                  type="button"
+                  onClick={copyCSS}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md bg-[var(--color-a2ui-accent)] text-white hover:opacity-90 transition-opacity"
+                  aria-label={copied ? 'CSS copied to clipboard' : 'Copy CSS to clipboard'}
+                >
+                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  {copied ? 'Copied!' : 'Copy CSS'}
+                </button>
+              </div>
             </div>
             <pre className="text-xs bg-[var(--color-a2ui-bg-primary)] p-3 rounded border border-[var(--color-a2ui-border)] overflow-x-auto text-[var(--color-a2ui-text-primary)]">
               <code>{generateCSS()}</code>

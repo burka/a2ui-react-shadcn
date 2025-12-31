@@ -14,19 +14,19 @@ export const SkeletonRenderer: A2UIRenderer<SkeletonComponent> = {
     }
 
     return (
-      <div
+      <output
         id={id}
         data-a2ui-component="Skeleton"
-        role="status"
         aria-label="Loading content"
-        className={cn('animate-pulse bg-muted', variantClasses[variant])}
+        aria-busy="true"
+        className={cn('block animate-pulse bg-muted', variantClasses[variant])}
         style={{
           width: component.width || '100%',
           height: component.height || (variant === 'text' ? '1rem' : '100px'),
         }}
       >
         <span className="sr-only">Loading...</span>
-      </div>
+      </output>
     )
   },
   example: {
